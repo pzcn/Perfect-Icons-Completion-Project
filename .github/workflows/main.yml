@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a set of commands using the runners shell
-    - name: Zip Folder
-      run: zip -r release.zip .
-    - name: Release to Github
-      run: echo "Release"
+      - name: Zip Folder
+        run: zip -r release.zip .
+      - name: Release to Github
+        run: echo "Release"
