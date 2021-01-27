@@ -19,10 +19,14 @@
 
 3. MIUI适配后有牛皮癣，比如 联通手机营业厅 包含有5G牛皮癣。
 
-### 下载地址
-1.项目页面 Code - Download ZIP 下载，在 Magisk Manager 刷入即可
 
-2.[Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
+### 适配版本
+Android 10 及以上的 MIUI 12
+
+### 下载地址
+1. 项目页面 Code - Download ZIP 下载，在 Magisk Manager 刷入即可
+
+2. [Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
 
 ### 申请/提交适配
 申请适配 参考适配规则，带上包名、应用名 提交Issue，或在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
