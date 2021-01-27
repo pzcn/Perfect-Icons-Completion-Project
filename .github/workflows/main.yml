@@ -41,7 +41,7 @@ jobs:
           path: ./.github/release.info
 
       - name: Zip Folder
-        run: zip -m MIUI完美图标补全- v${steps.tag_latest.outputs.value}.zip .
+        run: zip -r MIUI完美图标补全- v${steps.tag_latest.outputs.value}.zip .
 
       - name: Create Release
         id: create_release
