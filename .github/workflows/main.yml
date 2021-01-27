@@ -28,10 +28,10 @@ jobs:
       # Runs a set of commands using the runners shell
 
       - name: Read tag
-       id: tag_latest
-       uses:  ashley-taylor/read-json-property-action@v1.0
-       with:
-        path: ./.github/release.json
+        id: tag_latest
+        uses:  ashley-taylor/read-json-property-action@v1.0
+        with:
+         path: ./.github/release.json
          property: tag
 
       - name: Read description
