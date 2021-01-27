@@ -1,5 +1,5 @@
 # MIUI-Adapted-Icons-Complement-Project
-##[Magisk] MIUI 完美图标补全计划
+[Magisk] MIUI 完美图标补全计划
 
 使用Magisk 模块的形式，补全/修复 MIUI12中未适配以及适配不佳的图标。基于官方图标去除牛皮癣，制作成分层图标。
 
@@ -24,9 +24,8 @@
 Android 10 及以上的 MIUI 12
 
 ### 下载地址
-1. 项目页面 Code - Download ZIP 下载，在 Magisk Manager 刷入即可
 
-2. [Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
+[Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
 
 ### 申请/提交适配
 申请适配 参考适配规则，带上包名、应用名 提交Issue，或在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
