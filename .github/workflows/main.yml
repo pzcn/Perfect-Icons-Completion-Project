@@ -30,15 +30,16 @@ jobs:
         run: zip -r release.zip .
       - name: Release to Github
         run: echo "Release"
-
-      - name: Create Release Folder
-        run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
-      - name: Switch to Release Folder
-        run: |
-         cd release
-         ls -la
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@master
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: actions/create-release@v1
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         REPO_OWNER: pzcn
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
