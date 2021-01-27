@@ -41,7 +41,7 @@ jobs:
           path: ./.github/release.info
 
       - name: Zip Folder
-        run: zip -r MIUI完美图标补全- v${steps.tag_latest.outputs.value}.zip .
+        run: zip -r MIUI完美图标补全-${{steps.tag_latest.outputs.value}}.zip .
 
       - name: Create Release
         id: create_release
@@ -51,7 +51,7 @@ jobs:
           REPO_OWNER: pzcn
         with:
           tag_name: V${{steps.tag_latest.outputs.value}}
-          release_name: MIUI完美图标补全- v${steps.tag_latest.outputs.value}
+          release_name: MIUI完美图标补全-${{steps.tag_latest.outputs.value}}
           body: |
             ${{steps.description.outputs.content}}
           draft: false
@@ -65,6 +65,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./MIUI完美图标补全- v${steps.tag_latest.outputs.value}.zip
-          asset_name: MIUI完美图标补全- v${steps.tag_latest.outputs.value}.zip
+          asset_path: ./MIUI完美图标补全- v${{steps.tag_latest.outputs.value}}.zip
+          asset_name: MIUI完美图标补全- v${{steps.tag_latest.outputs.value}}.zip
           asset_content_type: application/zip
