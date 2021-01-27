@@ -31,14 +31,14 @@ jobs:
         id: tag_latest
         uses:  ashley-taylor/read-json-property-action@v1.0
         with:
-         path: ./.github/release.json
-         property: tag
+          path: ./.github/release.json
+          property: tag
 
       - name: Read description
         id: description
         uses: juliangruber/read-file-action@v1
         with:
-        path: ./.github/release.info
+          path: ./.github/release.info
 
       - name: Zip Folder
         run: zip -r release.zip .
