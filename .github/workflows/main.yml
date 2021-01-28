@@ -68,3 +68,6 @@ jobs:
           asset_path: ./MIUI_Icons-${{steps.tag_latest.outputs.value}}.zip
           asset_name: MIUI_Icons-${{steps.tag_latest.outputs.value}}.zip
           asset_content_type: application/zip
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
