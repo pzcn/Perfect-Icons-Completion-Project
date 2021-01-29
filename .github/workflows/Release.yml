@@ -31,12 +31,13 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v5.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{secrets.GITHUB_TOKEN}}
+
       - name: Generate changelog
         id: changelog
         uses: metcalfc/changelog-generator@v0.4.4
         with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{secrets.GITHUB_TOKEN}}
 
       - name: Zip Folder
         run: zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip .
