@@ -24,6 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Runs a set of commands using the runners shell
 
@@ -33,11 +35,9 @@ jobs:
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Generate changelog
-        id: changelog
-        uses: metcalfc/changelog-generator@v0.4.1
-        with:
-          myToken: ${{secrets.GITHUB_TOKEN}} 
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
 
       - name: Zip Folder
         run: zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip .
@@ -52,7 +52,7 @@ jobs:
           tag_name: V${{steps.tag_latest.outputs.value}}
           release_name: MIUI_Icons-${{steps.tag_version.outputs.new_tag}}
           body: |
-            ${{steps.github_release.outputs.content}}
+            ${{steps.Changelog.outputs.content}}
           draft: false
           prerelease: false
 
