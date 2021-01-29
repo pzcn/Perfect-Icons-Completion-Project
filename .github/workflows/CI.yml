@@ -38,4 +38,4 @@ jobs:
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
-        path: ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
+          path: ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
