@@ -37,7 +37,7 @@ jobs:
         id: changelog
         uses: metcalfc/changelog-generator@v0.4.1
         with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
+          myToken: ${{secrets.GITHUB_TOKEN}} 
 
       - name: Zip Folder
         run: zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip .
