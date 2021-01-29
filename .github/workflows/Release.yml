@@ -49,7 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # This token is provided by Actions, you do not need to create your own token
           REPO_OWNER: pzcn
         with:
-          tag_name: V${{steps.tag_latest.outputs.value}}
+          tag_name: ${{steps.tag_version.outputs.new_tag}}
           release_name: MIUI_Icons-${{steps.tag_version.outputs.new_tag}}
           body: |
             ${{steps.Changelog.outputs.content}}
