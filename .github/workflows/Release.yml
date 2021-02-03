@@ -41,9 +41,10 @@ jobs:
 
       - name: Zip Folder
         run: |
+          GZIP=-9 tar –czf mods.tar.gz ./mods
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./mods
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./mods.tar.gz
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./install.sh
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
 
