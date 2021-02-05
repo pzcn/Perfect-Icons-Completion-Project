@@ -17,6 +17,7 @@ LATESTARTSERVICE=false
 var_device="`grep_prop ro.product.*device`"
 var_version="`grep_prop ro.build.version.release`"
 
+
 ##########################################################################################
 #
 # Function Callbacks
@@ -152,6 +153,9 @@ chooseportold() {
 on_install() {
   # 解压文件
   unzip -o "$ZIPFILE" 'mods/*' -d "$TMPDIR/" >&2
+  unzip -o "$ZIPFILE" 'mods.tar.xz*' -d "$TMPDIR/" >&2
+  tar -xf "$TMPDIR/mods.tar.xz" -C "$TMPDIR/" >&2
+  
   # 公用函数
   source $TMPDIR/util_funcs.sh
 
@@ -191,6 +195,7 @@ on_install() {
   for MOD in $(ls)
   do
     if [ -f $MOD/mod_info.sh ]; then
+
       MOD_FILES_DIR="$TMPDIR/mods/$MOD/files"
       source $MOD/mod_info.sh
       $DEBUG_FLAG && ui_print "  DEBUG: load $MOD"

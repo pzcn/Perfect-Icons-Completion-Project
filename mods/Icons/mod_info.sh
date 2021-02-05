@@ -25,8 +25,6 @@ mod_install_yes()
 	ui_print "   正在安装"
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
-    tar -xf $MOD_FILES_DIR/mods.tar.xz -C 
-    rm -rf $MODPATH/mods.tar.xz
     cp -r $MOD_FILES_DIR/2/* $MODPATH/system/media/theme/
     cd $MOD_FILES_DIR/1/
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
@@ -42,8 +40,6 @@ mod_install_no()
 	ui_print "   正在安装"
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
-    tar -xf $MOD_FILES_DIR/mods.tar.xz -C 
-    rm -rf $MODPATH/mods.tar.xz
     cp -r $MOD_FILES_DIR/3/* $MODPATH/system/media/theme/
     cd $MOD_FILES_DIR/1/
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
