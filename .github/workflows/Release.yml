@@ -41,7 +41,6 @@ jobs:
 
       - name: Compressed files
         run: |
-          cd /mods/Icons/
           XZ_OPT=-9 tar cJf files.tar.xz files
           rm -rf files
           mv -f files.tar.xz /mods/Icons/
