@@ -39,8 +39,16 @@ jobs:
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
 
+      - name: Compressed files
+        run: |
+          cd /mods/Icons/
+          XZ_OPT=-9 tar cJf files.tar.xz files
+          rm -rf files
+          mv -f files.tar.xz /mods/Icons/
+
       - name: Zip Folder
         run: |
+          cd /mods/Icons/
           XZ_OPT=-9 tar cJf mods.tar.xz ./mods/Icons/files
           rm -rf ./mods/Icons/files
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common

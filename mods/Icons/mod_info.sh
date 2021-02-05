@@ -26,6 +26,7 @@ mod_install_yes()
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -r $MOD_FILES_DIR/2/* $MODPATH/system/media/theme/
+    cp -r $MOD_FILES_DIR/4/* $MODPATH/system/media/theme/
     cd $MOD_FILES_DIR/1/
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
@@ -41,6 +42,7 @@ mod_install_no()
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -r $MOD_FILES_DIR/3/* $MODPATH/system/media/theme/
+    cp -r $MOD_FILES_DIR/4/* $MODPATH/system/media/theme/
     cd $MOD_FILES_DIR/1/
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
