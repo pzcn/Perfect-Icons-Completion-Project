@@ -39,12 +39,6 @@ jobs:
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
 
-      - name: Compressed files
-        run: |
-          XZ_OPT=-9 tar cJf files.tar.xz files
-          rm -rf files
-          mv -f files.tar.xz /mods/Icons/
-
       - name: Zip Folder
         run: |
           XZ_OPT=-9 tar cJf mods.tar.xz ./mods/Icons/files
