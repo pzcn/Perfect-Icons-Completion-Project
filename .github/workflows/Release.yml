@@ -48,7 +48,6 @@ jobs:
 
       - name: Zip Folder
         run: |
-          cd /mods/Icons/
           XZ_OPT=-9 tar cJf mods.tar.xz ./mods/Icons/files
           rm -rf ./mods/Icons/files
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
