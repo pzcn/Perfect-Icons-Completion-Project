@@ -41,7 +41,7 @@ jobs:
 
       - name: Zip Folder
         run: |
-          XZ_OPT=-9 tar cJf mods.tar.xz
+          XZ_OPT=-9 tar cJf mods.tar.xz mods
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./mods.tar.xz
