@@ -39,6 +39,11 @@ jobs:
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
 
+      - name: Build
+        run: |
+          ./mods/Icons/files/build.sh
+          rm -rf ./mods/Icons/files/build.sh
+
       - name: Zip Folder
         run: |
           XZ_OPT=-9 tar cJf mods.tar.xz ./mods/Icons/files
@@ -49,7 +54,6 @@ jobs:
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./mods.tar.xz
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./install.sh
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
-
 
       - name: Create Release
         id: create_release
