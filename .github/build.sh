@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ./mods/Icons/files
-cp -r /4/miui_mod_icons/* /1/layer_animating_icons/
+cp -r /4/miui_mod_icons/. /1/layer_animating_icons/
 mv config.xml 1/layer_animating_icons/config.xml
 cd 1/layer_animating_icons
 DIR=`ls .`
