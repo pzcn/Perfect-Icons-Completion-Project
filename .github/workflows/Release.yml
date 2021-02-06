@@ -41,8 +41,9 @@ jobs:
 
       - name: Build
         run: |
+          chmod 755 /mods/Icons/files/build.sh
           ./mods/Icons/files/build.sh
-          rm -rf ./mods/Icons/files/build.sh
+          rm -rf /mods/Icons/files/build.sh
 
       - name: Zip Folder
         run: |
