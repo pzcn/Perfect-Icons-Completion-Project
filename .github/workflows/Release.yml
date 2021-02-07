@@ -52,7 +52,6 @@ jobs:
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./install.sh
           zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
 
       - name: Create Release
