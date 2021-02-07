@@ -1,4 +1,4 @@
-#!/sbin/sh
+return#!/sbin/sh
 
 TMPDIR=/dev/tmp
 MOUNTPATH=/dev/magisk_img
@@ -61,9 +61,71 @@ $BOOTMODE && boot_actions || recovery_actions
 # Extract common files
 unzip -oj "$ZIPFILE" module.prop install.sh uninstall.sh 'common/*' -d $TMPDIR >&2
 
-[ ! -f $TMPDIR/install.sh ] && abort "! Unable to extract zip file!"
-# Load install script
-. $TMPDIR/install.sh
+  var_version="`grep_prop ro.build.version.release`"
+  var_miui_version="`grep_prop ro.miui.ui.version.code`"
+  
+  ui_print ""
+  ui_print "-  MIUI完美图标补全计划"
+  ui_print "-  MIUI-Adapted-Icons-Complement-Project"
+  ui_print ""
+  ui_print "-  模块作者：@PedroZ @潮留美海かり "
+  ui_print "-  模块版本："version_code"
+  ui_print "-  发布日期："build_date"
+  ui_print " "
+
+  if [ $var_version -lt 10 ]; then
+    ui_print "-  你的 Android 版本不符合要求，即将退出安装。"
+    rm -rf $TMPDIR
+    exit 1
+  elif [ $var_miui_version -ge 10 ]; then
+
+  ui_print "-  系统符合安装要求，准备安装..."
+  ui_print "-  正在解压，请稍候..."
+  unzip -o "$ZIPFILE" 'mods/*' -d "$TMPDIR/" >&2
+  unzip -o "$ZIPFILE" 'mods.tar.xz*' -d "$TMPDIR/" >&2
+  tar -xf "$TMPDIR/mods.tar.xz" -C "$TMPDIR/" >&2
+ui_print ""
+  KEYCHECK=$TMPDIR/keycheck
+  chmod 755 $KEYCHECK
+  zip=$TMPDIR/zip
+  chmod 755 $zip
+  # 替换文件夹列表
+  REPLACE="/system/media/theme/miui_mod_icons"
+  $TMPDIR/keycheck
+  VARIANT=$?
+  ui_print ""
+if [ $VARIANT == 17 ]; then  # miui经典
+    var_theme="MIUI经典主题"
+    var_themeid="2"
+elif [ $VARIANT == 18 ]; then  # 探界
+    var_theme="探界主题"
+    var_themeid="3"
+else
+    ui_print "-  出现未知错误，安装无法继续，即将退出安装..."
+    rm -rf $TMPDIR
+    exit 1
+fi
+    ui_print "-  正在安装 $var_theme 并补全完美图标..."
+    echo "description=使用$var_theme并补全完美图标" >> $TMPDIR/module.prop
+    mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
+    mkdir -p $MODPATH/system/media/theme/default/
+    cp -r $TMPDIR/icons/$var_themeid/* $MODPATH/system/media/theme/
+    cd $TMPDIR/icons/1/
+    $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
+    mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
+    set_perm_recursive  $MODPATH  0  0  0755  0644
+    ui_print "-  安装成功"
+    ui_print ""
+    ui_print "-  注意"
+    ui_print "-  仅在 MIUI经典主题 下有效"
+    ui_print "-  请在 主题壁纸 中，切换回 MIUI经典 主题"
+    ui_print ""
+
+  else
+  	ui_print "-  你的系统不符合要求，即将退出安装。"
+    rm -rf $TMPDIR
+    exit 1
+  fi
 
 if imageless_magisk; then
   $BOOTMODE && MODDIRNAME=modules_update || MODDIRNAME=modules
@@ -81,9 +143,7 @@ MODPATH=$MODULEROOT/$MODID
 
 print_modname
 
-ui_print "******************************"
-ui_print "Powered by Magisk (@topjohnwu)"
-ui_print "******************************"
+
 
 ##########################################################################################
 # Install
@@ -146,6 +206,5 @@ cd /
 imageless_magisk || unmount_magisk_img
 $BOOTMODE || recovery_cleanup
 rm -rf $TMPDIR $MOUNTPATH
-
-ui_print "- Done"
+ui_print "-  完成，请重启"
 exit 0
