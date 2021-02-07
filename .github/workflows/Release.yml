@@ -38,6 +38,8 @@ jobs:
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
+      - name: 'Get Date'
+        run: echo "date=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Build
         run: |
@@ -50,10 +52,10 @@ jobs:
       - name: Zip Folder
         run: |
           XZ_OPT=-9 tar cJf icons.tar.xz ./icons
-          zip -r MIUI_Icons-$(date).zip ./common
-          zip -r MIUI_Icons-$(date).zip ./META-INF
-          zip -r MIUI_Icons-$(date).zip ./icons.tar.xz
-          zip -r MIUI_Icons-$(date).zip ./module.prop
+          zip -r MIUI_Icons-${{date}}.zip ./common
+          zip -r MIUI_Icons-${{date}}.zip ./META-INF
+          zip -r MIUI_Icons-${{date}}.zip ./icons.tar.xz
+          zip -r MIUI_Icons-${{date}}.zip ./module.prop
 
       - name: Create Release
         id: create_release
@@ -63,7 +65,7 @@ jobs:
           REPO_OWNER: pzcn
         with:
           tag_name: ${{steps.tag_version.outputs.new_tag}}
-          release_name: MIUI_Icons-$(date)
+          release_name: MIUI_Icons-${{date}}
           body: |
             ${{steps.Changelog.outputs.content}}
           draft: false
@@ -77,13 +79,13 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./MIUI_Icons-$(date).zip
-          asset_name: MIUI_Icons-$(date).zip
+          asset_path: ./MIUI_Icons-${{date}}.zip
+          asset_name: MIUI_Icons-${{date}}.zip
           asset_content_type: application/zip
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          path: ./MIUI_Icons-$(date).zip
+          path: ./MIUI_Icons-${{date}}.zip
 
 # This is a basic workflow to help you get started with Actions
