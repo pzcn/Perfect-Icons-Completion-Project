@@ -27,8 +27,6 @@ print_modname() {
  ui_print "  888   \"   888   888   Y88b. .d88P   888"
  ui_print "  888       888 8888888  \"Y88888P\"  8888888"
  ui_print ""
- ui_print ""
- ui_print ""
  ui_print "  8888888"
  ui_print "    888"
  ui_print "    888"
@@ -112,19 +110,20 @@ api_level_arch_detect
 $BOOTMODE && boot_actions || recovery_actions
 $BOOTMODE && MODDIRNAME=modules_update || MODDIRNAME=modules
 MODULEROOT=$NVBASE/$MODDIRNAME
-MODID=grep_prop id $TMPDIR/module.prop
+MODID=`grep_prop id $TMPDIR/module.prop`
 MODPATH=$MODULEROOT/$MODID
-MODNAME=grep_prop name $TMPDIR/module.prop
+MODNAME=`grep_prop name $TMPDIR/module.prop`
 rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
 print_modname
 on_install
 echo "- 设定权限..."
-ui_print "- 马上就好..."
 ui_print ""
 ui_print "- 注意"
 ui_print "- 仅在 MIUI经典主题 下有效"
 ui_print "- 请在 主题壁纸 中，切换回 MIUI经典 主题"
+ui_print ""
+ui_print "- 马上就好..."
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
   set_perm_recursive $MODPATH 0 0 0755 0644
 fi
