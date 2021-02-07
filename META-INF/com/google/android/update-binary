@@ -63,14 +63,14 @@ unzip -oj "$ZIPFILE" module.prop install.sh uninstall.sh 'common/*' -d $TMPDIR >
 
   var_version="`grep_prop ro.build.version.release`"
   var_miui_version="`grep_prop ro.miui.ui.version.code`"
+  var_date="`grep 版本 $TMPDIR/module.prop`"
   
   ui_print ""
   ui_print "-  MIUI完美图标补全计划"
   ui_print "-  MIUI-Adapted-Icons-Complement-Project"
   ui_print ""
   ui_print "-  模块作者：@PedroZ @潮留美海かり "
-  ui_print "-  模块版本："version_code"
-  ui_print "-  发布日期："build_date"
+  ui_print "-  模块$version_code"
   ui_print " "
 
   if [ $var_version -lt 10 ]; then
@@ -83,7 +83,7 @@ unzip -oj "$ZIPFILE" module.prop install.sh uninstall.sh 'common/*' -d $TMPDIR >
   ui_print "-  正在解压，请稍候..."
   unzip -o "$ZIPFILE" 'mods/*' -d "$TMPDIR/" >&2
   unzip -o "$ZIPFILE" 'mods.tar.xz*' -d "$TMPDIR/" >&2
-  tar -xf "$TMPDIR/mods.tar.xz" -C "$TMPDIR/" >&2
+  tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
 ui_print ""
   KEYCHECK=$TMPDIR/keycheck
   chmod 755 $KEYCHECK
