@@ -1,8 +1,9 @@
 #!/bin/bash
 cd ./icons
-cp -r 4/miui_mod_icons/. 1/layer_animating_icons/
-mv config.xml 1/layer_animating_icons/config.xml
-cd 1/layer_animating_icons
+mkdir 0/layer_animating_icons/
+cp -r 4/miui_mod_icons/. 0/layer_animating_icons/
+mv config.xml 0/layer_animating_icons/config.xml
+cd 0/layer_animating_icons
 DIR=`ls .`
 for dir in ${DIR};do
 	if [ -d ${dir} ];then
@@ -17,4 +18,4 @@ for dir in ${DIR};do
 		cd ..
 	fi
 done
-rm -rf ./icons/1/layer_animating_icons/config.xml
+rm -rf ./icons/0/layer_animating_icons/config.xml

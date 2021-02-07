@@ -1,95 +1,63 @@
-return#!/sbin/sh
-
-TMPDIR=/dev/tmp
-MOUNTPATH=/dev/magisk_img
-
-# Default permissions
+#!/sbin/sh
 umask 022
-
-# Initial cleanup
+TMPDIR=/dev/tmp
+PERSISTDIR=/sbin/.magisk/mirror/persist
 rm -rf $TMPDIR 2>/dev/null
 mkdir -p $TMPDIR
-
-# echo before loading util_functions
-ui_print() { echo "$1"; }
-
-require_new_magisk() {
-  ui_print "***********************************"
-  ui_print " Please install the latest Magisk! "
-  ui_print "***********************************"
-  exit 1
-}
-
-imageless_magisk() {
-  [ $MAGISK_VER_CODE -gt 18100 ]
-  return $?
-}
-
-##########################################################################################
-# Environment
-##########################################################################################
-
+LATESTARTSERVICE=true
+PROPFILE=true
 OUTFD=$2
 ZIPFILE=$3
-
-mount /data 2>/dev/null
-
-# Load utility functions
-if [ -f /data/adb/magisk/util_functions.sh ]; then
-  . /data/adb/magisk/util_functions.sh
-  NVBASE=/data/adb
-else
-  require_new_magisk
-fi
-
-# Preperation for flashable zips
-setup_flashable
-
-# Mount partitions
-mount_partitions
-
-# Detect version and architecture
-api_level_arch_detect
-
-# Setup busybox and binaries
-$BOOTMODE && boot_actions || recovery_actions
-
-##########################################################################################
-# Preparation
-##########################################################################################
-
-# Extract common files
-unzip -oj "$ZIPFILE" module.prop install.sh uninstall.sh 'common/*' -d $TMPDIR >&2
-
-  var_version="`grep_prop ro.build.version.release`"
-  var_miui_version="`grep_prop ro.miui.ui.version.code`"
-  var_date="`grep 版本 $TMPDIR/module.prop`"
-  
-  ui_print ""
-  ui_print "-  MIUI完美图标补全计划"
-  ui_print "-  MIUI-Adapted-Icons-Complement-Project"
-  ui_print ""
-  ui_print "-  模块作者：@PedroZ @潮留美海かり "
-  ui_print "-  模块$version_code"
-  ui_print " "
-
-  if [ $var_version -lt 10 ]; then
-    ui_print "-  你的 Android 版本不符合要求，即将退出安装。"
+unzip -oj "$ZIPFILE" module.prop 'common/*' -d $TMPDIR >&2
+var_version="`getprop ro.build.version.release`"
+var_miui_version="`getprop ro.miui.ui.version.code`"
+var_date="`grep 版本 $TMPDIR/module.prop`"
+print_modname() {
+ ui_print ""
+ ui_print "- MIUI完美图标补全计划"
+ ui_print "- MIUI-Adapted-Icons-Complement-Project"
+ ui_print "---------------------------------------------"
+ ui_print "  888b     d888 8888888 888     888 8888888"
+ ui_print "  8888b   d8888   888   888     888   888"
+ ui_print "  88888b.d88888   888   888     888   888"
+ ui_print "  888Y88888P888   888   888     888   888"
+ ui_print "  888 Y888P 888   888   888     888   888"
+ ui_print "  888  Y8P  888   888   888     888   888"
+ ui_print "  888   \"   888   888   Y88b. .d88P   888"
+ ui_print "  888       888 8888888  \"Y88888P\"  8888888"
+ ui_print ""
+ ui_print ""
+ ui_print ""
+ ui_print "  8888888"
+ ui_print "    888"
+ ui_print "    888"
+ ui_print "    888   .d8888b .d88b.  88888b.  .d8888b"
+ ui_print "    888  d88P\"   d88\"\"88b 888 \"88b 88K"
+ ui_print "    888  888     888  888 888  888 \"Y8888b. "
+ ui_print "    888  Y88b.   Y88..88P 888  888      X88 "
+ ui_print "  8888888 \"Y8888P \"Y88P\"  888  888  88888P' "
+ ui_print ""
+ ui_print "- 模块作者：@PedroZ @潮留美海かり "
+ ui_print "- 模块$var_date"
+ ui_print ""
+}
+ui_print "11$var_version"
+ui_print "12var_miui_version"
+on_install() {
+  if [ $var_version -lt 10 ]; then 
+    ui_print "- 您的 Android 版本不符合要求，即将退出安装。"
     rm -rf $TMPDIR
     exit 1
   elif [ $var_miui_version -ge 10 ]; then
-
-  ui_print "-  系统符合安装要求，准备安装..."
-  ui_print "-  正在解压，请稍候..."
-  unzip -o "$ZIPFILE" 'mods/*' -d "$TMPDIR/" >&2
-  unzip -o "$ZIPFILE" 'mods.tar.xz*' -d "$TMPDIR/" >&2
+  ui_print "- 模块可以在您设备上运行，准备安装..."
+  ui_print "- 正在解压，请稍候..."
+  unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
   tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
 ui_print ""
   KEYCHECK=$TMPDIR/keycheck
   chmod 755 $KEYCHECK
   zip=$TMPDIR/zip
   chmod 755 $zip
-  # 替换文件夹列表
   REPLACE="/system/media/theme/miui_mod_icons"
   $TMPDIR/keycheck
   VARIANT=$?
@@ -101,110 +69,75 @@ elif [ $VARIANT == 18 ]; then  # 探界
     var_theme="探界主题"
     var_themeid="3"
 else
-    ui_print "-  出现未知错误，安装无法继续，即将退出安装..."
+    ui_print "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
     exit 1
 fi
-    ui_print "-  正在安装 $var_theme 并补全完美图标..."
+    ui_print "- 正在安装 $var_theme 并补全完美图标..."
     echo "description=使用$var_theme并补全完美图标" >> $TMPDIR/module.prop
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -r $TMPDIR/icons/$var_themeid/* $MODPATH/system/media/theme/
-    cd $TMPDIR/icons/1/
+    cp -r $TMPDIR/icons/1/* $MODPATH/system/media/theme/
+    cd $TMPDIR/icons/0/
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
-    set_perm_recursive  $MODPATH  0  0  0755  0644
-    ui_print "-  安装成功"
+    cp $TMPDIR/module.prop $MODPATH/module.prop
+    ui_print "- 安装成功"
     ui_print ""
-    ui_print "-  注意"
-    ui_print "-  仅在 MIUI经典主题 下有效"
-    ui_print "-  请在 主题壁纸 中，切换回 MIUI经典 主题"
+    ui_print "- 注意"
+    ui_print "- 仅在 MIUI经典主题 下有效"
+    ui_print "- 请在 主题壁纸 中，切换回 MIUI经典 主题"
     ui_print ""
-
   else
-  	ui_print "-  你的系统不符合要求，即将退出安装。"
+    ui_print "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
     exit 1
   fi
-
-if imageless_magisk; then
-  $BOOTMODE && MODDIRNAME=modules_update || MODDIRNAME=modules
-  MODULEROOT=$NVBASE/$MODDIRNAME
-else
-  $BOOTMODE && IMGNAME=magisk_merge.img || IMGNAME=magisk.img
-  IMG=$NVBASE/$IMGNAME
-  request_zip_size_check "$ZIPFILE"
-  mount_magisk_img
-  MODULEROOT=$MOUNTPATH
-fi
-
-MODID=`grep_prop id $TMPDIR/module.prop`
+}
+require_new_magisk() {
+  echo
+  echo "- 当前模块不支持此Magisk版本"
+  echo
+  echo "- 请安装最新的 Magisk ！"
+  echo
+  exit 1
+}
+mount /data 2>/dev/null
+[ -f /data/adb/magisk/util_functions.sh ] || require_new_magisk
+. /data/adb/magisk/util_functions.sh
+[ $MAGISK_VER_CODE -gt 18100 ] || require_new_magisk
+setup_flashable
+mount_partitions
+api_level_arch_detect
+$BOOTMODE && boot_actions || recovery_actions
+$BOOTMODE && MODDIRNAME=modules_update || MODDIRNAME=modules
+MODULEROOT=$NVBASE/$MODDIRNAME
+MODID=grep_prop id $TMPDIR/module.prop
 MODPATH=$MODULEROOT/$MODID
-
-print_modname
-
-
-
-##########################################################################################
-# Install
-##########################################################################################
-
-# Create mod paths
+MODNAME=grep_prop name $TMPDIR/module.prop
 rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
-
+print_modname
 on_install
-
-# Remove placeholder
-rm -f $MODPATH/system/placeholder 2>/dev/null
-
-# Custom uninstaller
-[ -f $TMPDIR/uninstall.sh ] && cp -af $TMPDIR/uninstall.sh $MODPATH/uninstall.sh
-
-# Auto Mount
-if imageless_magisk; then
-  $SKIPMOUNT && touch $MODPATH/skip_mount
-else
-  $SKIPMOUNT || touch $MODPATH/auto_mount
+echo "- 设定权限..."
+ui_print "- 马上就好..."
+if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
+  set_perm_recursive $MODPATH 0 0 0755 0644
 fi
-
-# prop files
-$PROPFILE && cp -af $TMPDIR/system.prop $MODPATH/system.prop
-
-# Module info
-cp -af $TMPDIR/module.prop $MODPATH/module.prop
-if $BOOTMODE; then
-  # Update info for Magisk Manager
-  if imageless_magisk; then
-    mktouch $NVBASE/modules/$MODID/update
-    cp -af $TMPDIR/module.prop $NVBASE/modules/$MODID/module.prop
-  else
-    mktouch /sbin/.magisk/img/$MODID/update
-    cp -af $TMPDIR/module.prop /sbin/.magisk/img/$MODID/module.prop
-  fi
-fi
-
-# post-fs-data mode scripts
-$POSTFSDATA && cp -af $TMPDIR/post-fs-data.sh $MODPATH/post-fs-data.sh
-
-# service mode scripts
-$LATESTARTSERVICE && cp -af $TMPDIR/service.sh $MODPATH/service.sh
-
-# Handle replace folders
+[ -f $MODPATH/customize.sh ] && . $MODPATH/customize.sh
 for TARGET in $REPLACE; do
   mktouch $MODPATH$TARGET/.replace
 done
-
-# ui_print "- Setting permissions"
-# set_permissions
-
-##########################################################################################
-# Finalizing
-##########################################################################################
-
+if $BOOTMODE; then
+  mktouch $NVBASE/modules/$MODID/update
+  cp -af $MODPATH/module.prop $NVBASE/modules/$MODID/module.prop
+fi
+rm -rf \
+$MODPATH/system/placeholder $MODPATH/customize.sh \
+$MODPATH/README.md $MODPATH/.git* 2>/dev/null
 cd /
-imageless_magisk || unmount_magisk_img
 $BOOTMODE || recovery_cleanup
-rm -rf $TMPDIR $MOUNTPATH
-ui_print "-  完成，请重启"
+rm -rf $TMPDIR
+ui_print "- 完成，请重启设备"
 exit 0
