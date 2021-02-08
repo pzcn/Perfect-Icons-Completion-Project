@@ -11,21 +11,19 @@ ZIPFILE=$3
 unzip -oj "$ZIPFILE" module.prop 'common/*' -d $TMPDIR >&2
 var_version="`getprop ro.build.version.release`"
 var_miui_version="`getprop ro.miui.ui.version.code`"
-var_date="`grep 版本 $TMPDIR/module.prop`"
 print_modname() {
- ui_print ""
  ui_print "---------------------------------------------"
  ui_print "- MIUI完美图标补全计划"
  ui_print "- MIUI-Adapted-Icons-Complement-Project"
  ui_print ""
- ui_print "  888b     d888 8888888 888     888 8888888"
+ ui_print "  888b     d888   888   888     888   888  "
  ui_print "  8888b   d8888   888   888     888   888"
  ui_print "  88888b.d88888   888   888     888   888"
  ui_print "  888Y88888P888   888   888     888   888"
  ui_print "  888 Y888P 888   888   888     888   888"
  ui_print "  888  Y8P  888   888   888     888   888"
  ui_print "  888   \"   888   888   Y88b. .d88P   888"
- ui_print "  888       888 8888888  \"Y88888P\"  8888888"
+ ui_print "  888       888   888    \"Y88888P\"    888  "
  ui_print ""
  ui_print "  8888888"
  ui_print "    888"
@@ -35,11 +33,7 @@ print_modname() {
  ui_print "    888  888     888  888 888  888 \"Y8888b. "
  ui_print "    888  Y88b.   Y88..88P 888  888      X88 "
  ui_print "  8888888 \"Y8888P \"Y88P\"  888  888  88888P' "
- ui_print ""
- ui_print "- 模块作者：@PedroZ @潮留美海かり "
- ui_print "- 模块$var_date"
  ui_print "---------------------------------------------"
- ui_print ""
 }
 ui_print "11$var_version"
 ui_print "12var_miui_version"
@@ -65,16 +59,23 @@ ui_print ""
 if [ $VARIANT == 17 ]; then  # miui经典
     var_theme="MIUI经典主题"
     var_themeid="2"
+    MODAUTHOR="@PedroZ @潮留美海かり"
 elif [ $VARIANT == 18 ]; then  # 探界
     var_theme="探界主题"
     var_themeid="3"
+    MODAUTHOR="@PedroZ @潮留美海かり"
 else
     ui_print "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
     exit 1
-fi
+fi    
+    ui_print ""
+    ui_print "- 模块作者：$MODAUTHOR "
+    ui_print "- 模块版本：$MODVERSION"
+    ui_print ""
     ui_print "- 正在安装 $var_theme 并补全完美图标..."
     echo "description=使用$var_theme并补全完美图标" >> $TMPDIR/module.prop
+    echo "author=$MODAUTHOR" >> $TMPDIR/module.prop
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -r $TMPDIR/icons/$var_themeid/* $MODPATH/system/media/theme/
@@ -83,8 +84,8 @@ fi
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
     cp $TMPDIR/module.prop $MODPATH/module.prop
-    ui_print "- 安装成功"
     ui_print ""
+    ui_print "- 安装成功"
   else
     ui_print "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
@@ -112,6 +113,7 @@ MODULEROOT=$NVBASE/$MODDIRNAME
 MODID=`grep_prop id $TMPDIR/module.prop`
 MODPATH=$MODULEROOT/$MODID
 MODNAME=`grep_prop name $TMPDIR/module.prop`
+MODVERSION=`grep_prop version $TMPDIR/module.prop`
 rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
 print_modname
@@ -140,6 +142,6 @@ $MODPATH/README.md $MODPATH/.git* 2>/dev/null
 cd /
 $BOOTMODE || recovery_cleanup
 rm -rf $TMPDIR
-ui_print "- 完成，请重启设备"
+ui_print "- 完成，请重启设备 (^_^) "
 ui_print "---------------------------------------------"
 exit 0
