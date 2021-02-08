@@ -54,12 +54,12 @@ on_install() {
   unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
   tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
 ui_print ""
-  KEYCHECK=$TMPDIR/keycheck
-  chmod 755 $KEYCHECK
+  KEYSEL=$TMPDIR/key_selector
+  chmod 755 $KEYSEL
   zip=$TMPDIR/zip
   chmod 755 $zip
   REPLACE="/system/media/theme/miui_mod_icons"
-  $TMPDIR/keycheck
+  $KEYSEL
   VARIANT=$?
   ui_print ""
 if [ $VARIANT == 17 ]; then  # miui经典
@@ -84,7 +84,6 @@ fi
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
     cp $TMPDIR/module.prop $MODPATH/module.prop
     ui_print "- 安装成功"
-    ui_print ""
     ui_print ""
   else
     ui_print "- 你的系统不符合要求，即将退出安装。"
