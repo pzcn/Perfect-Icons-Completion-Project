@@ -40,16 +40,25 @@ jobs:
       - name: Zip Folder
         run: |
           XZ_OPT=-9 tar cJf icons.tar.xz ./icons
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
+          zip -r MIUI_Icons-${{env.date}}.zip ./common
+          zip -r MIUI_Icons-${{env.date}}.zip ./META-INF
+          zip -r MIUI_Icons-${{env.date}}.zip ./icons.tar.xz
+          zip -r MIUI_Icons-${{env.date}}.zip ./module.prop
 
      ## 上传附件
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          path: ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
+          path: ./MIUI_Icons-${{env.date}}.zip
 
 # This is a basic workflow to help you get started with Actions
+      - name: Post to channel
+        env:
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          FILE: ./MIUI_Icons-${{env.date}}.zip
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
+          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"

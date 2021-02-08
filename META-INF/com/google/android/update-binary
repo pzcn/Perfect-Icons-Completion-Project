@@ -69,7 +69,6 @@ else
     rm -rf $TMPDIR
     exit 1
 fi    
-    ui_print ""
     ui_print "- 模块作者：$MODAUTHOR "
     ui_print "- 模块版本：$MODVERSION"
     ui_print ""
