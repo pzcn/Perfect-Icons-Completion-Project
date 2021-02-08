@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ./icons
-mkdir 0/layer_animating_icons/
+mkdir -p 0/layer_animating_icons/
 cp -r 4/miui_mod_icons/. 0/layer_animating_icons/
 mv config.xml 0/layer_animating_icons/config.xml
 cd 0/layer_animating_icons
