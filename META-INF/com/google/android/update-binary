@@ -82,8 +82,6 @@ fi
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
     cp $TMPDIR/module.prop $MODPATH/module.prop
-    ui_print ""
-    ui_print "- 安装成功"
   else
     ui_print "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
@@ -116,7 +114,6 @@ rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
 print_modname
 on_install
-echo "- 设定权限..."
 ui_print ""
 ui_print "- 注意"
 ui_print "- 仅在 MIUI经典主题 下有效"
@@ -143,6 +140,7 @@ $MODPATH/README.md $MODPATH/.git* 2>/dev/null
 cd /
 $BOOTMODE || recovery_cleanup
 rm -rf $TMPDIR
-ui_print "- 完成，请重启设备 (^_^) "
+ui_print ""
+ui_print "- 安装成功，请重启设备 (^_^) "
 ui_print "---------------------------------------------"
 exit 0
