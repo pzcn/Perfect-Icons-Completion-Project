@@ -35,8 +35,6 @@ print_modname() {
  ui_print "  8888888 \"Y8888P \"Y88P\"  888  888  88888P' "
  ui_print "---------------------------------------------"
 }
-ui_print "11$var_version"
-ui_print "12var_miui_version"
 on_install() {
   if [ $var_version -lt 10 ]; then 
     ui_print "- 您的 Android 版本不符合要求，即将退出安装。"
@@ -56,20 +54,21 @@ ui_print ""
   $KEYSEL
   VARIANT=$?
   ui_print ""
-if [ $VARIANT == 17 ]; then  # miui经典
+if [ $VARIANT == 17 ]; then 
     var_theme="MIUI经典主题"
     var_themeid="2"
-    MODAUTHOR="@PedroZ @潮留美海かり"
-elif [ $VARIANT == 18 ]; then  # 探界
+    MODAUTHOR="@潮留美海かり @PedroZ"
+elif [ $VARIANT == 18 ]; then 
     var_theme="探界主题"
     var_themeid="3"
-    MODAUTHOR="@PedroZ @潮留美海かり"
+    MODAUTHOR="@潮留美海かり @PedroZ"
 else
     ui_print "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
     exit 1
 fi    
-    ui_print "- 模块作者：$MODAUTHOR "
+    ui_print "- 模块开发：@PedroZ"
+    ui_print "- 图标绘制：$MODAUTHOR"
     ui_print "- 模块版本：$MODVERSION"
     ui_print ""
     ui_print "- 正在安装 $var_theme 并补全完美图标..."
@@ -122,6 +121,9 @@ ui_print ""
 ui_print "- 注意"
 ui_print "- 仅在 MIUI经典主题 下有效"
 ui_print "- 请在 主题壁纸 中，切换回 MIUI经典 主题"
+ui_print ""
+ui_print "- 关注 Telegram 频道 @miuiicons 获得测试版本"
+ui_print "- 欢迎加入 Telegram 群组讨论参与开发"
 ui_print ""
 ui_print "- 马上就好..."
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
