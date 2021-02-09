@@ -27,15 +27,27 @@ Android 10 及以上的 MIUI 12
 
 [Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
 
-### 申请/提交适配
-申请适配 参考适配规则，带上包名、应用名 提交Issue，或在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
+[Telegram 频道](https://t.me/miuiicons) 获取最新的开发版本
 
-提交适配，提交PR即可
+[蓝奏云镜像](https://www.lanzoux.com/b06xxglhc) 包含手动同步的 Release 版本，同步可能不及时
 
-### 适配指南
-待补充
+
+### 申请/提交适配，参与讨论
+
+申请适配 参考适配规则，带上包名、应用名 提交Issue
+
+在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
+
+加入[Telegram 群组](https://t.me/miui_icons_dev) 参与讨论，提出建议，申请适配
+
+### 适配指南、提交适配
+
+适配指南见 [Wiki](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/适配指南)
+
+提交适配 提交PR或将文件发送至 [Telegram 群组](https://t.me/miui_icons_dev) 内
+
 
 ### 感谢
-酷安  [@潮留美海かり](http://www.coolapk.com/u/3701042) 绘制补充了大量图标
+[@潮留美海かり](http://www.coolapk.com/u/3701042) 绘制补充了大量图标
 
-酷安 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) 协助制作了Magisk模块
+[@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
