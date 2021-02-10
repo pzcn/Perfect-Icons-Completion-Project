@@ -4,8 +4,8 @@ mkdir -p 0/layer_animating_icons/
 mkdir -p 4b/layer_animating_icons/
 cp -r 1/miui_mod_icons/. 0/layer_animating_icons/
 cp -r 4a/miui_mod_icons/. 4b/layer_animating_icons/
-mv config.xml 0/layer_animating_icons/config.xml
-mv config.xml 4b/layer_animating_icons/config.xml
+cp config.xml 0/layer_animating_icons/config.xml
+cp config.xml 4b/layer_animating_icons/config.xml
 
 cd 0/layer_animating_icons
 DIR=`ls .`
