@@ -66,7 +66,7 @@ elif [ $VARIANT == 19 ]; then
     var_theme="LRONE"
     var_themeid="4"
     MODAUTHOR="@Conan"
-    cp -r $TMPDIR/icons/4/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
+    cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
 else
     ui_print "- 出现未知错误，安装无法继续，即将退出安装..."
@@ -83,10 +83,11 @@ fi
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -rf $TMPDIR/icons/1/* $MODPATH/system/media/theme/
-    cp -rf $TMPDIR/icons/$var_themeid/* $MODPATH/system/media/theme/
+    cp -rf $TMPDIR/icons/$var_themeid/default/* $MODPATH/system/media/theme/default/
     cd $TMPDIR/icons/0/
     $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
     mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
+    cp -rf $TMPDIR/icons/$var_themeid/miui_mod_icons//* $MODPATH/system/media/theme/miui_mod_icons//
     cp $TMPDIR/module.prop $MODPATH/module.prop
   else
     ui_print "- 你的系统不符合要求，即将退出安装。"
