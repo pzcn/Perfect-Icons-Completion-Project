@@ -64,7 +64,7 @@ elif [ $VARIANT == 18 ]; then
     MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
 elif [ $VARIANT == 19 ]; then 
     var_theme="LRONE"
-    var_themeid="4a"
+    var_themeid="4"
     MODAUTHOR="@Conan"
     cp -r $TMPDIR/icons/4/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
