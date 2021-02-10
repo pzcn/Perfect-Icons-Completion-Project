@@ -12,40 +12,40 @@ unzip -oj "$ZIPFILE" module.prop 'common/*' -d $TMPDIR >&2
 var_version="`getprop ro.build.version.release`"
 var_miui_version="`getprop ro.miui.ui.version.code`"
 print_modname() {
- ui_print "---------------------------------------------"
- ui_print "- MIUI完美图标补全计划"
- ui_print "- MIUI-Adapted-Icons-Complement-Project"
- ui_print ""
- ui_print "  888b     d888   888   888     888   888  "
- ui_print "  8888b   d8888   888   888     888   888"
- ui_print "  88888b.d88888   888   888     888   888"
- ui_print "  888Y88888P888   888   888     888   888"
- ui_print "  888 Y888P 888   888   888     888   888"
- ui_print "  888  Y8P  888   888   888     888   888"
- ui_print "  888   \"   888   888   Y88b. .d88P   888"
- ui_print "  888       888   888    \"Y88888P\"    888  "
- ui_print ""
- ui_print "  8888888"
- ui_print "    888"
- ui_print "    888"
- ui_print "    888   .d8888b .d88b.  88888b.  .d8888b"
- ui_print "    888  d88P\"   d88\"\"88b 888 \"88b 88K"
- ui_print "    888  888     888  888 888  888 \"Y8888b. "
- ui_print "    888  Y88b.   Y88..88P 888  888      X88 "
- ui_print "  8888888 \"Y8888P \"Y88P\"  888  888  88888P' "
- ui_print "---------------------------------------------"
+ echo "---------------------------------------------"
+ echo "- MIUI完美图标补全计划"
+ echo "- MIUI-Adapted-Icons-Complement-Project"
+ echo ""
+ echo "  888b     d888   888   888     888   888  "
+ echo "  8888b   d8888   888   888     888   888"
+ echo "  88888b.d88888   888   888     888   888"
+ echo "  888Y88888P888   888   888     888   888"
+ echo "  888 Y888P 888   888   888     888   888"
+ echo "  888  Y8P  888   888   888     888   888"
+ echo "  888   \"   888   888   Y88b. .d88P   888"
+ echo "  888       888   888    \"Y88888P\"    888  "
+ echo ""
+ echo "  8888888"
+ echo "    888"
+ echo "    888"
+ echo "    888   .d8888b .d88b.  88888b.  .d8888b"
+ echo "    888  d88P\"   d88\"\"88b 888 \"88b 88K"
+ echo "    888  888     888  888 888  888 \"Y8888b. "
+ echo "    888  Y88b.   Y88..88P 888  888      X88 "
+ echo "  8888888 \"Y8888P \"Y88P\"  888  888  88888P' "
+ echo "---------------------------------------------"
 }
 on_install() {
   if [ $var_version -lt 10 ]; then 
-    ui_print "- 您的 Android 版本不符合要求，即将退出安装。"
+    echo "- 您的 Android 版本不符合要求，即将退出安装。"
     rm -rf $TMPDIR
     exit 1
   elif [ $var_miui_version -ge 10 ]; then
-  ui_print "- 模块可以在您设备上运行，准备安装..."
-  ui_print "- 正在解压，请稍候..."
+  echo "- 模块可以在您设备上运行，准备安装..."
+  echo "- 正在解压，请稍候..."
   unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
   tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
-ui_print ""
+echo ""
   KEYSEL=$TMPDIR/key_selector
   chmod 755 $KEYSEL
   zip=$TMPDIR/zip
@@ -53,31 +53,32 @@ ui_print ""
   REPLACE="/system/media/theme/miui_mod_icons"
   $KEYSEL
   VARIANT=$?
-  ui_print ""
+  echo ""
 if [ $VARIANT == 17 ]; then 
     var_theme="MIUI经典主题"
     var_themeid="2"
-    MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
+    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier"
 elif [ $VARIANT == 18 ]; then 
     var_theme="探界主题"
     var_themeid="3"
-    MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
+    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier"
 elif [ $VARIANT == 19 ]; then 
     var_theme="LRONE"
     var_themeid="4"
-    MODAUTHOR="@Conan"
+    MODAUTHOR="@PedroZ @Conan"
     cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。"
 else
-    ui_print "- 出现未知错误，安装无法继续，即将退出安装..."
+    echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
     exit 1
 fi    
-    ui_print "- 模块开发：@PedroZ"
-    ui_print "- 图标绘制：$MODAUTHOR"
-    ui_print "- 模块版本：$MODVERSION"
-    ui_print ""
-    ui_print "- 正在安装 $var_theme 并补全完美图标..."
+    echo "- 模块开发：@PedroZ"
+    echo "- 图标绘制：$MODAUTHOR"
+    echo -e "- 模块版本：$MODVERSION $NOTES" 
+    echo ""
+    echo "- 正在安装 $var_theme 并补全完美图标..."
     echo "description=使用$var_theme并补全完美图标" >> $TMPDIR/module.prop
     echo "author=$MODAUTHOR" >> $TMPDIR/module.prop
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
@@ -90,7 +91,7 @@ fi
     cp -rf $TMPDIR/icons/$var_themeid/miui_mod_icons//* $MODPATH/system/media/theme/miui_mod_icons//
     cp $TMPDIR/module.prop $MODPATH/module.prop
   else
-    ui_print "- 你的系统不符合要求，即将退出安装。"
+    echo "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
     exit 1
   fi
@@ -121,15 +122,15 @@ rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
 print_modname
 on_install
-ui_print ""
-ui_print "- 注意"
-ui_print "- 仅在 MIUI经典主题 下有效"
-ui_print "- 请在 主题壁纸 中，切换回 MIUI经典 主题"
-ui_print ""
-ui_print "- 关注 Telegram 频道 @miuiicons 获得测试版本"
-ui_print "- 欢迎加入 Telegram 群组讨论参与开发"
-ui_print ""
-ui_print "- 马上就好..."
+echo ""
+echo "- 注意"
+echo "- 仅在 MIUI经典主题 下有效"
+echo "- 请在 主题壁纸 中，切换回 MIUI经典 主题"
+echo ""
+echo "- 关注 Telegram 频道 @miuiicons 获得测试版本"
+echo "- 欢迎加入 Telegram 群组讨论参与开发"
+echo ""
+echo "- 马上就好..."
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
   set_perm_recursive $MODPATH 0 0 0755 0644
 fi
@@ -147,7 +148,7 @@ $MODPATH/README.md $MODPATH/.git* 2>/dev/null
 cd /
 $BOOTMODE || recovery_cleanup
 rm -rf $TMPDIR
-ui_print ""
-ui_print "- 安装成功，请重启设备 (^_^) "
-ui_print "---------------------------------------------"
+echo ""
+echo "- 安装成功，请重启设备 (^_^) "
+echo "---------------------------------------------"
 exit 0
