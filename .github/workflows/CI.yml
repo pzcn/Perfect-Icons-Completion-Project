@@ -58,6 +58,7 @@ jobs:
 
 # This is a basic workflow to help you get started with Actions
       - name: Post to channel
+        if: ${{ !startsWith(github.event.head_commit.message, '[skip post]') }}
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
