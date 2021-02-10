@@ -66,8 +66,8 @@ elif [ $VARIANT == 19 ]; then
     var_theme="LRONE"
     var_themeid="4a"
     MODAUTHOR="@Conan"
-    cp -r $TMPDIR/icons/4/miui_mod_icons/. $TMPDIR/icons/1/layer_animating_icons/
-    cp -r $TMPDIR/icons/4b/miui_mod_icons/. $TMPDIR/icons/0/layer_animating_icons/
+    cp -r $TMPDIR/icons/4/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
+    cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
 else
     ui_print "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
