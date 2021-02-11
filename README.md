@@ -67,13 +67,15 @@ Android 10 及以上的 MIUI 12
    A：不能，请自行修改。
 
 
-### 感谢
+### 致谢
 
-LRONE主题授权：
-[@江户川Conan](http://www.coolapk.com/u/1091207) [小米主题商店《LRONE》](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349 )
+[LRONE主题](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349)授权：
+[@江户川Conan](http://www.coolapk.com/u/1091207) 
 
 图标绘制：
 [@潮留美海かり](http://www.coolapk.com/u/3701042) @Yife Playte @Eirperuier @Mastiff Li
 
 技术支持：
 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
+
+@MIUI
