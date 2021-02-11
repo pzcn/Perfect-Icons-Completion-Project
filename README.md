@@ -73,7 +73,7 @@ Android 10 及以上的 MIUI 12
 [@江户川Conan](http://www.coolapk.com/u/1091207) 
 
 图标绘制：
-[@潮留美海かり](http://www.coolapk.com/u/3701042) @Yife Playte @Eirperuier @Mastiff Li
+[@潮留美海かり](http://www.coolapk.com/u/3701042) [@Yife Playte](http://www.coolapk.com/u/2222314) @Eirperuier @Mastiff Li
 
 技术支持：
 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
