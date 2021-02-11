@@ -57,11 +57,11 @@ echo ""
 if [ $VARIANT == 17 ]; then 
     var_theme="MIUI经典主题"
     var_themeid="2"
-    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier"
+    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
 elif [ $VARIANT == 18 ]; then 
     var_theme="探界主题"
     var_themeid="3"
-    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier"
+    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
 elif [ $VARIANT == 19 ]; then 
     var_theme="LRONE"
     var_themeid="4"
