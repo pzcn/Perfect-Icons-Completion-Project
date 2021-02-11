@@ -9,6 +9,8 @@
 
 在 MIUI12 的早期版本里，MIUI 绘制的第三方桌面图标有较高的优先级。但是某次更新后，若 APP 有了 Adapted Icon 则优先调用自带图标，这就造成了部分显示效果不佳，包括但不限于支付宝、淘宝等，表现为包含牛皮癣（双十一、购物节等）、不按照规则适配（整张图片只有一层，底层为纯色等）。为解决图标显示优先级问题，简化目录结构，本项目已采用 Github Action 自动生成模块，目前显示均为最高优先级。
 
+目前包含了 MIUI默认主题、探·界主题、LRONE主题，未来可能会添加更多其他主题。
+
 ### 适配规则
 
 对以下三种情况进行适配
@@ -66,6 +68,12 @@ Android 10 及以上的 MIUI 12
 
 
 ### 感谢
-[@潮留美海かり](http://www.coolapk.com/u/3701042) 绘制补充了大量图标
 
+LRONE主题授权：
+[@江户川Conan](http://www.coolapk.com/u/1091207) [小米主题商店《LRONE》](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349 )
+
+图标绘制：
+[@潮留美海かり](http://www.coolapk.com/u/3701042) @Yife Playte @Eirperuier @Mastiff Li
+
+技术支持：
 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
