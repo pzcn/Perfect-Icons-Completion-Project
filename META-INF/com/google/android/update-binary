@@ -57,15 +57,15 @@ echo ""
 if [ $VARIANT == 17 ]; then 
     var_theme="MIUI经典主题"
     var_themeid="2"
-    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
+    MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier @Mastiff Li"
 elif [ $VARIANT == 18 ]; then 
     var_theme="探界主题"
     var_themeid="3"
-    MODAUTHOR="@PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
+    MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier @Mastiff Li"
 elif [ $VARIANT == 19 ]; then 
     var_theme="LRONE"
     var_themeid="4"
-    MODAUTHOR="@PedroZ @Conan"
+    MODAUTHOR="@Conan @PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
     cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
     NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。"
@@ -79,8 +79,7 @@ fi
     echo -e "- 模块版本：$MODVERSION $NOTES" 
     echo ""
     echo "- 正在安装 $var_theme 并补全完美图标..."
-    echo "description=使用$var_theme并补全完美图标" >> $TMPDIR/module.prop
-    echo "author=$MODAUTHOR" >> $TMPDIR/module.prop
+    echo "description=使用$var_theme并补全完美图标 图标绘制：$MODAUTHOR" >> $TMPDIR/module.prop
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -rf $TMPDIR/icons/1/* $MODPATH/system/media/theme/
