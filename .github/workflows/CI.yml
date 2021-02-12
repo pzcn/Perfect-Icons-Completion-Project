@@ -44,6 +44,10 @@ jobs:
         run: |
           chmod 755 ./.github/pack.sh
           ./.github/pack.sh
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./icons.tar.xz
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
 
      ## 上传附件
 
