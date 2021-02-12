@@ -42,15 +42,12 @@ jobs:
 
       - name: Zip Folder
         run: |
-          XZ_OPT=-9 tar cJf icons.tar.xz ./icons
-          cd themes
-          mv lrone icons
-          XZ_OPT=-9 tar cJf lrone.tar.xz icons
-          cd ..
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
+          chmod 755 ./.github/pack.sh
+          ./.github/pack.sh
+          zip -r MIUI_Icons-${{env.date}}.zip ./common
+          zip -r MIUI_Icons-${{env.date}}.zip ./META-INF
+          zip -r MIUI_Icons-${{env.date}}.zip ./icons.tar.xz
+          zip -r MIUI_Icons-${{env.date}} ./module.prop
 
      ## 上传附件
 
