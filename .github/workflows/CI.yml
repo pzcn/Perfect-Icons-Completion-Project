@@ -29,7 +29,7 @@ jobs:
         run: |
           chmod 755 ./.github/lrone.sh
           ./.github/lrone.sh
-          ls -l ./themes/lrone.tar.xz
+          echo "size=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
       - name: Zip Folder
         run: |
@@ -39,6 +39,7 @@ jobs:
           zip -r MIUI_Icons-${{env.date}}.zip ./META-INF
           zip -r MIUI_Icons-${{env.date}}.zip ./icons.tar.xz
           zip -r MIUI_Icons-${{env.date}} ./module.prop
+          echo "size=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
@@ -49,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ startsWith(github.event.head_commit.message, '[lrone]') }}
         with:
-          name: lrone
+          name: lrone-${{env.size}}
           path: ./themes/lrone.tar.xz
 
       - name: Post to channel
