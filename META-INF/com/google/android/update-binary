@@ -51,6 +51,7 @@ echo ""
   zip=$TMPDIR/zip
   chmod 755 $zip
   REPLACE="/system/media/theme/miui_mod_icons"
+  echo "- LRONE主题需要联网下载资源，大约耗费20M流量"
   $KEYSEL
   VARIANT=$?
   echo ""
@@ -66,12 +67,59 @@ elif [ $VARIANT == 19 ]; then
     var_theme="LRONE"
     var_themeid="4"
     MODAUTHOR="@Conan @PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
+    echo "- 正在下载并解压，请稍后..."
+    curl -skLJo "$TMPDIR/lrone" "https://miuiicons.vercel.app/lrone"
+source $TMPDIR/lrone
+file=$TMPDIR/lrone.tar.xz
+echo "- 准备联网下载$var_theme主题资源... "
+size1=`awk "BEGIN{print $file_size/1048576}"`MB
+echo "- 本次需下载${size1}"
+if $NETWORK_CHECK; then
+  echo ""
+  for i in `seq 0 1`; do
+  {
+  if [[ $i == 0 ]]; then
+  echo "- 正在获取下载地址..."
+  curl -skLJo "$file" "$URL"
+  elif [[ $i == 1 ]]; then
+  var_wait=true
+  download=false
+  size=0
+    step=1
+    until [[ $var_wait == false ]]; do
+      [ -f $file ] && var_wait=false
+    done
+    echo "- 正在下载..."
+    until [[ $download == true ]]; do
+      var=`ls -l $file | $busybox awk '{print $5}'`
+      let "varm=var/1024/1024"
+      if [[ $varm -gt $size ]]; then
+      let "bfb=var/(file_size/100)"
+      echo "- 已下载 $varm MB -- $bfb%"
+      let "size+=step"
+      elif [[ $var == $file_size ]]; then
+      echo "- 已下载 $varm MB -- 100%" && download=true
+      fi
+      done
+      fi
+    }&
+ done
+ wait
+  {
+  if $download; then
+    echo "- 下载成功！"
+  else
+    echo "- 下载失败！\n- 请重新下载 ！"
+    return 0
+  fi
+  }
+else
+  echo "※ 未检测到网络，取消下载 ... " && exit 0
+fi
+    tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
     NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。"
-    URL="`curl https://miuiicons.vercel.app/lrone`"
-    wget -O $TMPDIR/lrone.tar.xz $URL
-    tar -xf "$TMPDIR/lrone.tar.xz" -C "$TMPDIR/" >&2
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
