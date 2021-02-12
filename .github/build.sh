@@ -37,5 +37,5 @@ for dir in ${DIR};do
 done
 cd ../../../..
 
-rm -rf icons/0/layer_animating_icons/config.xml
-rm -rf themes/lrone/4b/layer_animating_icons/config.xml
+rm -rf ./icons/0/layer_animating_icons/config.xml
+rm -rf ./themes/lrone/4b/layer_animating_icons/config.xml

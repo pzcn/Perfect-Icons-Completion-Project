@@ -56,11 +56,12 @@ jobs:
         with:
           name: MIUI_Icons-${{env.date}}
           path: ./MIUI_Icons-${{env.date}}.zip
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lrone
-          path: ./themes/lrone.tar.xz
+
+      #- name: Upload a Build Artifact
+      # uses: actions/upload-artifact@v2
+      # with:
+      #   name: lrone
+      #   path: ./themes/lrone.tar.xz
 
 # This is a basic workflow to help you get started with Actions
       - name: Post to channel
