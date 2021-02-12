@@ -29,7 +29,7 @@ jobs:
         run: |
           chmod 755 ./.github/lrone.sh
           ./.github/lrone.sh
-          echo "size=`ls -l file | awk '{print $5}'`" >> $GITHUB_ENV
+          echo "size=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
       - name: Zip Folder
         run: |
