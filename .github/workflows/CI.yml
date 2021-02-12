@@ -42,8 +42,6 @@ jobs:
 
       - name: Zip Folder
         run: |
-          chmod 755 ./.github/pack.sh
-          ./.github/pack.sh
           XZ_OPT=-9 tar cJf icons.tar.xz ./icons
           cd themes
           mv lrone icons
