@@ -1,12 +1,8 @@
 #!/bin/bash
 cd icons/
 mkdir -p 0/layer_animating_icons/
-mkdir -p 4b/layer_animating_icons/
 cp -r 1/miui_mod_icons/. 0/layer_animating_icons/
-cp -r 4a/miui_mod_icons/. 4b/layer_animating_icons/
 cp config.xml 0/layer_animating_icons/config.xml
-cp config.xml 4b/layer_animating_icons/config.xml
-
 cd 0/layer_animating_icons
 DIR=`ls .`
 for dir in ${DIR};do
@@ -20,8 +16,12 @@ for dir in ${DIR};do
 		cd ..
 	fi
 done
-cd ../..
+cd ../../..
 
+cd themes/lrone
+mkdir -p 4b/layer_animating_icons/
+cp -r 4a/miui_mod_icons/. 4b/layer_animating_icons/
+cp config.xml 4b/layer_animating_icons/config.xml
 cd 4b/layer_animating_icons
 DIR=`ls .`
 for dir in ${DIR};do
@@ -35,8 +35,7 @@ for dir in ${DIR};do
 		cd ..
 	fi
 done
-cd ../..
+cd ../../../..
 
-cd ..
-rm -rf ./icons/0/layer_animating_icons/config.xml
-rm -rf ./icons/4b/layer_animating_icons/config.xml
+rm -rf icons/0/layer_animating_icons/config.xml
+rm -rf themes/lrone/4b/layer_animating_icons/config.xml

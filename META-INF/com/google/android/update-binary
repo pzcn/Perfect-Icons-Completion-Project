@@ -69,6 +69,9 @@ elif [ $VARIANT == 19 ]; then
     cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
     NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。"
+    URL="`curl https://miuiicons.vercel.app/lrone`"
+    wget -O $TMPDIR/lrone.tar.xz $URL
+    tar -xf "$TMPDIR/lrone.tar.xz" -C "$TMPDIR/" >&2
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
