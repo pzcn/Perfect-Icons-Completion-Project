@@ -42,7 +42,7 @@ jobs:
 
       - name: Zip Folder
         run: |
-          chmod 755 ./.github/build.sh
+          chmod 755 ./.github/pack.sh
           ./.github/pack.sh
 
      ## 上传附件
