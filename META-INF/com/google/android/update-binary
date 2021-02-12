@@ -58,16 +58,19 @@ echo ""
 if [ $VARIANT == 17 ]; then 
     var_theme="MIUI经典主题"
     var_themeid="2"
-    MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier @Mastiff Li"
+    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte"
+    MODAUTHOR2="@Eirperuier @Mastiff Li"
 elif [ $VARIANT == 18 ]; then 
     var_theme="探界主题"
     var_themeid="3"
-    MODAUTHOR="@潮留美海かり @PedroZ @Yife Playte @Eirperuier @Mastiff Li"
+    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte"
+    MODAUTHOR2="@Eirperuier @Mastiff Li"
 elif [ $VARIANT == 19 ]; then 
     var_theme="LRONE"
     var_themeid="4"
-    MODAUTHOR="@Conan @PedroZ @潮留美海かり @Yife Playte @Eirperuier @Mastiff Li"
-    echo "- 正在下载并解压，请稍后..."
+    MODAUTHOR1="@Conan @Eirperuier @PedroZ"
+    MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
+    echo "- 已选择LRONE主题"
     curl -skLJo "$TMPDIR/lrone" "https://miuiicons.vercel.app/lrone"
 source $TMPDIR/lrone
 file=$TMPDIR/lrone.tar.xz
@@ -85,7 +88,7 @@ if $NETWORK_CHECK; then
   var_wait=true
   download=false
   size=0
-    step=1
+    step=5
     until [[ $var_wait == false ]]; do
       [ -f $file ] && var_wait=false
     done
@@ -108,6 +111,7 @@ if $NETWORK_CHECK; then
   {
   if $download; then
     echo "- 下载成功！"
+    echo ""
   else
     echo "- 下载失败！\n- 请重新下载 ！"
     return 0
@@ -119,18 +123,19 @@ fi
     tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
     cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。"
+    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 大佬自动化绘制了1000+图标。"
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
     exit 1
 fi    
     echo "- 模块开发：@PedroZ"
-    echo "- 图标绘制：$MODAUTHOR"
+    echo "- 图标绘制：$MODAUTHOR1"
+    echo "  $MODAUTHOR2"
     echo -e "- 模块版本：$MODVERSION $NOTES" 
     echo ""
     echo "- 正在安装 $var_theme 并补全完美图标..."
-    echo "description=使用$var_theme并补全完美图标 图标绘制：$MODAUTHOR" >> $TMPDIR/module.prop
+    echo "description=使用$var_theme并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $MODPATH/system/media/theme/default/
     cp -rf $TMPDIR/icons/1/* $MODPATH/system/media/theme/
