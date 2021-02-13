@@ -23,7 +23,7 @@ jobs:
       - name: Build explore
         run: |
           chmod 755 ./.github/Update Themes.sh
-          ./.github/Update Themes.sh
+          ./.github/UpdateThemes.sh
           echo "exploresize=`ls -l ./themes/explore.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
           echo "lronesize=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
