@@ -22,14 +22,9 @@ jobs:
 
       - name: Build explore
         run: |
-          chmod 755 ./.github/explore.sh
-          ./.github/explore.sh
+          chmod 755 ./.github/Update Themes.sh
+          ./.github/Update Themes.sh
           echo "exploresize=`ls -l ./themes/explore.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
-
-      - name: Build lrone
-        run: |
-          chmod 755 ./.github/lrone.sh
-          ./.github/lrone.sh
           echo "lronesize=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
       - name: Upload a Build Artifact
