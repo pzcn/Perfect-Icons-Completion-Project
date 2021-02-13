@@ -35,7 +35,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lrone-${{env.exploresize}}
+          name: explore-${{env.exploresize}}
           path: ./themes/explore.tar.xz
 
       - name: Upload a Build Artifact
