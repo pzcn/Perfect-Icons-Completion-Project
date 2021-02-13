@@ -5,7 +5,6 @@ on:
     paths-ignore:
     - '**.md'
     - 'demo/**'
-    - 'themes/**'
   workflow_dispatch:
 jobs:
   build:
@@ -24,13 +23,6 @@ jobs:
           chmod 755 ./.github/build.sh
           ./.github/build.sh
           echo "version=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./module.prop
-
-      - name: Build lrone
-        if: ${{ startsWith(github.event.head_commit.message, '[lrone]') }}
-        run: |
-          chmod 755 ./.github/lrone.sh
-          ./.github/lrone.sh
-          echo "size=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
       - name: Zip Folder
         run: |
