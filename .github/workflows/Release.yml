@@ -50,10 +50,10 @@ jobs:
       - name: Zip Folder
         run: |
           XZ_OPT=-9 tar cJf icons.tar.xz ./icons
-          zip -r MIUI_Icons-${{env.date}}.zip ./common
-          zip -r MIUI_Icons-${{env.date}}.zip ./META-INF
-          zip -r MIUI_Icons-${{env.date}}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{env.date}} ./module.prop
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./icons.tar.xz
+          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
 
       - name: Create Release
         id: create_release
