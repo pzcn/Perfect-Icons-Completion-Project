@@ -1,9 +1,9 @@
 #!/bin/bash
 cd themes/lrone
-mkdir -p 4b/layer_animating_icons/
-cp -r 4a/miui_mod_icons/. 4b/layer_animating_icons/
-cp config.xml 4b/layer_animating_icons/config.xml
-cd 4b/layer_animating_icons
+mkdir -p lrone1/layer_animating_icons/
+cp -r lrone_icons/miui_mod_icons/. lrone1/layer_animating_icons/
+cp config.xml lrone1/layer_animating_icons/config.xml
+cd lrone1/layer_animating_icons
 DIR=`ls .`
 for dir in ${DIR};do
 	if [ -d ${dir} ];then
@@ -18,4 +18,8 @@ for dir in ${DIR};do
 done
 cd ../../../..
 
-rm -rf ./themes/lrone/4b/layer_animating_icons/config.xml
+rm -rf ./themes/lrone/lrone1/layer_animating_icons/config.xml
+
+cd themes
+mv lrone icons
+XZ_OPT=-9 tar cJf lrone.tar.xz icons

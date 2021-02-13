@@ -1,0 +1,45 @@
+name: Update Themes
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+    - '**.md'
+    - '**.prop'
+    - 'demo/**'
+    - 'common/**'
+    - 'icons/**'
+    - '.github/**'
+    - 'META-INF/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.event.head_commit.message, '[update themes]') }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build explore
+        run: |
+          chmod 755 ./.github/explore.sh
+          ./.github/explore.sh
+          echo "exploresize=`ls -l ./themes/explore.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
+
+      - name: Build lrone
+        run: |
+          chmod 755 ./.github/lrone.sh
+          ./.github/lrone.sh
+          echo "lronesize=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lrone-${{env.exploresize}}
+          path: ./themes/explore.tar.xz
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lrone-${{env.lronesize}}
+          path: ./themes/lrone.tar.xz

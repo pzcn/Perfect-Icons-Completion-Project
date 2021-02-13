@@ -33,13 +33,11 @@ jobs:
 
       - name: Zip Folder
         run: |
-          chmod 755 ./.github/pack.sh
-          ./.github/pack.sh
+          XZ_OPT=-9 tar cJf icons.tar.xz ./icons
           zip -r MIUI_Icons-${{env.date}}.zip ./common
           zip -r MIUI_Icons-${{env.date}}.zip ./META-INF
           zip -r MIUI_Icons-${{env.date}}.zip ./icons.tar.xz
           zip -r MIUI_Icons-${{env.date}} ./module.prop
-          echo "size=`ls -l ./themes/lrone.tar.xz | awk '{print $5}'`" >> $GITHUB_ENV
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2

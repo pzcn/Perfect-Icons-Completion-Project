@@ -51,33 +51,72 @@ echo ""
   zip=$TMPDIR/zip
   chmod 755 $zip
   REPLACE="/system/media/theme/miui_mod_icons"
-  echo "- LRONE主题需要联网下载资源，大约耗费20M流量"
+  echo "- 除MIUI经典主题外,其他主题需要联网在线下载资源"
   $KEYSEL
   VARIANT=$?
   echo ""
 if [ $VARIANT == 17 ]; then 
-    var_theme="MIUI经典主题"
-    var_themeid="2"
+    var_theme_name="MIUI经典主题"
+    var_theme="MIUIdefault"
     MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte"
     MODAUTHOR2="@Eirperuier @Mastiff Li"
+    echo "- 已选择MIUI经典主题"
 elif [ $VARIANT == 18 ]; then 
-    var_theme="探界主题"
-    var_themeid="3"
+    var_theme_name="探·界主题"
+    var_theme="explore"
     MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte"
     MODAUTHOR2="@Eirperuier @Mastiff Li"
-elif [ $VARIANT == 19 ]; then 
+    echo "- 已选择探界主题"
+    download
+    tar -xf "$file" -C "$TMPDIR/" >&2
+elif [ $VARIANT == 19 ]; then
+    var_theme_name="lrone"
     var_theme="LRONE"
-    var_themeid="4"
     MODAUTHOR1="@Conan @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
     echo "- 已选择LRONE主题"
-    curl -skLJo "$TMPDIR/lrone" "https://miuiicons.vercel.app/lrone"
-source $TMPDIR/lrone
-file=$TMPDIR/lrone.tar.xz
-echo "- 准备联网下载$var_theme主题资源... "
-size1=`awk "BEGIN{print $file_size/1048576}"`MB
-echo "- 本次需下载${size1}"
-if $NETWORK_CHECK; then
+    download
+    tar -xf "$file" -C "$TMPDIR/" >&2
+    cp -r $TMPDIR/icons/lrone_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
+    cp -r $TMPDIR/icons/lrone1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 大佬自动化绘制了1000+图标。"
+else
+    echo "- 出现未知错误，安装无法继续，即将退出安装..."
+    rm -rf $TMPDIR
+    exit 1
+fi    
+    echo "- 模块开发：@PedroZ"
+    echo "- 图标绘制：$MODAUTHOR1"
+    echo "  $MODAUTHOR2"
+    echo -e "- 模块版本：$MODVERSION $NOTES" 
+    echo ""
+    echo "- 正在安装 $var_theme_name 并补全完美图标..."
+    echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
+    mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
+    mkdir -p $MODPATH/system/media/theme/default/
+    cp -rf $TMPDIR/icons/icons/* $MODPATH/system/media/theme/
+    cp -rf $TMPDIR/icons/$var_theme/default/* $MODPATH/system/media/theme/default/
+    cd $TMPDIR/icons/0/
+    $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
+    mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
+    cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $MODPATH/system/media/theme/miui_mod_icons/
+    cp $TMPDIR/module.prop $MODPATH/module.prop
+  else
+    echo "- 你的系统不符合要求，即将退出安装。"
+    rm -rf $TMPDIR
+    exit 1
+  fi
+}
+
+download() {
+  command -v curl >/dev/null 2>&1 || { echo "- 缺少curl命令，无法进行下载。/n- 请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
+  [ "`curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null&& exit 1; }
+  curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons.vercel.app/$var_theme"
+  source $TMPDIR/$var_theme
+  file=$TMPDIR/$var_theme.tar.xz
+  echo "- 准备联网下载$var_theme主题资源... "
+  size1=`awk "BEGIN{print $file_size/1048576}"`MB
+  echo "- 本次需下载${size1}"
   echo ""
   for i in `seq 0 1`; do
   {
@@ -114,43 +153,12 @@ if $NETWORK_CHECK; then
     echo ""
   else
     echo "- 下载失败！\n- 请重新下载 ！"
-    return 0
+    rm -rf $TMPDIR
+    exit 1
   fi
   }
-else
-  echo "※ 未检测到网络，取消下载 ... " && exit 0
-fi
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    cp -r $TMPDIR/icons/4a/miui_mod_icons/. $TMPDIR/icons/1/miui_mod_icons/
-    cp -r $TMPDIR/icons/4b/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 大佬自动化绘制了1000+图标。"
-else
-    echo "- 出现未知错误，安装无法继续，即将退出安装..."
-    rm -rf $TMPDIR
-    exit 1
-fi    
-    echo "- 模块开发：@PedroZ"
-    echo "- 图标绘制：$MODAUTHOR1"
-    echo "  $MODAUTHOR2"
-    echo -e "- 模块版本：$MODVERSION $NOTES" 
-    echo ""
-    echo "- 正在安装 $var_theme 并补全完美图标..."
-    echo "description=使用$var_theme并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
-    mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
-    mkdir -p $MODPATH/system/media/theme/default/
-    cp -rf $TMPDIR/icons/1/* $MODPATH/system/media/theme/
-    cp -rf $TMPDIR/icons/$var_themeid/default/* $MODPATH/system/media/theme/default/
-    cd $TMPDIR/icons/0/
-    $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
-    mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
-    cp -rf $TMPDIR/icons/$var_themeid/miui_mod_icons//* $MODPATH/system/media/theme/miui_mod_icons//
-    cp $TMPDIR/module.prop $MODPATH/module.prop
-  else
-    echo "- 你的系统不符合要求，即将退出安装。"
-    rm -rf $TMPDIR
-    exit 1
-  fi
 }
+
 require_new_magisk() {
   echo
   echo "- 当前模块不支持此Magisk版本"

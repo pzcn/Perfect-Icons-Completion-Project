@@ -1,7 +1,7 @@
 #!/bin/bash
 cd icons/
 mkdir -p 0/layer_animating_icons/
-cp -r 1/miui_mod_icons/. 0/layer_animating_icons/
+cp -r icons/miui_mod_icons/. 0/layer_animating_icons/
 cp config.xml 0/layer_animating_icons/config.xml
 cd 0/layer_animating_icons
 DIR=`ls .`
