@@ -70,8 +70,8 @@ elif [ $VARIANT == 18 ]; then
     download
     tar -xf "$file" -C "$TMPDIR/" >&2
 elif [ $VARIANT == 19 ]; then
-    var_theme_name="lrone"
-    var_theme="LRONE"
+    var_theme_name="LRONE"
+    var_theme="lrone"
     MODAUTHOR1="@Conan @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
     echo "- 已选择LRONE主题"
@@ -109,14 +109,15 @@ fi
 }
 
 download() {
-  command -v curl >/dev/null 2>&1 || { echo "- 缺少curl命令，无法进行下载。/n- 请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
+  command -v curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。/n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
   [ "`curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null&& exit 1; }
   curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons.vercel.app/$var_theme"
   source $TMPDIR/$var_theme
   file=$TMPDIR/$var_theme.tar.xz
   echo "- 准备联网下载$var_theme主题资源... "
-  size1=`awk "BEGIN{print $file_size/1048576}"`MB
-  echo "- 本次需下载${size1}"
+  [ $URL ] || { echo "× 抱歉，在线资源临时维护中，请切换其他主题或稍后再试。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
+  size1=`awk "BEGIN{print $file_size/1048576}"`
+  echo "- 本次需下载 ${size1%.*} MB"
   echo ""
   for i in `seq 0 1`; do
   {
