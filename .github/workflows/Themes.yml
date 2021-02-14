@@ -34,6 +34,6 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-directory: 'output'
-          destination-github-username: 'PedroZ_Action'
+          destination-github-username: 'pzcn'
           destination-repository-name: 'MIUI-Adapted-Icons-Complement-Project-CDN'
           user-email: pdzzzcn@gmail.com
