@@ -1,0 +1,13 @@
+name: Purge CDN
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    steps:
+      - name: Purge CDN
+        run: |
+          curl https://purge.jsdelivr.net/gh/pzcn/IconsCDN@latest/lrone.tar.xz
+          curl https://purge.jsdelivr.net/gh/pzcn/IconsCDN@latest/lrone.tar.xz
