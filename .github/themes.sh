@@ -23,7 +23,7 @@ mv explore icons
 XZ_OPT=-9 tar cJf explore.tar.xz icons
 rm -rf icons
 
-cd themes/lrone
+cd lrone
 mkdir -p lrone1/layer_animating_icons/
 cp -r lrone_icons/miui_mod_icons/. lrone1/layer_animating_icons/
 cp config.xml lrone1/layer_animating_icons/config.xml
