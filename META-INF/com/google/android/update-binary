@@ -122,6 +122,7 @@ download() {
   [ $file_size ] || { echo "× 抱歉，在线资源临时维护中，请切换其他主题或稍后再试。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
   size1=`awk "BEGIN{print $file_size/1048576}"`
   echo "- 本次需下载 ${size1%.*} MB"
+  echo "- 在线资源更新时间： $mod_date"
   echo ""
   for i in `seq 0 1`; do
   {
@@ -155,6 +156,7 @@ download() {
   {
   if $download; then
     echo "- 下载成功！"
+    echo "---------------------------------------------"
     echo ""
   else
     echo "- 下载失败！\n- 请重新下载 ！"
