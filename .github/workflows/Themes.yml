@@ -38,4 +38,4 @@ jobs:
           destination_branch: 'main'
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
-          commit_message: '[release theme]'
+          commit_message: 'release theme'
