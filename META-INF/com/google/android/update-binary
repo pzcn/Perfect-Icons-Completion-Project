@@ -78,7 +78,7 @@ elif [ $VARIANT == 19 ]; then
     var_theme="lrone"
     MODAUTHOR1="@Conan @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
-    echo "- 已选择LRONE主题"
+    echo "- 已选择 LRONE 主题"
     download
     tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/lrone_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
@@ -89,12 +89,12 @@ elif [ $VARIANT == 20 ]; then
     var_theme="luck7"
     MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
-    echo "- 已选择Luck7主题"
+    echo "- 已选择 Luck7 主题"
     download
     tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/luck7_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
     cp -r $TMPDIR/icons/luck71/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 添加此主题。"
+    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 Luck7。\n- 感谢 @Eirperuier 为适配此主题做出的大量工作。"
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
@@ -203,9 +203,11 @@ mkdir -p $MODPATH
 print_modname
 on_install
 echo ""
-echo "- 注意"
-echo "- 仅在 MIUI经典主题 下有效"
-echo "- 请在 主题壁纸 中，切换回 MIUI经典 主题"
+echo "> 注意"
+echo "> 仅在 MIUI经典主题 下有效"
+echo "> 请在 主题壁纸 中，切换回 MIUI经典 主题"
+echo ""
+echo "> 切换本模块内的主题或者卸载模块后，建议在主题壁纸内重新应用MIUI默认主题。"
 echo ""
 echo "- 关注 Telegram 频道 @miuiicons 获得测试版本"
 echo "- 欢迎加入 Telegram 群组讨论参与开发"
