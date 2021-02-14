@@ -33,7 +33,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: 'output/*'
-          destination_repo: 'MIUI-Adapted-Icons-Complement-Project-CDN'
+          destination_repo: 'IconsCDN'
           destination_folder: './'
           destination_branch: 'main'
           user_email: 'pdzzzcn@gmail.com'
