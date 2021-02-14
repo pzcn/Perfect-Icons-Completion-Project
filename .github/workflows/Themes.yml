@@ -37,3 +37,4 @@ jobs:
           destination-github-username: 'pzcn'
           destination-repository-name: 'MIUI-Adapted-Icons-Complement-Project-CDN'
           user-email: pdzzzcn@gmail.com
+          target-branch: main
