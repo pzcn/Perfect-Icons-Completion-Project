@@ -24,6 +24,8 @@ jobs:
         run: |
           cp -r ./.github/config/* ./output
           cd output
+          mkdir -p .github/workflows
+          mv -f purge_cdn.yml .github/workflows
           echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./explore
           echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./lrone
           echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./explore
