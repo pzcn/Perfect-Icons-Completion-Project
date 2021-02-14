@@ -23,10 +23,11 @@ jobs:
       - name: export file size
         run: |
           cp -r ./.github/config/* ./output
-          echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./output/explore
-          echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./output/lrone
-          echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./output/explore
-          echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./output/lrone
+          cd output
+          echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./explore
+          echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./lrone
+          echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./explore
+          echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./lrone
 
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@master
