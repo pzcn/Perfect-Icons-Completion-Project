@@ -83,7 +83,18 @@ elif [ $VARIANT == 19 ]; then
     tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/lrone_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
     cp -r $TMPDIR/icons/lrone1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 大佬自动化绘制了1000+图标。"
+    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 自动化绘制了1000+图标。"
+elif [ $VARIANT == 20 ]; then
+    var_theme_name="Luck7"
+    var_theme="luck7"
+    MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ"
+    MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
+    echo "- 已选择LRONE主题"
+    download
+    tar -xf "$file" -C "$TMPDIR/" >&2
+    cp -r $TMPDIR/icons/luck7_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
+    cp -r $TMPDIR/icons/luck71/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 添加此主题。"
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
@@ -113,7 +124,7 @@ fi
 }
 
 download() {
-  #command -v $curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。/n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
+  command -v $curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。\n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
   [ "`$curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null&& exit 1; }
   $curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons.vercel.app/$var_theme"
   source $TMPDIR/$var_theme
