@@ -19,15 +19,9 @@ jobs:
         run: |
           chmod 755 ./.github/themes.sh
           ./.github/themes.sh
-
-      - name: export file size
-        run: |
           cp -r ./.github/config/* ./output
-          cd output
-          mkdir -p .github/workflows
-          mv -f main.yml .github/workflows
 
-      - name: Pushes test file
+      - name: Pushes files
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
@@ -38,4 +32,3 @@ jobs:
           destination_branch: 'main'
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
-          commit_message: 'release theme'
