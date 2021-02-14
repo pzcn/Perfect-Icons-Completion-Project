@@ -89,7 +89,7 @@ elif [ $VARIANT == 20 ]; then
     var_theme="luck7"
     MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
-    echo "- 已选择LRONE主题"
+    echo "- 已选择Luck7主题"
     download
     tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/luck7_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
@@ -168,7 +168,6 @@ download() {
   if $download; then
     echo "- 下载成功！"
     echo "---------------------------------------------"
-    echo ""
   else
     echo "- 下载失败！\n- 请重新下载 ！"
     rm -rf $TMPDIR
@@ -211,6 +210,7 @@ echo ""
 echo "- 关注 Telegram 频道 @miuiicons 获得测试版本"
 echo "- 欢迎加入 Telegram 群组讨论参与开发"
 echo ""
+echo "- 安装中..."
 echo "- 马上就好..."
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
   set_perm_recursive $MODPATH 0 0 0755 0644
