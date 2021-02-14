@@ -1,0 +1,39 @@
+name: Update Themes
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+    - '**.md'
+
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.event.head_commit.message, '[themes]') }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: |
+          chmod 755 ./.github/themes.sh
+          ./.github/themes.sh
+
+      - name: export file size
+        run: |
+          cp -r ./.github/config/* ./output
+          echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./config/explore
+          echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./config/lrone
+          echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./config/explore
+          echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./config/lrone
+
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@master
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'output'
+          destination-github-username: 'PedroZ_Action'
+          destination-repository-name: 'MIUI-Adapted-Icons-Complement-Project-CDN'
+          user-email: pdzzzcn@gmail.com
