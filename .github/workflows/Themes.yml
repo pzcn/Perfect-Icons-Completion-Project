@@ -41,3 +41,4 @@ jobs:
           destination-repository-name: 'MIUI-Adapted-Icons-Complement-Project-CDN'
           user-email: pdzzzcn@gmail.com
           target-branch: main
+          commit-message: '[update theme]'
