@@ -1,4 +1,4 @@
-name: Purge CDN
+name: Release
 on:
   push:
     branches: [ main ]
@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.event.head_commit.message, '[update theme]') }}
+    if: ${{ startsWith(github.event.head_commit.message, '[release theme]) }}
     steps:
       - name: Bump version and push tag
         id: tag_version
@@ -29,6 +29,9 @@ jobs:
           message: 'update theme config'
           add: "['lrone', 'explore']"
 
+      - name: sleep
+        run: sleep 10s
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
@@ -43,5 +46,5 @@ jobs:
 
       - name: Purge CDN
         run: |
-          curl https://purge.jsdelivr.net/gh/pzcn/IconsCDN@latest/lrone.tar.xz
-          curl https://purge.jsdelivr.net/gh/pzcn/IconsCDN@latest/lrone.tar.xz
+          curl https://purge.jsdelivr.net/gh/pzcn/IconsCDN@${{steps.tag_version.outputs.new_tag}}/lrone.tar.xz
+          curl https://purge.jsdelivr.net/gh/pzcn/IconsCDN@${{steps.tag_version.outputs.new_tag}}/lrone.tar.xz
