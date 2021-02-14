@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.event.head_commit.message, '[release theme]) }}
+    if: ${{ startsWith(github.event.head_commit.message, '[release theme]') }}
     steps:
       - name: Bump version and push tag
         id: tag_version
