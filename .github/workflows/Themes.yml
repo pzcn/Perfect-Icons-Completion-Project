@@ -31,14 +31,15 @@ jobs:
           echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./explore
           echo "mod_date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./lrone
 
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@master
+      - name: Pushes test file
+        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: 'output'
-          destination-github-username: 'pzcn'
-          destination-repository-name: 'MIUI-Adapted-Icons-Complement-Project-CDN'
-          user-email: pdzzzcn@gmail.com
-          target-branch: main
-          commit-message: '[release theme]'
+          source_file: 'output/*'
+          destination_repo: 'MIUI-Adapted-Icons-Complement-Project-CDN'
+          destination_folder: './'
+          destination_branch: 'main'
+          user_email: 'pdzzzcn@gmail.com'
+          user_name: 'pzcn'
+          commit_message: '[release theme]'
