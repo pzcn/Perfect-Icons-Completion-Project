@@ -113,7 +113,6 @@ download() {
   [ "`$curl -I -m 5 $URL -w %{http_code} | tail -n1`" == "200" ] || { echo "× 抱歉，在线资源暂不可用，请切换其他主题或稍后再试。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
   size1=`awk "BEGIN{print $file_size/1048576}"`
   echo "- 本次需下载 ${size1%.*} MB"
-  echo "- 在线资源更新时间： $mod_date"
   echo ""
   for i in `seq 0 1`; do
   {
