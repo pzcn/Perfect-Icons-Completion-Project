@@ -1,6 +1,7 @@
 #!/sbin/sh
 umask 022
 TMPDIR=/dev/tmp
+FAKEMODPATH=/$TMPDIR/modpath
 PERSISTDIR=/sbin/.magisk/mirror/persist
 rm -rf $TMPDIR 2>/dev/null
 mkdir -p $TMPDIR
@@ -15,36 +16,15 @@ print_modname() {
  echo "---------------------------------------------"
  echo "- MIUI完美图标补全计划"
  echo "- MIUI-Adapted-Icons-Complement-Project"
- echo ""
- echo "  888b     d888   888   888     888   888  "
- echo "  8888b   d8888   888   888     888   888"
- echo "  88888b.d88888   888   888     888   888"
- echo "  888Y88888P888   888   888     888   888"
- echo "  888 Y888P 888   888   888     888   888"
- echo "  888  Y8P  888   888   888     888   888"
- echo "  888   \"   888   888   Y88b. .d88P   888"
- echo "  888       888   888    \"Y88888P\"    888  "
- echo ""
- echo "  8888888"
- echo "    888"
- echo "    888"
- echo "    888   .d8888b .d88b.  88888b.  .d8888b"
- echo "    888  d88P\"   d88\"\"88b 888 \"88b 88K"
- echo "    888  888     888  888 888  888 \"Y8888b. "
- echo "    888  Y88b.   Y88..88P 888  888      X88 "
- echo "  8888888 \"Y8888P \"Y88P\"  888  888  88888P' "
- echo "---------------------------------------------"
 }
+
 on_install() {
   if [ $var_version -lt 10 ]; then 
     echo "- 您的 Android 版本不符合要求，即将退出安装。"
     rm -rf $TMPDIR
     exit 1
   elif [ $var_miui_version -ge 10 ]; then
-  echo "- 模块可以在您设备上运行，准备安装..."
-  echo "- 正在解压，请稍候..."
-  unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
-  tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
+  echo "- 您的设备符合安装条件，准备安装..."
 echo ""
   KEYSEL=$TMPDIR/key_selector
   chmod 755 $KEYSEL
@@ -70,31 +50,22 @@ elif [ $VARIANT == 18 ]; then
     MODAUTHOR2="@Eirperuier @Mastiff Li"
     echo "- 已选择探界主题"
     download
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    cp -r $TMPDIR/icons/explore_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
-    cp -r $TMPDIR/icons/explore1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
 elif [ $VARIANT == 19 ]; then
     var_theme_name="LRONE"
     var_theme="lrone"
     MODAUTHOR1="@Conan @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
-    echo "- 已选择 LRONE 主题"
+    echo "- 已选择LRONE主题"
     download
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    cp -r $TMPDIR/icons/lrone_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
-    cp -r $TMPDIR/icons/lrone1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
     NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 自动化绘制了1000+图标。"
 elif [ $VARIANT == 20 ]; then
     var_theme_name="Luck7"
     var_theme="luck7"
     MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ"
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
-    echo "- 已选择 Luck7 主题"
+    echo "- 已选择Luck7主题"
     download
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    cp -r $TMPDIR/icons/luck7_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
-    cp -r $TMPDIR/icons/luck71/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 Luck7。\n- 感谢 @Eirperuier 为适配此主题做出的大量工作。"
+    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 Luck7。\n- 感谢 @Eirperuier 添加此主题。"
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
@@ -107,25 +78,29 @@ fi
     echo ""
     echo "- 正在安装 $var_theme_name 并补全完美图标..."
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
-    mkdir -p $MODPATH/system/media/theme/miui_mod_icons/
-    mkdir -p $MODPATH/system/media/theme/default/
-    cp -rf $TMPDIR/icons/icons/* $MODPATH/system/media/theme/
-    cp -rf $TMPDIR/icons/$var_theme/default/* $MODPATH/system/media/theme/default/
+    unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
+    tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
+    mkdir -p $FAKEMODPATH/system/media/theme/miui_mod_icons/
+    mkdir -p $FAKEMODPATH/system/media/theme/default/
+    cp -rf $TMPDIR/icons/icons/* $FAKEMODPATH/system/media/theme/
+    cp -rf $TMPDIR/icons/$var_theme/default/* $FAKEMODPATH/system/media/theme/default/
     cd $TMPDIR/icons/0/
-    $zip -m -r $MODPATH/system/media/theme/default/icons *  >/dev/null
-    mv $MODPATH/system/media/theme/default/icons.zip $MODPATH/system/media/theme/default/icons
-    cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $MODPATH/system/media/theme/miui_mod_icons/
-    cp $TMPDIR/module.prop $MODPATH/module.prop
+    $zip -m -r $FAKEMODPATH/system/media/theme/default/icons *  >/dev/null
+    mv $FAKEMODPATH/system/media/theme/default/icons.zip $FAKEMODPATH/system/media/theme/default/icons
+    cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
+    cp $TMPDIR/module.prop $FAKEMODPATH/module.prop
+    mv -f $FAKEMODPATH/. $MODPATH/.
   else
     echo "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
+    rm -rf $FAKEMODPATH
     exit 1
   fi
 }
 
 download() {
-  command -v $curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。\n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
-  [ "`$curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null&& exit 1; }
+  command -v $curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。\n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null && exit 1; }
+  [ "`$curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null && exit 1; }
   $curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons.vercel.app/$var_theme"
   source $TMPDIR/$var_theme
   file=$TMPDIR/$var_theme.tar.xz
@@ -144,7 +119,7 @@ download() {
   var_wait=true
   download=false
   size=0
-    step=5
+    step=3
     until [[ $var_wait == false ]]; do
       [ -f $file ] && var_wait=false
     done
@@ -169,13 +144,15 @@ download() {
     echo "- 下载成功！"
     echo "---------------------------------------------"
   else
-    echo "- 下载失败！\n- 请重新下载 ！"
+    echo "× 下载失败！\n- 请重新下载 ！"
     rm -rf $TMPDIR
     exit 1
   fi
   }
+    tar -xf "$file" -C "$TMPDIR/" >&2
+    cp -r $TMPDIR/icons/${var_theme}_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
+    cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
 }
-
 require_new_magisk() {
   echo
   echo "- 当前模块不支持此Magisk版本"
@@ -204,10 +181,8 @@ print_modname
 on_install
 echo ""
 echo "> 注意"
-echo "> 仅在 MIUI经典主题 下有效"
-echo "> 请在 主题壁纸 中，切换回 MIUI经典 主题"
-echo ""
-echo "> 切换本模块内的主题或者卸载模块后，建议在主题壁纸内重新应用MIUI默认主题。"
+echo "> 仅在MIUI经典主题下有效"
+echo "> 安装、卸载模块或切换本模块内的主题后，建议在主题壁纸内重新应用MIUI默认主题。"
 echo ""
 echo "- 关注 Telegram 频道 @miuiicons 获得测试版本"
 echo "- 欢迎加入 Telegram 群组讨论参与开发"
