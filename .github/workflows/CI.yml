@@ -40,7 +40,7 @@ jobs:
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          FILE: ./MIUI_Icons-${{env.date}}.zip
+          FILE: ./MIUI_Icons-$(echo ${{ github.event.head_commit.id }}.zip
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
