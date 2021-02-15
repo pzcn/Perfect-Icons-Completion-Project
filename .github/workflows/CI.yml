@@ -16,34 +16,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Get Date'
-        run: echo "date=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d')" >> $GITHUB_ENV
-
       - name: Build
         run: |
           chmod 755 ./.github/build.sh
           ./.github/build.sh
-          echo "version=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> ./module.prop
+          echo version=$(echo ${{ github.event.head_commit.id }} | head -c 10) >> ./module.prop
 
       - name: Zip Folder
         run: |
           XZ_OPT=-9 tar cJf icons.tar.xz ./icons
-          zip -r MIUI_Icons-${{env.date}}.zip ./common
-          zip -r MIUI_Icons-${{env.date}}.zip ./META-INF
-          zip -r MIUI_Icons-${{env.date}}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{env.date}}.zip ./module.prop
+          zip -r MIUI_Icons-$(echo ${{ github.event.head_commit.id }} | head -c 10).zip ./common
+          zip -r MIUI_Icons-$(echo ${{ github.event.head_commit.id }} | head -c 10).zip ./META-INF
+          zip -r MIUI_Icons-$(echo ${{ github.event.head_commit.id }} | head -c 10).zip ./icons.tar.xz
+          zip -r MIUI_Icons-$(echo ${{ github.event.head_commit.id }} | head -c 10).zip ./module.prop
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          path: ./MIUI_Icons-${{env.date}}.zip
-
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        if: ${{ startsWith(github.event.head_commit.message, '[lrone]') }}
-        with:
-          name: lrone-${{env.size}}
-          path: ./themes/lrone.tar.xz
+          path: ./MIUI_Icons-$(echo ${{ github.event.head_commit.id }} | head -c 10).zip
 
       - name: Post to channel
         if: ${{ !startsWith(github.event.head_commit.message, '[skip post]') }}
