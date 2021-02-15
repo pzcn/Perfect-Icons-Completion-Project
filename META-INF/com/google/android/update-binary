@@ -80,6 +80,11 @@ fi
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
+    if $need_patch; then
+    tar -xf "$file" -C "$TMPDIR/" >&2
+    cp -r $TMPDIR/icons/${var_theme}_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
+    cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+    fi
     mkdir -p $FAKEMODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $FAKEMODPATH/system/media/theme/default/
     cp -rf $TMPDIR/icons/icons/* $FAKEMODPATH/system/media/theme/
@@ -148,9 +153,7 @@ download() {
     exit 1
   fi
   }
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    cp -r $TMPDIR/icons/${var_theme}_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
-    cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+need_pacth=true
 }
 require_new_magisk() {
   echo
