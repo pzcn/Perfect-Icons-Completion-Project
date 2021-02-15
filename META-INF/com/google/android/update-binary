@@ -89,11 +89,9 @@ fi
     mv $FAKEMODPATH/system/media/theme/default/icons.zip $FAKEMODPATH/system/media/theme/default/icons
     cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
     cp $TMPDIR/module.prop $FAKEMODPATH/module.prop
-    mv -f $FAKEMODPATH/. $MODPATH/.
   else
     echo "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
-    rm -rf $FAKEMODPATH
     exit 1
   fi
 }
@@ -189,6 +187,7 @@ echo "- 欢迎加入 Telegram 群组讨论参与开发"
 echo ""
 echo "- 安装中..."
 echo "- 马上就好..."
+cp -rf $FAKEMODPATH/. $MODPATH
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
   set_perm_recursive $MODPATH 0 0 0755 0644
 fi
