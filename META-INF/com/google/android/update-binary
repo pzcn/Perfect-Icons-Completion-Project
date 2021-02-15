@@ -16,6 +16,7 @@ print_modname() {
  echo "---------------------------------------------"
  echo "- MIUI完美图标补全计划"
  echo "- MIUI-Adapted-Icons-Complement-Project"
+ echo ""
 }
 
 on_install() {
