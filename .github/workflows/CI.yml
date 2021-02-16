@@ -21,7 +21,7 @@ jobs:
           chmod 755 ./.github/build.sh
           ./.github/build.sh
           echo version=$(echo ${{ github.event.head_commit.id }} | head -c 10) >> $GITHUB_ENV
-          echo ${{ env.version }} >> ./module.prop
+          echo version=${{ env.version }} >> ./module.prop
 
       - name: Zip Folder
         run: |
