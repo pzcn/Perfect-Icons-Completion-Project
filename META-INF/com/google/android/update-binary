@@ -26,7 +26,7 @@ on_install() {
     exit 1
   elif [ $var_miui_version -ge 10 ]; then
   echo "- 您的设备符合安装条件，准备安装..."
-echo ""
+  echo ""
   KEYSEL=$TMPDIR/key_selector
   chmod 755 $KEYSEL
   zip=$TMPDIR/zip
@@ -81,19 +81,28 @@ fi
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
-    if $need_patch; then
     tar -xf "$file" -C "$TMPDIR/" >&2
     cp -r $TMPDIR/icons/${var_theme}_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
     cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+  if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
+    addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
+  else
+    if [ -d "$NVBASE/modules/MIUIiconsplus_addon" ];then
+    addon_path=$NVBASE/modules/MIUIiconsplus_addon
     fi
+  fi
     mkdir -p $FAKEMODPATH/system/media/theme/miui_mod_icons/
     mkdir -p $FAKEMODPATH/system/media/theme/default/
     cp -rf $TMPDIR/icons/icons/* $FAKEMODPATH/system/media/theme/
     cp -rf $TMPDIR/icons/$var_theme/default/* $FAKEMODPATH/system/media/theme/default/
+    cp -rf $addon_path/layer_animating_icons/* $TMPDIR/icons/0/layer_animating_icons/
     cd $TMPDIR/icons/0/
     $zip -m -r $FAKEMODPATH/system/media/theme/default/icons *  >/dev/null
     mv $FAKEMODPATH/system/media/theme/default/icons.zip $FAKEMODPATH/system/media/theme/default/icons
     cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
+    cp -rf $addon_path/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
+    sed -i '/^version/d' $FAKEMODPATH/module.propp
+    echo "version=${ver}_mod" >> $FAKEMODPATH/module.prop
     cp $TMPDIR/module.prop $FAKEMODPATH/module.prop
   else
     echo "- 你的系统不符合要求，即将退出安装。"
@@ -153,8 +162,8 @@ download() {
     exit 1
   fi
   }
-need_pacth=true
 }
+
 require_new_magisk() {
   echo
   echo "- 当前模块不支持此Magisk版本"
@@ -177,6 +186,7 @@ MODID=`grep_prop id $TMPDIR/module.prop`
 MODPATH=$MODULEROOT/$MODID
 MODNAME=`grep_prop name $TMPDIR/module.prop`
 MODVERSION=`grep_prop version $TMPDIR/module.prop`
+ver=`grep_prop ver $TMPDIR/module.prop`
 rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
 print_modname

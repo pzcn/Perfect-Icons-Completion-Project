@@ -20,11 +20,12 @@ jobs:
         run: |
           chmod 755 ./.github/build.sh
           ./.github/build.sh
-          echo version=$(echo ${{ github.event.head_commit.id }} | head -c 10) >> $GITHUB_ENV
+          echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
 
       - name: Zip Folder
         run: |
           echo "version=${{ env.version }}" >> ./module.prop
+          echo "ver=${{ env.version }}" >> ./module.prop
           XZ_OPT=-9 tar cJf icons.tar.xz ./icons
           zip -r MIUI_Icons-${{ env.version }}.zip ./common
           zip -r MIUI_Icons-${{ env.version }}.zip ./META-INF
