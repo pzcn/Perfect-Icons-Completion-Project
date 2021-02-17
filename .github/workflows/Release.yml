@@ -58,13 +58,13 @@ jobs:
      ## 上传附件
       - name: Upload Release
         uses: softprops/action-gh-release@v1
-        name: ${{env.date}}_${{steps.tag_version.outputs.new_tag}}
-        tag_name: ${{steps.tag_version.outputs.new_tag}}
         with:
           files: |
             ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
             ./.github/MIUI_Icons_附加模块.zip
             ./.github/其他图标样式存档.zip
+          name: ${{env.date}}_${{steps.tag_version.outputs.new_tag}}
+          tag_name: ${{steps.tag_version.outputs.new_tag}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
