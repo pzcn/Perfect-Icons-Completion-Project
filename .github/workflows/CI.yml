@@ -11,8 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: |
-      ! contains(github.event.head_commit.message, '[skip ci]')
-      ! contains(github.event.head_commit.message, '[release]')
+      contains(github.event.head_commit.message, '[skip ci]') == false
+      contains(github.event.head_commit.message, '[Release]') == false
     steps:
       - uses: actions/checkout@v2
         with:
