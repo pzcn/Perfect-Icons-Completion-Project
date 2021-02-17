@@ -14,9 +14,11 @@ var_version="`getprop ro.build.version.release`"
 var_miui_version="`getprop ro.miui.ui.version.code`"
 print_modname() {
  echo "---------------------------------------------"
- echo "- MIUI完美图标补全计划"
- echo "- MIUI-Adapted-Icons-Complement-Project"
+ echo "  MIUI完美图标补全计划"
+ echo "  MIUI-Adapted-Icons-Complement-Project"
  echo ""
+ echo "  Powered by Magisk"
+ echo "---------------------------------------------"
 }
 
 on_install() {

@@ -11,9 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.head_commit.message, '[skip ci]') == false ||
-      contains(github.event.head_commit.message, '[Release]') == false ||
-      contains(github.event.head_commit.message, '[test]') == false
+      contains(github.event.head_commit.message, '[skip ci]') == false 
     steps:
       - uses: actions/checkout@v2
         with:
@@ -41,7 +39,7 @@ jobs:
           path: ./MIUI_Icons-${{ env.version }}.zip
 
       - name: Post to channel
-        if: ${{ !startsWith(github.event.head_commit.message, '[skip post]') }}
+        if: contains(github.event.head_commit.message, '[skip post]') == false
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
