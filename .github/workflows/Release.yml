@@ -61,8 +61,8 @@ jobs:
         with:
           files: |
             ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
-            ./.github/MIUI_Icons_附加模块.zip
-            ./.github/其他图标样式存档.zip
+            ./.github/MIUI_Icons_Addon.zip
+            ./.github/Icons_Archiving.zip
           name: ${{env.date}}_${{steps.tag_version.outputs.new_tag}}
           tag_name: ${{steps.tag_version.outputs.new_tag}}
         env:
