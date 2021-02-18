@@ -159,7 +159,6 @@ download() {
       }&
       task2=$!
     elif [[ $i == 2 ]]; then
-    echo 162
       var_wait=true
       until [[ $var_wait == false ]]; do
       [ -f $file ] && var_wait=false
