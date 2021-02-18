@@ -128,12 +128,15 @@ download() {
   size1=`awk "BEGIN{print $file_size/1048576}"`
   echo "- 本次需下载 ${size1%.*} MB"
   echo ""
-  for i in `seq 0 1`; do
-  {
+  for i in `seq 0 2`; do
   if [[ $i == 0 ]]; then
+  {
   echo "- 正在获取下载地址..."
   $curl -skLJo "$file" "$URL"
+  }&
+  task1=$!
   elif [[ $i == 1 ]]; then
+  {
   var_wait=true
   download=false
   size=0
@@ -153,16 +156,40 @@ download() {
       echo "- 已下载 $varm MB -- 100%" && download=true
       fi
       done
+      }&
+      task2=$!
+    elif [[ $i == 2 ]]; then
+    echo 162
+      var_wait=true
+      until [[ $var_wait == false ]]; do
+      [ -f $file ] && var_wait=false
+      done
+      sleep 5
+      var1=`ls -l $file | $busybox awk '{print $5}'`
+      timeout_size1=`expr $file_size / 24`
+      timeout_size2=`expr $file_size / 12`
+      if [[ $var1 -lt $timeout_size1 ]] ; then
+      kill $task1
+      kill $task2
+      echo "× 检测到您的下载速度缓慢，预计2分钟内无法下载完毕，已停止下载。"
+      echo "× 请切换网络或者使用代理后重试。"
+      rm -rf $TMPDIR
+      exit 1
+      elif [[ $var1 -lt $timeout_size2 ]] ; then
+      echo "! 检测到您的下载速度较慢，预计2分钟内可下载完成。"
+      echo "! 请您耐心等待。"
       fi
-    }&
+      fi
  done
- wait
+ wait $task1
+ wait $task2
   {
   if $download; then
     echo "- 下载成功！"
     echo "---------------------------------------------"
   else
-    echo "× 下载失败！\n- 请重新下载 ！"
+    echo "× 未知原因导致下载失败"
+    echo "× 请重新下载"
     rm -rf $TMPDIR
     exit 1
   fi
