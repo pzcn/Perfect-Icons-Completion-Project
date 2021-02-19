@@ -62,5 +62,5 @@ jobs:
             ChangeLog:
             *${{ github.event.head_commit.message }}* by ${{ github.event.head_commit.author.name }}
             See commit detail [here](${{ github.event.head_commit.url }})
-            Get latest CI direct Link [here]( https://miuiicons.vercel.app/CI/MIUI_Icons_CI_Latest.zip )
+            Get latest CI direct Link [here](https://miuiicons.vercel.app/CI/MIUI_Icons_CI_Latest.zip)
           document: ./MIUI_Icons-${{ env.version }}.zip
