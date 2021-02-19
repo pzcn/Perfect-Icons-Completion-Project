@@ -49,20 +49,18 @@ jobs:
           destination_branch: 'main'
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
-
-      - name: Post to channel
+          
+      - name: Send commit to telegram
+        uses: appleboy/telegram-action@master
         if: contains(github.event.head_commit.message, '[skip post]') == false
-        env:
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          FILE: ./MIUI_Icons-${{ env.version }}.zip
-          COMMIT_MESSAGE: |+
+        with:
+          to: ${{ secrets.CHANNEL_ID }}
+          token: ${{ secrets.BOT_TOKEN }}
+          format: markdown
+          message: |+
             New CI version
-            ChangeLog
+            ChangeLog:
             *${{ github.event.head_commit.message }}* by ${{ github.event.head_commit.author.name }}
             See commit detail [here](${{ github.event.head_commit.url }})
-            Get latest CI direct Link [here](https://miuiicons.vercel.app/CI/MIUI_Icons_CI_Latest.zip)
-        run: |
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
-          
+            Get latest CI direct Link [here]( https://miuiicons.vercel.app/CI/MIUI_Icons_CI_Latest.zip )
+          document: ./MIUI_Icons-${{ env.version }}.zip
