@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="268" height="268" screenWidth="1080" resDensity="480" scaleByDensity="false">
+    <ExternalCommands>
+        <Trigger action="init,present,back_home_cancel" >
+            <VariableCommand name="useQuietImage" expression="1"/>
+            <AnimationCommand target="iconAni" targetIndex="0" command="play(1000,1000)"/>
+        </Trigger>
+    	<Trigger action="back_home_start">
+            <VariableCommand name="useQuietImage" expression="0"/>
+            <AnimationCommand target="iconAni" targetIndex="0" command="play(0,0)"/>
+    	</Trigger>
+        <Trigger action="back_home_finish">
+            <VariableCommand name="useQuietImage" expression="0"/>
+            <AnimationCommand target="iconAni" targetIndex="0" command="play(0,1000)"/>
+            <AnimationCommand target="panel_framerate_controller" command="play"/>
+        </Trigger>
+    </ExternalCommands>
+	<FramerateController name="panel_framerate_controller" initPause="true" loop="false">
+        <ControlPoint frameRate="0" time="0"/>
+        <ControlPoint frameRate="60" time="1"/>
+        <ControlPoint frameRate="60" time="2500"/>
+        <ControlPoint frameRate="0" time="2501"/>
+    </FramerateController>
+		<Var name="iconAni">
+			<VariableAnimation name="iconAnimation" initPause="true" loop="false">
+				<AniFrame value="0" time="0" easeType="BackEaseOut(1.6)"/>
+				<AniFrame value="1" time="1000"/>
+				<Triggers>
+					<Trigger action="end" condition="#iconAnimation.current_frame == 1000">
+						<VariableCommand name="useQuietImage" expression="1"/>
+					</Trigger>
+				</Triggers>
+			</VariableAnimation>
+		</Var>
+    <!--
+     scale="2-#iconAni" rotation="180-180*#iconAni"
+    <Image x="134" y="134" pivotX="134" pivotY="134" align="center" alignV="center" xfermode="dst_atop"/>
+    -->
+    <Group w="268" h="268" clip="true" layered="true">
+	<Image name="image1" x="134" y="-40+174*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share8.png" />
+    <Image name="image1" x="134" y="-10+144*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share7.png" />
+    <Image name="image1" x="134" y="20+114*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share6.png" />
+    <Image name="image1" x="134" y="50+84*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share5.png" />
+    <Image name="image1" x="134" y="50+84*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share4.png" />
+    <Image name="image1" x="134" y="20+114*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share3.png" />
+    <Image name="image1" x="134" y="-10+144*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share2.png" />
+    <Image name="image1" x="134" y="-40+174*#iconAni" pivotX="134" pivotY="134" align="center" alignV="center"  alpha="255*#iconAni" src="com.hengye.share1.png" />
+        
+    <Image x="134" y="134" pivotX="134" pivotY="134" align="center" alignV="center" xfermode="dst_atop" src="com.hengye.share.png"/>
+</Group>
+</Icon>
