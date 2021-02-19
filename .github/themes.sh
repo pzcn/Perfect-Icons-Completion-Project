@@ -65,9 +65,10 @@ for dir in ${DIR};do
 		cd ..
 	fi
 done
-cd ../../..
+cd ../..
 mv -f  layer_animating_icons luck71
-rm -rf ./luck7/luck71/layer_animating_icons/config.xml
+rm -rf luck7/luck71/layer_animating_icons/config.xml
+cd ..
 mv luck7 icons
 XZ_OPT=-9 tar cJf luck7.tar.xz icons
 rm -rf icons
