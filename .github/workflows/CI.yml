@@ -32,11 +32,23 @@ jobs:
           zip -r MIUI_Icons-${{ env.version }}.zip ./META-INF
           zip -r MIUI_Icons-${{ env.version }}.zip ./icons.tar.xz
           zip -r MIUI_Icons-${{ env.version }}.zip ./module.prop
-
+          cp MIUI_Icons-${{ env.version }}.zip MIUI_Icons_CI_latest.zip
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
           path: ./MIUI_Icons-${{ env.version }}.zip
+
+      - name: Pushes files
+        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source_file: 'MIUI_Icons_CI_latest.zip'
+          destination_repo: 'pzcn/IconsCDN'
+          destination_folder: 'CI'
+          destination_branch: 'main'
+          user_email: 'pdzzzcn@gmail.com'
+          user_name: 'pzcn'
 
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
@@ -44,7 +56,12 @@ jobs:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           FILE: ./MIUI_Icons-${{ env.version }}.zip
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_MESSAGE: |+
+          New CI version
+          ChangeLog:
+          *${{ github.event.head_commit.message }}* by ${{ github.event.head_commit.author.name }}
+          See commit detail [here](${{ github.event.head_commit.url }})
+          Get latest CI direct Link [here](https://miuiicons.vercel.app/CI/MIUI_Icons_CI_Latest.zip)
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
           curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
