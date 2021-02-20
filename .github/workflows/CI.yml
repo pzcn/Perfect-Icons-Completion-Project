@@ -56,7 +56,7 @@ jobs:
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          FILE: 
+          FILE: ./MIUI_Icons-${{ env.version }}.zip
           COMMIT_MESSAGE: |+
             New CI version
             ChangeLog:
