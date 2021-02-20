@@ -33,6 +33,7 @@ jobs:
           zip -r MIUI_Icons-${{ env.version }}.zip ./icons.tar.xz
           zip -r MIUI_Icons-${{ env.version }}.zip ./module.prop
           cp MIUI_Icons-${{ env.version }}.zip MIUI_Icons_CI_latest.zip
+          pwd
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
