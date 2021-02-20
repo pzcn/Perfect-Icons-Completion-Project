@@ -64,4 +64,4 @@ jobs:
             Get latest CI direct Link [here](https://miuiicons.vercel.app/CI/MIUI_Icons_CI_Latest.zip)
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v %22https%3a%2f%2fapi.telegram.org%2fbot%24%7bBOT_TOKEN%7d%2fsendMediaGroup%3fchat_id%3d%24%7bCHANNEL_ID%7d%26media%3d%5b%7b%22type%22%3a%22document%22%2c+%22media%22%3a%22attach%3a%2f%2frelease%22%2c%22caption%22%3a%24%7bESCAPED%7d%7d%2c+%22parse_mode%22%3a%22markdownv2%22%5d%22++-F+release%3d%22%40%24FILE%22
+          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22parse_mode%22:%22markdownv2%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
