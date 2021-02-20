@@ -56,11 +56,11 @@ jobs:
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          FILE: /home/runner/work/MIUI-Adapted-Icons-Complement-Project/MIUI-Adapted-Icons-Complement-Project/MIUI_Icons-${{ env.version }}.zip
+          FILE: 
           COMMIT_MESSAGE: |+
             New CI version
             ChangeLog:
             *${{ github.event.head_commit.message }}* by ${{ github.event.head_commit.author.name }}
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v -F "chat_id=${CHANNEL_ID}" -F document="@$FILE" -F "caption=${ESCAPED}" -F "parse_mode=markdownv2" https://api.telegram.org/bot${BOT_TOKEN}/sendDocument
+          curl -v -F "chat_id=${CHANNEL_ID}" -F document="@/home/runner/work/MIUI-Adapted-Icons-Complement-Project/MIUI-Adapted-Icons-Complement-Project/MIUI_Icons-${{ env.version }}.zip" -F "caption=${ESCAPED}" -F "parse_mode=markdownv2" https://api.telegram.org/bot${BOT_TOKEN}/sendDocument
