@@ -34,17 +34,17 @@ jobs:
           zip -r MIUI_Icons-${{ env.version }}.zip ./META-INF
           zip -r MIUI_Icons-${{ env.version }}.zip ./icons.tar.xz
           zip -r MIUI_Icons-${{ env.version }}.zip ./module.prop
-          cp MIUI_Icons-${{ env.version }}.zip MIUI_Icons_CI_latest.zip
+          mkdir push
+          cp MIUI_Icons-${{ env.version }}.zip ./push/MIUI_Icons_CI_latest.zip
           cp MIUI_Icons_CI_latest.mtz MIUI_Icons-${{ env.version }}.mtz
+          cp MIUI_Icons_CI_latest.mtz ./push/MIUI_Icons_CI_latest.mtz
 
       - name: Pushes files
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: |
-            'MIUI_Icons_CI_latest.zip'
-            'MIUI_Icons_CI_latest.mtz'
+          source_file: 'push/*'
           destination_repo: 'pzcn/IconsCDN'
           destination_folder: 'CI'
           destination_branch: 'main'
