@@ -54,7 +54,7 @@ jobs:
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
         env:
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MODULE: ./MIUI_Icons-${{ env.version }}.zip
           COMMIT_MESSAGE: |+
