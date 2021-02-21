@@ -56,7 +56,7 @@ jobs:
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          path: ./MIUI_Icons-${{ env.version }}.zip
+          MODULE: ./MIUI_Icons-${{ env.version }}.zip
           COMMIT_MESSAGE: |+
             New CI version
             ${{ github.event.head_commit.message }}
@@ -65,14 +65,14 @@ jobs:
             中国大陆区域无法保证连通性
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$FILE"
+          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$MODULE"
 
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          path: ./MIUI_Icons-${{ env.version }}.mtz
+          MTZ: ./MIUI_Icons-${{ env.version }}.mtz
           COMMIT_MESSAGE: |+
             New Mtz CI version 
             ${{ github.event.head_commit.message }}
@@ -81,4 +81,4 @@ jobs:
             中国大陆区域无法保证连通性
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://mtz%22,%22caption%22:${ESCAPED}%7D%5D"  -F mtz="@$FILE"
+          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://mtz%22,%22caption%22:${ESCAPED}%7D%5D"  -F mtz="@$MTZ"
