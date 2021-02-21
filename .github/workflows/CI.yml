@@ -22,6 +22,8 @@ jobs:
           chmod 755 ./.github/build.sh
           ./.github/build.sh
           echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
+          chmod 755 ./.github/mtz.sh
+          ./.github/mtz.sh
 
       - name: Zip Folder
         run: |
@@ -33,18 +35,16 @@ jobs:
           zip -r MIUI_Icons-${{ env.version }}.zip ./icons.tar.xz
           zip -r MIUI_Icons-${{ env.version }}.zip ./module.prop
           cp MIUI_Icons-${{ env.version }}.zip MIUI_Icons_CI_latest.zip
-          pwd
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          path: ./MIUI_Icons-${{ env.version }}.zip
+          cp MIUI_Icons_CI_latest.mtz MIUI_Icons-${{ env.version }}.mtz
 
       - name: Pushes files
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'MIUI_Icons_CI_latest.zip'
+          source_file: |
+            'MIUI_Icons_CI_latest.zip'
+            'MIUI_Icons_CI_latest.mtz'
           destination_repo: 'pzcn/IconsCDN'
           destination_folder: 'CI'
           destination_branch: 'main'
@@ -56,7 +56,6 @@ jobs:
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          FILE: ./MIUI_Icons-${{ env.version }}.zip
           COMMIT_MESSAGE: |+
             New CI version
             ${{ github.event.head_commit.message }}
@@ -64,5 +63,7 @@ jobs:
             最新CI直链：https://miuiicons.vercel.app/CI/MIUI_Icons_CI_latest.zip
             中国大陆区域无法保证连通性
         run: |
+          export module=$(find ./ -name "MIUI_Icons-${{ env.version }}.zip")
+          export mtz=$(find ./ -name "MIUI_Icons-${{ env.version }}.mtz")
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
+          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22%7D,%7B%22type%22:%22document%22,%20%22media%22:%22attach://mtz%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$module" -F mtz="@$mtz"
