@@ -37,8 +37,9 @@ on_install() {
   chmod 755 $curl
   REPLACE="/system/media/theme/miui_mod_icons"
   echo "- 除MIUI经典主题外,其他主题需要联网在线下载资源"
-  $KEYSEL
-  VARIANT=$?
+  #$KEYSEL
+  #VARIANT=$?
+  VARIANT=17
   echo ""
 if [ $VARIANT == 17 ]; then 
     var_theme_name="MIUI经典主题"
@@ -83,30 +84,31 @@ fi
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    cp -r $TMPDIR/icons/${var_theme}_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
-    cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-  if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
-    addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
-    echo "- 检测到附加模块，正在导入..."
-  else
-    if [ -d "$NVBASE/modules/MIUIiconsplus_addon" ];then
-    addon_path=$NVBASE/modules/MIUIiconsplus_addon
-    echo "- 检测到附加模块，正在导入..."
-    fi
-  fi
-    mkdir -p $FAKEMODPATH/system/media/theme/miui_mod_icons/
+  #  tar -xf "$file" -C "$TMPDIR/" >&2
+  #  cp -r $TMPDIR/icons/${var_theme}_icons/miui_mod_icons/. $TMPDIR/icons/icons/miui_mod_icons/
+  #  cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
+  #if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
+  #  addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
+  #  echo "- 检测到附加模块，正在导入..."
+  #  sed -i '/^version/d' $TMPDIR/module.prop
+  #  echo "version=${ver}_mod" >> $TMPDIR/module.prop
+ # else
+ #   if [ -d "$NVBASE/modules/MIUIiconsplus_addon" ];then
+ #   addon_path=$NVBASE/modules/MIUIiconsplus_addon
+  #  echo "- 检测到附加模块，正在导入..."
+ #   sed -i '/^version/d' $TMPDIR/module.prop
+ #   echo "version=${ver}_mod" >> $TMPDIR/module.prop
+  #  fi
+ # fi
     mkdir -p $FAKEMODPATH/system/media/theme/default/
-    cp -rf $TMPDIR/icons/icons/* $FAKEMODPATH/system/media/theme/
-    cp -rf $TMPDIR/icons/$var_theme/default/* $FAKEMODPATH/system/media/theme/default/
-    cp -rf $addon_path/layer_animating_icons/* $TMPDIR/icons/0/layer_animating_icons/
-    cd $TMPDIR/icons/0/
-    $zip -m -r $FAKEMODPATH/system/media/theme/default/icons *  >/dev/null
-    mv $FAKEMODPATH/system/media/theme/default/icons.zip $FAKEMODPATH/system/media/theme/default/icons
-    cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
-    cp -rf $addon_path/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
-    sed -i '/^version/d' $TMPDIR/module.prop
-    echo "version=${ver}_mod" >> $TMPDIR/module.prop
+    cp -rf $TMPDIR/mtz/icons $FAKEMODPATH/system/media/theme/default/
+   # cp -rf $TMPDIR/icons/$var_theme/default/* $FAKEMODPATH/system/media/theme/default/
+   # cp -rf $addon_path/layer_animating_icons/* $TMPDIR/icons/0/layer_animating_icons/
+   # cd $TMPDIR/icons/0/
+   # $zip -m -r $FAKEMODPATH/system/media/theme/default/icons *  >/dev/null
+   ## mv $FAKEMODPATH/system/media/theme/default/icons.zip $FAKEMODPATH/system/media/theme/default/icons
+   # cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
+   # cp -rf $addon_path/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
     cp $TMPDIR/module.prop $FAKEMODPATH/module.prop
   else
     echo "- 你的系统不符合要求，即将退出安装。"
