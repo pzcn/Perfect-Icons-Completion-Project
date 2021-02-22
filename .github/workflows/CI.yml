@@ -25,7 +25,6 @@ jobs:
 
       - name: Zip Folder
         run: |
-          cp ./mtz/icons ./icons/
           echo "version=${{ env.version }}" >> ./module.prop
           echo "ver=${{ env.version }}" >> ./module.prop
           XZ_OPT=-9 tar cJf icons.tar.xz ./mtz/icons
