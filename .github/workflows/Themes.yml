@@ -17,15 +17,15 @@ jobs:
 
       - name: Build
         run: |
-          cd themes/explore
+          cd ./themes/explore
           XZ_OPT=-9 tar cJf explore.tar.xz *
           cd ../..
           
-          cd themes/lrone
+          cd ./themes/lrone
           XZ_OPT=-9 tar cJf lrone.tar.xz *
           cd ../..
           
-          cd themes/luck7
+          cd ./themes/luck7
           XZ_OPT=-9 tar cJf luck7.tar.xz *
           cd ../..
 
