@@ -38,8 +38,11 @@ jobs:
         run: |
           chmod 755 ./.github/build.sh
           ./.github/build.sh
+          chmod 755 ./.github/mtz.sh
+          ./.github/mtz.sh
           echo "version=${{steps.tag_version.outputs.new_tag}}" >> ./module.prop
           echo "ver=${{steps.tag_version.outputs.new_tag}}" >> ./module.prop
+          cp MIUI_Icons_CI_latest.mtz MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.mtz
 
       - name: Zip Folder
         run: |
@@ -54,6 +57,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
+            ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.mtz
             ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
             ./.github/MIUI_Icons_Addon.zip
             ./.github/Icons_Archiving.zip
@@ -62,14 +66,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          path: ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
-
       - name: Post to channel
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          FILE: |
+            ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.mtz
+          COMMIT_MESSAGE: |+
+            ${{env.date}}发布${{steps.tag_version.outputs.new_tag}}版本mtz主题
+            更新内容：
+            ${{ github.event.head_commit.message }}
+        run: |
+          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
+          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
+          
+      - name: Post to channel
+        env:
+          CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           FILE: |
             ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
