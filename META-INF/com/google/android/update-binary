@@ -9,6 +9,7 @@ LATESTARTSERVICE=true
 PROPFILE=true
 OUTFD=$2
 ZIPFILE=$3
+need_patch=false
 unzip -oj "$ZIPFILE" module.prop 'common/*' -d $TMPDIR >&2
 var_version="`getprop ro.build.version.release`"
 var_miui_version="`getprop ro.miui.ui.version.code`"
@@ -83,12 +84,8 @@ fi
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
-    mv mtz/icons icons.zip
-    tar -xf "$file" -C "$TMPDIR/" >&2
-    mv icons res/drawable-xxhdpi
-    zip -d icons.zip layer_animating_icons/*
-    zip -rf icons.zip layer_animating_icons
-    zip -rf icons.zip res
+    mv $TMPDIR/mtz/icons icons.zip
+    [ need_patch == true ] && patch
   #  cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
   #if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
   #  addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
@@ -119,11 +116,19 @@ fi
     exit 1
   fi
 }
+patch(){
+	  cd $TMPDIR
+    tar -xf "$file" -C "$TMPDIR/" >&2
+    mv icons/* res/drawable-xxhdpi
+    $zip -d icons.zip layer_animating_icons/* >&2
+    $zip -rf icons.zip layer_animating_icons >&2
+    $zip -rf icons.zip res >&2
+}
 
 download() {
   command -v $curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。\n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null && exit 1; }
   [ "`$curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null && exit 1; }
-  $curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons.vercel.app/$var_theme"
+  $curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons.vercel.app/${var_theme}.ini"
   source $TMPDIR/$var_theme
   file=$TMPDIR/$var_theme.tar.xz
   echo "- 准备联网下载$var_theme_name主题资源... "
@@ -191,6 +196,7 @@ download() {
   if $download; then
     echo "- 下载成功！"
     echo "---------------------------------------------"
+    need_patch=true
   else
     echo "× 未知原因导致下载失败"
     echo "× 请重新下载"
