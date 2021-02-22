@@ -36,7 +36,7 @@ on_install() {
   curl=$TMPDIR/curl
   chmod 755 $curl
   REPLACE="/system/media/theme/miui_mod_icons"
-  echo "- 除MIUI经典主题外,其他主题需要联网在线下载资源"
+  #echo "- 除MIUI经典主题外,其他主题需要联网在线下载资源"
   #$KEYSEL
   #VARIANT=$?
   VARIANT=17
