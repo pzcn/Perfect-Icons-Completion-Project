@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Icon version="1" width="269" height="269" screenWidth="1080" frameRate="0" useVariableUpdater="DateTime.Day">
+    <VariableBinders>
+        <BroadcastBinder action="android.intent.action.TIME_SET"/>
+        <BroadcastBinder action="android.intent.action.DATE_CHANGED"/>
+    </VariableBinders>
+    <ExternalCommands>
+        <!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+        <Trigger action="init,present,back_home_cancel" >
+            <AnimationCommand target="panel_framerate_controller" command="play"/>
+        </Trigger>
+    	<!-- 退出APP返回桌面的瞬间 -->
+    	<Trigger action="back_home_start">
+            <AnimationCommand target="panel_framerate_controller" command="play"/>
+    	</Trigger>
+    	<!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+            <AnimationCommand target="panel_framerate_controller" command="play"/>
+        </Trigger>
+    </ExternalCommands>
+	<FramerateController name="panel_framerate_controller" initPause="true" loop="false">
+        <ControlPoint frameRate="0" time="0"/>
+        <ControlPoint frameRate="20" time="1"/>
+        <ControlPoint frameRate="20" time="99"/>
+        <ControlPoint frameRate="0" time="100"/>
+    </FramerateController>
+    <Group>
+        <Image align="center" alignV="center" alpha="186" src="week.png" srcid="#day_of_week" x="134" y="88"/>
+        <Time align="center" alignV="center" format="dd" src="date.png" x="134" y="149"/>
+    </Group>
+</Icon>

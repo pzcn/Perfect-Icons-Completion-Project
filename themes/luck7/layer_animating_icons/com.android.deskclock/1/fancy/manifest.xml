@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--时钟代码由酷安@JellyBeans编写，请勿抄袭-->
+<!--时钟代码由酷安@JellyBeans编写，请勿抄袭-->
+<!--时钟代码由酷安@JellyBeans编写，请勿抄袭-->
+
+<Icon frameRate="60" height="268" resDensity="480" screenWidth="1080" useVariableUpdater="DateTime.Minute" version="1" width="268">
+  <ExternalCommands>
+    <Trigger action="init,present,back_home_cancel">
+      <VariableCommand expression="1" name="useQuietImage"/>
+      <AnimationCommand command="play(2000,2000)" target="iconhour" targetIndex="0"/>
+    </Trigger>
+    <Trigger action="back_home_start">
+      <VariableCommand expression="0" name="useQuietImage"/>
+      <AnimationCommand command="play(0,0)" target="iconhour" targetIndex="0"/>
+    </Trigger>
+    <Trigger action="back_home_finish">
+      <VariableCommand expression="0" name="useQuietImage"/>
+      <AnimationCommand command="play(0,2000)" target="iconhour" targetIndex="0"/>
+      <AnimationCommand command="play" target="panel_framerate_controller"/>
+    </Trigger>
+    <Trigger action="init,present,back_home_cancel">
+      <VariableCommand expression="1" name="useQuietImage"/>
+      <AnimationCommand command="play(2000,2000)" target="iconminute" targetIndex="0"/>
+    </Trigger>
+    <Trigger action="back_home_start">
+      <VariableCommand expression="0" name="useQuietImage"/>
+      <AnimationCommand command="play(0,0)" target="iconminute" targetIndex="0"/>
+    </Trigger>
+    <Trigger action="back_home_finish">
+      <VariableCommand expression="0" name="useQuietImage"/>
+      <AnimationCommand command="play(0,2000)" target="iconminute" targetIndex="0"/>
+      <AnimationCommand command="play" target="panel_framerate_controller"/>
+    </Trigger>
+    <Trigger action="init,present,back_home_cancel">
+      <VariableCommand expression="1" name="useQuietImage"/>
+      <AnimationCommand command="play(2000,2000)" target="iconsecond" targetIndex="0"/>
+    </Trigger>
+    <Trigger action="back_home_start">
+      <VariableCommand expression="0" name="useQuietImage"/>
+      <AnimationCommand command="play(0,0)" target="iconsecond" targetIndex="0"/>
+    </Trigger>
+    <Trigger action="back_home_finish">
+      <VariableCommand expression="0" name="useQuietImage"/>
+      <AnimationCommand command="play(0,2000)" target="iconsecond" targetIndex="0"/>
+      <AnimationCommand command="play" target="panel_framerate_controller"/>
+    </Trigger>
+  </ExternalCommands>
+  <FramerateController initPause="true" loop="false" name="panel_framerate_controller">
+    <ControlPoint frameRate="0" time="0"/>
+    <ControlPoint frameRate="60" time="1"/>
+    <ControlPoint frameRate="60" time="2500"/>
+    <ControlPoint frameRate="0" time="2501"/>
+  </FramerateController>
+  <Var name="iconhour">
+    <VariableAnimation delay="0" initPause="true" loop="false">
+      <AniFrame easeType="QuadEaseOut" time="0" value="0"/>
+      <AniFrame time="600" value="360"/>
+    </VariableAnimation>
+  </Var>
+  <Var name="iconminute">
+    <VariableAnimation delay="0" initPause="true" loop="false">
+      <AniFrame easeType="QuadEaseOut" time="0" value="0"/>
+      <AniFrame time="800" value="360"/>
+    </VariableAnimation>
+  </Var>
+  <Var name="iconsecond">
+    <VariableAnimation delay="0" initPause="true" loop="false">
+      <AniFrame easeType="QuadEaseOut" time="0" value="0"/>
+      <AniFrame time="1200" value="360"/>
+    </VariableAnimation>
+  </Var>
+  <Image align="center" alignV="center" src="com.android.deskclockbg.png" x="134" y="134"/>
+  <Rectangle align="center" alignV="bottom" cornerRadius="2.5" fillColor="#000000" h="30" name="hand_hour" pivotX="2.5" pivotY="30" rotation="#iconhour+#hour12*30+#minute/2" w="5" x="134" y="134"/>
+  <Rectangle align="center" alignV="bottom" cornerRadius="2" fillColor="#000000" h="43" name="hand_minute" pivotX="2" pivotY="43" rotation="#iconminute+#time_sys%3600000*0.0001" w="4" x="134" y="134"/>
+  <Rectangle align="center" alignV="bottom" cornerRadius="1.5" fillColor="#ff4c4c" h="50" name="hand_second" pivotX="1.5" pivotY="50" rotation="#iconsecond+#second*6" w="3" x="134" y="134"/>
+</Icon>

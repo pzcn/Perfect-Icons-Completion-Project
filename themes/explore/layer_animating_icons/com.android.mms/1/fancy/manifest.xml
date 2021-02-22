@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="c1" states="'state_end'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="c1" states="'state_init'" command="setTo" config="'state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="c1" states="'state_init','state_end'" command="fromTo" config="'state_config'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init" rotationX="-120"/>
+	<FolmeState name="state_end" rotationX="0"/>
+	<FolmeConfig name="state_config" property="rotationX" ease="-2,0.8,1.2" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Image src="c0.png" x="58" y="60.3" />
+		<Image name="c1" src="c1.png" x="55.6" y="60.3" pivotX="71" pivotY="25" folmeMode="true" />
+	</Group>
+</Icon>
