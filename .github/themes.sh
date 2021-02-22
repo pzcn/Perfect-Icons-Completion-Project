@@ -8,7 +8,7 @@ XZ_OPT=-9 tar cJf lrone.tar.xz *
 cd ../..
 
 cd themes/luck7
-XZ_OPT=-9 tar cJf themes/luck7 *
+XZ_OPT=-9 tar cJf luck7.tar.xz *
 cd ../..
 
 mv themes/explore/*.tar.xz output
