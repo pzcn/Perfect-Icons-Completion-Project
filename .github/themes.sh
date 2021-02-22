@@ -11,6 +11,6 @@ cd themes/luck7
 XZ_OPT=-9 tar cJf luck7.tar.xz *
 cd ../..
 
-mv themes/explore/*.tar.xz output
-mv themes/lrone/*.tar.xz output
-mv themes/luck7/*.tar.xz output
+cp -rf themes/explore/*.tar.xz ./output/
+cp -rf themes/lrone/*.tar.xz ./output/
+cp -rf themes/luck7/*.tar.xz ./output/
