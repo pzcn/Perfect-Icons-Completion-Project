@@ -32,7 +32,8 @@ jobs:
           cp -rf ./themes/explore/explore.tar.xz ./output
           cp -rf ./themes/lrone/lrone.tar.xz ./output
           cp -rf ./themes/luck7/luck7.tar.xz ./output
-
+          cd output
+          ls
       - name: Pushes files
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
