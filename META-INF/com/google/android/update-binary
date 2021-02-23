@@ -77,7 +77,7 @@ elif [ $VARIANT == 21 ]; then
     MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
     echo "- 已选择完美曲线主题"
     download
-    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 完美曲线。\n- 感谢 @Eirperuier 添加此主题。"
+    NOTES="\n- 感谢 @Ria、 提供授权，原主题请在MIUI主题商店搜索 完美曲线。\n- 感谢 @Eirperuier 添加此主题。"
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
