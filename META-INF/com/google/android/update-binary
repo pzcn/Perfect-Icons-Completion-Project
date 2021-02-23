@@ -84,8 +84,8 @@ fi
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
-    mv $TMPDIR/mtz/icons icons.zip
-    [ need_patch == true ] && patch
+    mv $TMPDIR/mtz/icons $TMPDIR/icons.zip
+    [ $need_patch == true ] && patch
   #  cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
   #if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
   #  addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
@@ -117,12 +117,14 @@ fi
   fi
 }
 patch(){
-	  cd $TMPDIR
+	cd $TMPDIR
     tar -xf "$file" -C "$TMPDIR/" >&2
+    mkdir -p res/drawable-xxhdpi
     mv icons/* res/drawable-xxhdpi
-    $zip -d icons.zip layer_animating_icons/* >&2
-    $zip -rf icons.zip layer_animating_icons >&2
-    $zip -rf icons.zip res >&2
+    rm icons
+    $zip -d icons.zip "layer_animating_icons/*" >/dev/null
+    $zip -r icons.zip layer_animating_icons >/dev/null
+    $zip -r icons.zip res >/dev/null
 }
 
 download() {
