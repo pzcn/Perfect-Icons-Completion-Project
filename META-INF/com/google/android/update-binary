@@ -86,34 +86,34 @@ fi
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
     mv $TMPDIR/mtz/icons $TMPDIR/icons.zip
     [ $need_patch == true ] && patch
-  #  cp -r $TMPDIR/icons/${var_theme}1/layer_animating_icons/. $TMPDIR/icons/0/layer_animating_icons/
-  #if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
-  #  addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
-  #  echo "- 检测到附加模块，正在导入..."
-  #  sed -i '/^version/d' $TMPDIR/module.prop
-  #  echo "version=${ver}_mod" >> $TMPDIR/module.prop
- # else
- #   if [ -d "$NVBASE/modules/MIUIiconsplus_addon" ];then
- #   addon_path=$NVBASE/modules/MIUIiconsplus_addon
-  #  echo "- 检测到附加模块，正在导入..."
- #   sed -i '/^version/d' $TMPDIR/module.prop
- #   echo "version=${ver}_mod" >> $TMPDIR/module.prop
-  #  fi
- # fi
+    addon
     mkdir -p $FAKEMODPATH/system/media/theme/default/
     cp -rf $TMPDIR/icons.zip $FAKEMODPATH/system/media/theme/default/icons
-   # cp -rf $TMPDIR/icons/$var_theme/default/* $FAKEMODPATH/system/media/theme/default/
-   # cp -rf $addon_path/layer_animating_icons/* $TMPDIR/icons/0/layer_animating_icons/
-   # cd $TMPDIR/icons/0/
-   # $zip -m -r $FAKEMODPATH/system/media/theme/default/icons *  >/dev/null
-   ## mv $FAKEMODPATH/system/media/theme/default/icons.zip $FAKEMODPATH/system/media/theme/default/icons
-   # cp -rf $TMPDIR/icons/$var_theme/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
-   # cp -rf $addon_path/miui_mod_icons/* $FAKEMODPATH/system/media/theme/miui_mod_icons/
     cp $TMPDIR/module.prop $FAKEMODPATH/module.prop
   else
     echo "- 你的系统不符合要求，即将退出安装。"
     rm -rf $TMPDIR
     exit 1
+  fi
+}
+
+addon(){
+  if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
+    addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
+    echo "- 检测到附加模块，正在导入..."
+    sed -i '/^version/d' $TMPDIR/module.prop
+    echo "version=${ver}_mod" >> $TMPDIR/module.prop
+    cp -rf $addon_path/miui_mod_icons/* $TMPDIR/res/drawable-xxhdpi
+    $zip -r icons.zip res >/dev/null
+  else
+    if [ -d "$NVBASE/modules/MIUIiconsplus_addon" ];then
+    addon_path=$NVBASE/modules/MIUIiconsplus_addon
+    echo "- 检测到附加模块，正在导入..."
+    sed -i '/^version/d' $TMPDIR/module.prop
+    echo "version=${ver}_mod" >> $TMPDIR/module.prop
+    cp -rf $addon_path/miui_mod_icons/* $TMPDIR/res/drawable-xxhdpi
+    $zip -r icons.zip res >/dev/null
+    fi
   fi
 }
 patch(){
@@ -125,6 +125,8 @@ patch(){
     $zip -d icons.zip "layer_animating_icons/*" >/dev/null
     $zip -r icons.zip layer_animating_icons >/dev/null
     $zip -r icons.zip res >/dev/null
+    rm -rf res
+    rm -rf layer_animating_icons
 }
 
 download() {
@@ -242,9 +244,6 @@ echo "> 安装、卸载模块或切换本模块内的主题后，建议在主题
 echo ""
 echo "- 关注 Telegram 频道 @miuiicons 获得测试版本"
 echo "- 欢迎加入 Telegram 群组讨论参与开发"
-echo ""
-echo "- 安装中..."
-echo "- 马上就好..."
 cp -rf $FAKEMODPATH/. $MODPATH
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
   set_perm_recursive $MODPATH 0 0 0755 0644
