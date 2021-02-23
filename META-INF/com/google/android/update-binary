@@ -44,37 +44,37 @@ on_install() {
 if [ $VARIANT == 17 ]; then 
     var_theme_name="MIUI经典主题"
     var_theme="MIUIdefault"
-    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte"
-    MODAUTHOR2="@Eirperuier @Mastiff Li"
+    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
+    MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择MIUI经典主题"
 elif [ $VARIANT == 18 ]; then 
     var_theme_name="探·界主题"
     var_theme="explore"
-    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte"
-    MODAUTHOR2="@Eirperuier @Mastiff Li"
+    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
+    MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择探界主题"
     download
 elif [ $VARIANT == 19 ]; then
     var_theme_name="LRONE"
     var_theme="lrone"
-    MODAUTHOR1="@Conan @Eirperuier @PedroZ"
-    MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
+    MODAUTHOR1="@Conan @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR2=" @Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择LRONE主题"
     download
     NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 自动化绘制了1000+图标。"
 elif [ $VARIANT == 20 ]; then
     var_theme_name="Luck7"
     var_theme="luck7"
-    MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ"
-    MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
+    MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR2="@Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择Luck7主题"
     download
     NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 Luck7。\n- 感谢 @Eirperuier 添加此主题。"
 elif [ $VARIANT == 21 ]; then
     var_theme_name="完美曲线"
     var_theme="perfectcurve"
-    MODAUTHOR1="@Ria、 @Eirperuier @PedroZ"
-    MODAUTHOR2="@潮留美海かり @Yife Playte @Mastiff Li"
+    MODAUTHOR1="@Ria、 @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR2="@Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择完美曲线主题"
     download
     NOTES="\n- 感谢 @Ria、 提供授权，原主题请在MIUI主题商店搜索 完美曲线。\n- 感谢 @Eirperuier 添加此主题。"
