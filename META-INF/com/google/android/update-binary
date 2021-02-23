@@ -98,24 +98,29 @@ fi
 }
 
 addon(){
-  if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon" ];then
+  if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon/icons" ];then
     addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
     echo "- 检测到附加模块，正在导入..."
     sed -i '/^version/d' $TMPDIR/module.prop
     echo "version=${ver}_mod" >> $TMPDIR/module.prop
-    cp -rf $addon_path/miui_mod_icons/* $TMPDIR/res/drawable-xxhdpi
+    mkdir -p $TMPDIR/res/drawable-xxhdpi/
+    cp -rf $addon_path/icons/* $TMPDIR/res/drawable-xxhdpi/
+    cd $TMPDIR
     $zip -r icons.zip res >/dev/null
   else
-    if [ -d "$NVBASE/modules/MIUIiconsplus_addon" ];then
+    if [ -d "$NVBASE/modules/MIUIiconsplus_addon/icons" ];then
     addon_path=$NVBASE/modules/MIUIiconsplus_addon
     echo "- 检测到附加模块，正在导入..."
     sed -i '/^version/d' $TMPDIR/module.prop
     echo "version=${ver}_mod" >> $TMPDIR/module.prop
-    cp -rf $addon_path/miui_mod_icons/* $TMPDIR/res/drawable-xxhdpi
+    mkdir -p $TMPDIR/res/drawable-xxhdpi/
+    cp -rf $addon_path/icons/* $TMPDIR/res/drawable-xxhdpi/
+    cd $TMPDIR
     $zip -r icons.zip res >/dev/null
     fi
   fi
 }
+
 patch(){
 	cd $TMPDIR
     tar -xf "$file" -C "$TMPDIR/" >&2
