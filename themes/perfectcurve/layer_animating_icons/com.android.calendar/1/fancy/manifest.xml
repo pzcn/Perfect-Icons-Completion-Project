@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Icon frameRate="1" height="268" resDensity="480" screenWidth="1080" type="awesome" useVariableUpdater="DateTime.Minute" version="1" width="268">
+  <ExternalCommands/>
+  <VariableBinders/>
+  <!-- IconCalendar	数字日历图标 -->
+  <Text align="center" alignV="center" alpha="230" bold="true" color="#2e557d" size="30" textExp="ifelse(0,formatDate(&apos;EEEE&apos;,#time_sys),substr(&apos;SunMonTueWedThuFriSat&apos;,int(#day_of_week-1)*3,3))" x="134" y="86"/>
+  <Text align="center" alignV="center" color="#2e557d" size="65" textExp="#date" x="134" y="157"/>
+</Icon>
