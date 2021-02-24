@@ -19,23 +19,15 @@ jobs:
 
       - name: Build
         run: |
-          echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
           chmod 755 ./.github/mtz.sh
           ./.github/mtz.sh
+          echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
 
       - name: Zip Folder
         run: |
-          echo "version=${{ env.version }}" >> ./module.prop
-          echo "ver=${{ env.version }}" >> ./module.prop
-          XZ_OPT=-9 tar cJf icons.tar.xz ./mtz/icons
-          zip -r MIUI_Icons-${{ env.version }}.zip ./common
-          zip -r MIUI_Icons-${{ env.version }}.zip ./META-INF
-          zip -r MIUI_Icons-${{ env.version }}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{ env.version }}.zip ./module.prop
+          mv MIUI_Icons.zip MIUI_Icons-${{ env.version }}.zip
           mkdir push
           cp MIUI_Icons-${{ env.version }}.zip ./push/MIUI_Icons_CI_latest.zip
-          cp MIUI_Icons_CI_latest.mtz MIUI_Icons-${{ env.version }}.mtz
-          cp MIUI_Icons_CI_latest.mtz ./push/MIUI_Icons_CI_latest.mtz
           cp ./.github/MIUI_Icons_Addon.zip ./push/MIUI_Icons_Addon.zip
           cp ./.github/Icons_Archiving.zip ./push/Icons_Archiving.zip
 
@@ -53,34 +45,17 @@ jobs:
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
           
-      - name: Post to channel
+      - name: send custom message
         if: contains(github.event.head_commit.message, '[skip zip]') == false
-        env:
-          CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          MODULE: ./MIUI_Icons-${{ env.version }}.zip
-          COMMIT_MESSAGE: |+
-            New CI version
-            ${{ github.event.head_commit.message }}
-            by ${{ github.event.head_commit.author.name }}
-            最新测试版下载直链：https://miuiicons.vercel.app/CI/
-            中国大陆区域无法保证连通性
-        run: |
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$MODULE"
+        uses: appleboy/telegram-action@master
+        with:
+          to: -1001198433972
+          token: ${{ secrets.BOT_TOKEN }}
+          message: |
+            **新的测试版本**
 
-      - name: Post to channel
-        if: contains(github.event.head_commit.message, '[skip mtz]') == false
-        env:
-          CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          MTZ: ./MIUI_Icons-${{ env.version }}.mtz
-          COMMIT_MESSAGE: |+
-            New Mtz CI version 
             ${{ github.event.head_commit.message }}
             by ${{ github.event.head_commit.author.name }}
-            最新测试版下载直链：https://miuiicons.vercel.app/CI/
+            [下载地址](https://miuiicons.vercel.app/CI/)
             中国大陆区域无法保证连通性
-        run: |
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://mtz%22,%22caption%22:${ESCAPED}%7D%5D"  -F mtz="@$MTZ"
+          format: markdownv2
