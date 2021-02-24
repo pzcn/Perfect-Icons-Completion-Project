@@ -94,10 +94,13 @@ Android 10 及以上的 MIUI 12
 ### 致谢
 
 主题授权：
+
 [LRONE主题](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349)授权：
 [@江户川Conan](http://www.coolapk.com/u/1091207) 
+
 [Luck7主题](http://zhuti.xiaomi.com/detail/share/508a77a8-11ee-448c-9a1a-b51b0253de76?miref=share&packId=ca2c0d02-f34e-464b-818e-35063507afc2)授权：
 [@JellyBeans](http://www.coolapk.com/u/1375535) 
+
 [完美曲线主题](http://zhuti.xiaomi.com/detail/share/6b9b4e54-9c13-4ee3-b5db-66daf0928bcf?miref=share&packId=fceeed6a-45dc-4a58-be11-12b2d370c315)授权：
 [@栗子汤圆Ria](http://www.coolapk.com/u/1375535) 
 
