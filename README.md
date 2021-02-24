@@ -1,5 +1,4 @@
-# MIUI-Adapted-Icons-Complement-Project
-[Magisk] MIUI 完美图标补全计划
+# MIUI 完美图标补全计划
 
 [![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev)
@@ -76,9 +75,7 @@ Android 10 及以上的 MIUI 12
 
 1. Q：为什么应用锁/通知栏/设置等 APP 内不显示完美图标？
 
-   ~~A：完美图标逻辑仅在桌面内会调用，部分没有 Adapt Icon 的 APP也会显示在设置/通知栏中，但是除了桌面其他位置若无法显示，这是已知问题，暂时没有找到简单的解决方案。~~
-
-   A：自v1.0.11起，已支持。
+   ~~A：完美图标逻辑仅在桌面内会调用，部分没有 Adapt Icon 的 APP也会显示在设置/通知栏中，但是除了桌面其他位置若无法显示，这是已知问题，暂时没有找到简单的解决方案。~~自v1.0.11起，已支持。
 
 2. Q：为什么xxx这个图标和原图标不太一样？
 
@@ -90,11 +87,13 @@ Android 10 及以上的 MIUI 12
    A：参考适配指南自行绘制，然后使用[附加模块](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)（针对Magisk版本）。
 
 4. Q：mtz主题包出现了返回手势结束时直角变圆角现象，如何解决？
+
    A：似乎是MIUI系统版本问题，目前发现的两种解决方法：①使用稳定版桌面，卸载内测桌面（部分机型依然无效）②不使用mtz，换用magisk模块。或者有能力修改system的自行替换也可以
 
 
 ### 致谢
 
+主题授权：
 [LRONE主题](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349)授权：
 [@江户川Conan](http://www.coolapk.com/u/1091207) 
 [Luck7主题](http://zhuti.xiaomi.com/detail/share/508a77a8-11ee-448c-9a1a-b51b0253de76?miref=share&packId=ca2c0d02-f34e-464b-818e-35063507afc2)授权：
@@ -103,9 +102,10 @@ Android 10 及以上的 MIUI 12
 [@栗子汤圆Ria](http://www.coolapk.com/u/1375535) 
 
 图标绘制：
-[@潮留美海かり](http://www.coolapk.com/u/3701042) [@Yife Playte](http://www.coolapk.com/u/2222314) @Eirperuier @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed
+[@潮留美海かり](http://www.coolapk.com/u/3701042) 自项目雏形起，合作绘制了大量图标
+[@Yife Playte](http://www.coolapk.com/u/2222314) 绘制了大量图标，校对了之前历史遗留的问题图标
+[@Eirperuier](http://www.coolapk.com/u/1780934) Luck7、完美曲线申请授权、累计自动化绘制了3000+图标
+[@世界第一小莲儿](http://www.coolapk.com/u/1780934) @Mastiff Li @Shahzaib Ahmed
 
 技术支持：
 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
-
-@MIUI
