@@ -1,0 +1,120 @@
+print_modname() {
+ echo "---------------------------------------------"
+ echo "  MIUI完美图标补全计划附加模块"
+ echo "  MIUI-Adapted-Icons-Complement-Project-Addon"
+ echo "  Powered by Magisk"
+}
+
+on_install() {
+unzip -o "$ZIPFILE" 'icons/*' -d $TMPDIR/ >&2
+zip=$TMPDIR/zip
+chmod 755 $zip
+mod_path="$NVBASE/modules_update/MIUIiconsplus/system/media/theme/default"
+rm -rf $TMPDIR/icons/miui.icons.example
+copy
+if [ -d "$mod_path" ];then
+echo
+echo "- 检测到您刚刚安装或更新了完美图标补全模块"
+echo "- 正在添加您的自定义图标..."
+mod
+else
+  if [ -d "$NVBASE/modules/MIUIiconsplus/system/media/theme/default/" ];then
+    mkdir -p $NVBASE/modules_update/MIUIiconsplus
+    cp -rf $NVBASE/modules/MIUIiconsplus $NVBASE/modules_update/
+    echo
+    echo "- 检测到您安装了完美图标补全模块"
+    echo "- 正在添加您的自定义图标..."
+    mod
+    :> $NVBASE/modules/MIUIiconsplus/update
+  else
+    echo "- 检测到您未安装完美图标补全模块"
+    echo "- 请在附加模块安装完成后请安装完美图标补全模块"
+  fi
+fi
+echo
+echo "- 正在安装附加模块..."
+echo "- 下次安装或更新完美图标模块时会自动添加自定义图标"
+install
+}
+
+install(){
+    cp -rf $TMPDIR/icons $MODPATH
+    cp $TMPDIR/module.prop $MODPATH/module.prop
+}
+
+mod(){
+mv $mod_path/icons $mod_path/icons.zip
+mkdir -p $mod_path/res/drawable-xxhdpi
+cp -rf $TMPDIR/icons/. $mod_path/res/drawable-xxhdpi/
+cd $mod_path
+$zip -r -m icons.zip res >/dev/null
+cd ..
+mv $mod_path/icons.zip $mod_path/icons
+sed -i '/^version/d' $MODULEROOT/MIUIiconsplus/module.prop
+echo "version=`grep_prop ver $MODULEROOT/MIUIiconsplus/module.prop`_mod" >> $MODULEROOT/MIUIiconsplus/module.prop
+sed -i '/^version/d' $NVBASE/modules/MIUIiconsplus/module.prop
+echo "version=`grep_prop ver $MODULEROOT/MIUIiconsplus/module.prop`_mod" >> $NVBASE/modules/MIUIiconsplus/module.prop
+}
+
+require_new_magisk() {
+  echo
+  echo "- 当前模块不支持此Magisk版本"
+  echo
+  echo "- 请安装最新的 Magisk ！"
+  echo
+  exit 1
+}
+
+#!/sbin/sh
+umask 022
+TMPDIR=/dev/tmp
+PERSISTDIR=/sbin/.magisk/mirror/persist
+rm -rf $TMPDIR 2>/dev/null
+mkdir -p $TMPDIR
+LATESTARTSERVICE=true
+PROPFILE=true
+OUTFD=$2
+ZIPFILE=$3
+unzip -oj "$ZIPFILE" module.prop uninstall.sh 'common/*' -d $TMPDIR >&2
+mount /data 2>/dev/null
+[ -f /data/adb/magisk/util_functions.sh ] || require_new_magisk
+. /data/adb/magisk/util_functions.sh
+[ $MAGISK_VER_CODE -gt 18100 ] || require_new_magisk
+setup_flashable
+mount_partitions
+api_level_arch_detect
+$BOOTMODE && boot_actions || recovery_actions
+$BOOTMODE && MODDIRNAME=modules_update || MODDIRNAME=modules
+MODULEROOT=$NVBASE/$MODDIRNAME
+MODID=`grep_prop id $TMPDIR/module.prop`
+MODPATH=$MODULEROOT/$MODID
+MODNAME=`grep_prop name $TMPDIR/module.prop`
+MODVERSION=`grep_prop version $TMPDIR/module.prop`
+rm -rf $MODPATH 2>/dev/null
+mkdir -p $MODPATH
+print_modname
+on_install
+if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
+  echo "- 正在设置权限..."
+  echo "- 马上就好..."
+  set_perm_recursive $MODPATH 0 0 0755 0644
+  set_perm_recursive $MODULEROOT/MIUIiconsplus 0 0 0755 0644
+fi
+[ -f $MODPATH/customize.sh ] && . $MODPATH/customize.sh
+for TARGET in $REPLACE; do
+  mktouch $MODPATH$TARGET/.replace
+done
+if $BOOTMODE; then
+  mktouch $NVBASE/modules/$MODID/update
+  cp -af $MODPATH/module.prop $NVBASE/modules/$MODID/module.prop
+fi
+rm -rf \
+$MODPATH/system/placeholder $MODPATH/customize.sh \
+$MODPATH/README.md $MODPATH/.git* 2>/dev/null
+cd /
+$BOOTMODE || recovery_cleanup
+rm -rf $TMPDIR
+echo ""
+echo "- 安装成功，请重启设备 (^_^) "
+echo "---------------------------------------------"
+exit 0

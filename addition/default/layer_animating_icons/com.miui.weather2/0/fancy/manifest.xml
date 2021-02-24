@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+    <Var name="SIZE" expression="252" const="true"/>
+    <!-- control -->
+    <ExternalCommands>
+        <!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+        <Trigger action="init,present,back_home_cancel">
+            <FrameRateCommand rate="0"/>
+            <FolmeCommand target="w2" states="'state_end2'" command="setTo" config="'state_config'" />
+            <FolmeCommand target="w3" states="'state_end3'" command="setTo" config="'state_config'" />
+            <FolmeCommand target="w4" states="'state_end4'" command="setTo" config="'state_config'" />
+        </Trigger>
+        <!-- 退出APP返回桌面的瞬间 -->
+        <Trigger action="back_home_start">
+            <FrameRateCommand rate="60"/>
+            
+            <FolmeCommand target="w2" states="'state_init2'" command="setTo" config="'state_config'"/>
+            <FolmeCommand target="w3" states="'state_init3'" command="setTo" config="'state_config'"/>
+            <FolmeCommand target="w4" states="'state_init4'" command="setTo" config="'state_config'"/>
+        </Trigger>
+        <!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+         <FrameRateCommand rate="0" delay="1000"/>   
+            <FolmeCommand target="w2" states="'state_init2','state_end2'" command="fromTo" config="'state_config'" />
+            <FolmeCommand target="w3" states="'state_init3','state_end3'" command="fromTo" config="'state_config'" />
+            <FolmeCommand target="w4" states="'state_init4','state_end4'" command="fromTo" config="'state_config'" />
+        </Trigger>
+    </ExternalCommands>
+    <!-- module -->
+    <FolmeState name="state_init2" x="36-50"  />
+    <FolmeState name="state_end2"  x="36"  />
+    <FolmeState name="state_init3" x="80+30"  />
+    <FolmeState name="state_end3"  x="80"  />
+    <FolmeState name="state_init4" x="132+60" />
+    <FolmeState name="state_end4"  x="132" />
+    <FolmeConfig name="state_config" property="x" ease="-2,0.85,1.2" fromSpeed="0"/>
+    <!-- view -->
+    <Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+        <Image src="bg.png" x="0" y="0" />
+        <Image name="w2" src="w2.png" x="36" y="152" folmeMode="true" />
+        <Image name="w3" src="w3.png" x="80" y="127" folmeMode="true" />
+        <Image name="w4" src="w4.png" x="132" y="117.6" folmeMode="true" />
+    </Group>
+</Icon>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="c0" states="'state_end0'" command="setTo" config="'state_config0'" />
+			<FolmeCommand target="c1" states="'state_end1'" command="setTo" config="'state_config1'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="c0" states="'state_init0'" command="setTo" config="'state_config0'"/>
+			<FolmeCommand target="c1" states="'state_init1'" command="setTo" config="'state_config1'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="c0" states="'state_init0','state_end0'" command="fromTo" config="'state_config0'" />
+			<FolmeCommand target="c1" states="'state_init1','state_end1'" command="fromTo" config="'state_config1'" delay="200" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init0" y="-20" rotationY="30*#ratio"/>
+	<FolmeState name="state_end0" y="0" rotationY="0"/>
+	<FolmeConfig name="state_config0" property="y,rotationY" ease="-2,0.8,0.9" fromSpeed="0"/>
+
+	<FolmeState name="state_init1" y="95-20" rotationY="45*#ratio"/>
+	<FolmeState name="state_end1" y="95" rotationY="0"/>
+	<FolmeConfig name="state_config1" property="y,rotationY" ease="-2,0.6,0.8" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Group name="c0" folmeMode="true">
+			<Image src="bg.png" x="55" y="62" />
+			<Image src="sld.png" x="126" y="77" />
+		</Group>
+		<Image name="c1" src="shape.png" x="109" y="95" folmeMode="true" />
+	</Group>
+</Icon>

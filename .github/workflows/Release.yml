@@ -1,29 +1,19 @@
-# This is a basic workflow to help you get started with Actions
-
 name: RELEASE
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
   build:
-    # The type of runner that the job will run on
+
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      # Runs a set of commands using the runners shell
 
       - name: Bump version and push tag
         id: tag_version
@@ -31,34 +21,27 @@ jobs:
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: 'Get Date'
+      - name: Get Envs
         run: echo "date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> $GITHUB_ENV
+             echo "version=${{steps.tag_version.outputs.new_tag}}" >> $GITHUB_ENV
 
-      - name: Build
+      - name: Pack
         run: |
-          chmod 755 ./.github/mtz.sh
-          ./.github/mtz.sh
-          echo "version=${{steps.tag_version.outputs.new_tag}}" >> ./module.prop
-          echo "ver=${{steps.tag_version.outputs.new_tag}}" >> ./module.prop
-          cp MIUI_Icons_CI_latest.mtz MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.mtz
+          chmod 755 ./.github/pack.sh
+          ./.github/pack.sh
 
-      - name: Zip Folder
+      - name: Rename
         run: |
-          XZ_OPT=-9 tar cJf icons.tar.xz ./mtz/icons
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./common
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./META-INF
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./icons.tar.xz
-          zip -r MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip ./module.prop
+          mkdir output
+          cp -rf ./addition/mtz/MIUI_Icons.mtz ./output/MIUI_Icons_${{steps.tag_version.outputs.new_tag}}.mtz
+          cp -rf ./addition/module/MIUI_Icons.zip ./output/MIUI_Icons_${{steps.tag_version.outputs.new_tag}}.zip
+          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/Icons_Addon_${{steps.tag_version.outputs.new_tag}}.zip
+          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/Icons_Archiving_${{steps.tag_version.outputs.new_tag}}.zip
 
-     ## 上传附件
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.mtz
-            ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
-            ./.github/MIUI_Icons_Addon.zip
-            ./.github/Icons_Archiving.zip
+          files: 'output/*'
           name: ${{env.date}}_${{steps.tag_version.outputs.new_tag}}
           tag_name: ${{steps.tag_version.outputs.new_tag}}
         env:
@@ -66,31 +49,12 @@ jobs:
 
       - name: Post to channel
         env:
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          FILE: |
-            ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.mtz
-          COMMIT_MESSAGE: |+
-            ${{env.date}}发布${{steps.tag_version.outputs.new_tag}}版本mtz主题
-            更新内容：
-            ${{ github.event.head_commit.message }}
-        run: |
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
-          
-      - name: Post to channel
-        env:
           CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           FILE: |
-            ./MIUI_Icons-${{steps.tag_version.outputs.new_tag}}.zip
+            ./output/MIUI_Icons_${{steps.tag_version.outputs.new_tag}}.zip
           COMMIT_MESSAGE: |+
             ${{env.date}}发布${{steps.tag_version.outputs.new_tag}}版本
-            更新内容：
-            ${{ github.event.head_commit.message }}
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
           curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$FILE"
-          
-
-# This is a basic workflow to help you get started with Actions

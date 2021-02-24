@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="fg" states="'fg_state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="whole" states="'state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="shadow" states="'state_end'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="fg"     states="'fg_state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="whole"  states="'whole_state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="shadow" states="'shadow_state_init'" command="setTo" config="'state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="fg"     states="'fg_state_init','fg_state_end'" command="fromTo" config="'state_config'" />
+			<FolmeCommand target="whole"  states="'whole_state_init','state_end'" command="fromTo" config="'state_config'" />
+			<FolmeCommand target="shadow" states="'shadow_state_init','state_end'" command="fromTo" config="'state_config'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="fg_state_init" rotationX="90" rotation="-45"/>
+	<FolmeState name="fg_state_end" rotationX="0" rotation="-45"/>
+
+	<FolmeState name="whole_state_init" rotation="90*#ratio"/>
+	<FolmeState name="shadow_state_init" alpha="0"/>
+	
+	<FolmeState name="state_end" rotationX="0" alpha="255" rotation="0"/>
+	<FolmeConfig name="state_config" property="rotationX,rotation,alpha" ease="-2,0.9,1.2" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Group name="whole" pivotX="126" pivotY="126" >
+			<Image name="shadow" src="shadow.png" x="55" y="62" folmeMode="true"/>
+			<Image src="bg.png" x="77.6" y="86" folmeMode="true"/>
+			<Group pivotX="84+0" pivotY="86+40" rotation="45">
+				<Image name="fg" src="fg.png" x="84" y="86" pivotX="0" pivotY="40" rotation="-45" folmeMode="true"/>
+			</Group>
+		</Group>
+	</Group>
+</Icon>

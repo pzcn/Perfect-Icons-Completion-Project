@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="sunX" states="'sunX_state_end'" command="setTo" config="'sun_state_configX'" />
+			<FolmeCommand target="sunY" states="'sunY_state_end'" command="setTo" config="'sun_state_configY'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="sunX"   states="'sunX_state_init'  " command="setTo" config="'sun_state_configX'"/>
+			<FolmeCommand target="sunY"   states="'sunY_state_init'  " command="setTo" config="'sun_state_configY'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="sunX"   states="'sunX_state_init','sunX_state_end'" command="fromTo" config="'sun_state_configX'" />
+			<FolmeCommand target="sunY"   states="'sunY_state_init','sunY_state_end'" command="fromTo" config="'sun_state_configY'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="sunX_state_init" x="156-#ratio/abs(#ratio)*200"/>
+	<FolmeState name="sunX_state_end"  x="156"/>
+	<FolmeState name="sunY_state_init" y="60"/>
+	<FolmeState name="sunY_state_end"  y="0"/>
+	<FolmeConfig name="sun_state_configX" property="x" ease="15,1100" fromSpeed="0"/>
+	<FolmeConfig name="sun_state_configY" property="y" ease="6,900" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Group name="sunY">
+        	<Image name="sunX" src="sun.png" x="156" y="72"  folmeMode="true"/>
+		</Group>
+	</Group>
+</Icon>
