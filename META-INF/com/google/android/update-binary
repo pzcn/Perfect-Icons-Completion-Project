@@ -73,11 +73,11 @@ elif [ $VARIANT == 20 ]; then
 elif [ $VARIANT == 21 ]; then
     var_theme_name="完美曲线"
     var_theme="perfectcurve"
-    MODAUTHOR1="@Ria、 @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR1="@栗子汤圆Ria @Eirperuier @PedroZ @潮留美海かり"
     MODAUTHOR2="@Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择完美曲线主题"
     download
-    NOTES="\n- 感谢 @Ria、 提供授权，原主题请在MIUI主题商店搜索 完美曲线。\n- 感谢 @Eirperuier 添加此主题。"
+    NOTES="\n- 感谢 @栗子汤圆Ria 提供授权，原主题请在MIUI主题商店搜索 完美曲线。\n- 感谢 @Eirperuier 添加此主题。"
 else
     echo "- 出现未知错误，安装无法继续，即将退出安装..."
     rm -rf $TMPDIR
