@@ -7,6 +7,8 @@
 
 使用 Magisk 模块和 mtz 主题包的形式，补全/修复 MIUI12 中未适配以及适配不佳的图标。基于官方图标去除牛皮癣，制作成分层图标。
 
+----
+
 ### 项目介绍
 
 自 MIUI 12 起，MIUI 新增加了完美图标的特性。其依赖于 MIUI 绘制的部分图标以及图标自身的 Adapted Icon。除可以实现分层效果外，还可以去除部分图标的牛皮癣。但这需要APP按照标准适配 Adapted Icon，或者 MIUI 进行单独绘制。为了让更多 APP 获得这个特性，诞生了本项目。
@@ -24,7 +26,9 @@ Android 10 及以上的 MIUI 12
 
 #### Mtz主题包
 同其他Mtz主题一样，MIUI国内版需要设计师账号或主题破解才可以正常使用。mtz使用相关问题请自行解决。
+
 *注意：部分机型和MIUI版本可能出现手势问题，参考下方常见问题。*
+
 *注意：仅默认主题提供mtz。为保护设计师利益，虽然我们取得了授权，第三方主题也不会提供mtz版本，请使用magisk模块。*
 
 #### 附加模块
@@ -35,6 +39,8 @@ Android 10 及以上的 MIUI 12
 
 提供部分图标其他样式，有需要的话解压后放入附加模块刷入使用[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E5%9B%BE%E6%A0%87%E5%AD%98%E6%A1%A3)
 
+----
+
 ### 下载地址
 
 [Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
@@ -42,6 +48,8 @@ Android 10 及以上的 MIUI 12
 [Telegram 频道](https://t.me/miuiicons) 获取
 
 [CI版本下载](https://miuiicons.vercel.app/CI/) 包含最新的所有的测试版文件
+
+----
 
 ### 常见问题
 
@@ -62,6 +70,8 @@ Android 10 及以上的 MIUI 12
 4. Q：mtz主题包出现了返回手势结束时直角变圆角现象，如何解决？
 
    A：似乎是MIUI系统版本问题，目前发现的两种解决方法：①使用稳定版桌面，卸载内测桌面（部分机型依然无效）②不使用mtz，换用magisk模块。或者有能力修改system的自行替换也可以
+
+----
 
 ### 参与模块建设
 
@@ -97,6 +107,8 @@ Android 10 及以上的 MIUI 12
 
 [![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev)
+
+----
 
 ### 致谢
 
