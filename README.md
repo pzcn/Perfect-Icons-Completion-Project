@@ -100,9 +100,7 @@ Android 10 及以上的 MIUI 12
 
 ### 致谢
 
-感谢主题设计师的授权、参与图标绘制的人员以及对模块提供技术支持的伙伴们。
-
-####主题授权：
+#### 主题授权：
 
 [LRONE主题](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349)授权：
 [@江户川Conan](http://www.coolapk.com/u/1091207) 
@@ -113,7 +111,7 @@ Android 10 及以上的 MIUI 12
 [完美曲线主题](http://zhuti.xiaomi.com/detail/share/6b9b4e54-9c13-4ee3-b5db-66daf0928bcf?miref=share&packId=fceeed6a-45dc-4a58-be11-12b2d370c315)授权：
 [@栗子汤圆Ria](http://www.coolapk.com/u/1375535) 
 
-####图标绘制：
+#### 图标绘制：
 
 [@潮留美海かり](http://www.coolapk.com/u/3701042) 自项目雏形起，合作绘制了大量图标
 
@@ -123,6 +121,6 @@ Android 10 及以上的 MIUI 12
 
 [@世界第一小莲儿](http://www.coolapk.com/u/1780934) @Mastiff Li @Shahzaib Ahmed
 
-####技术支持：
+#### 技术支持：
 
 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
