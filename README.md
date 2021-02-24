@@ -15,6 +15,9 @@
 
 目前包含了 MIUI默认主题、探·界主题、LRONE主题，Luck7主题、完美曲线主题，未来可能会添加更多其他主题。
 
+#### 适配版本
+Android 10 及以上的 MIUI 12
+
 #### Magisk模块
 
 模块包内包含默认主题和图标。安装过程支持多主题选择，除默认主题外的其他主题需要在线下载。包含联网检查、网速检查等多项措施。主题包会在线获取最新版本。
@@ -32,20 +35,6 @@
 
 提供部分图标其他样式，有需要的话解压后放入附加模块刷入使用[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E5%9B%BE%E6%A0%87%E5%AD%98%E6%A1%A3)
 
-### 适配规则
-
-对以下三种情况进行适配
-
-1. MIUI完全没有对其进行适配的图标，且应用自身没有进行 Adapted Icon 的适配（即静态图标的效果）。
-
-2. MIUI适配后不完美，整个图标都是前景的图标（移动图标即可看出），百度地图 前后景不分的图标
-
-3. MIUI适配后有牛皮癣，比如 联通手机营业厅 包含有5G牛皮癣。
-
-
-### 适配版本
-Android 10 及以上的 MIUI 12
-
 ### 下载地址
 
 [Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
@@ -53,23 +42,6 @@ Android 10 及以上的 MIUI 12
 [Telegram 频道](https://t.me/miuiicons) 获取
 
 [CI版本下载](https://miuiicons.vercel.app/CI/) 包含最新的所有的测试版文件
-
-
-### 申请/提交适配，参与讨论
-
-申请适配 参考适配规则，带上包名、应用名 提交Issue
-
-如果APP自己更换了图标，欢迎提出
-
-在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
-
-加入[Telegram 群组](https://t.me/miui_icons_dev) 参与讨论，提出建议，申请适配
-
-### 适配指南、提交适配
-
-适配指南见 [Wiki](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/适配指南)
-
-提交适配 提交PR或将文件发送至 [Telegram 群组](https://t.me/miui_icons_dev) 内
 
 ### 常见问题
 
@@ -89,11 +61,43 @@ Android 10 及以上的 MIUI 12
 4. Q：mtz主题包出现了返回手势结束时直角变圆角现象，如何解决？
 
    A：似乎是MIUI系统版本问题，目前发现的两种解决方法：①使用稳定版桌面，卸载内测桌面（部分机型依然无效）②不使用mtz，换用magisk模块。或者有能力修改system的自行替换也可以
+   
+### 参与模块建设
 
+#### 适配规则
+
+对以下三种情况进行适配
+
+1. MIUI完全没有对其进行适配的图标，且应用自身没有进行 Adapted Icon 的适配（即静态图标的效果）。
+
+2. MIUI适配后不完美，整个图标都是前景的图标（移动图标即可看出），百度地图 前后景不分的图标
+
+3. MIUI适配后有牛皮癣，比如 联通手机营业厅 包含有5G牛皮癣。
+
+#### 申请适配
+
+申请适配 参考适配规则，带上包名、应用名 提交Issue
+
+如果APP自己更换了图标，欢迎提出
+
+在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
+
+加入[Telegram 群组](https://t.me/miui_icons_dev) 参与讨论，提出建议，申请适配
+
+#### 适配指南、提交适配
+
+适配指南见 [Wiki](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/适配指南)
+
+提交适配 提交PR或将文件发送至 [Telegram 群组](https://t.me/miui_icons_dev) 内
+
+#### 参与讨论
+
+[![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
+[![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev)
 
 ### 致谢
 
-主题授权：
+####主题授权：
 
 [LRONE主题](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349)授权：
 [@江户川Conan](http://www.coolapk.com/u/1091207) 
@@ -104,11 +108,16 @@ Android 10 及以上的 MIUI 12
 [完美曲线主题](http://zhuti.xiaomi.com/detail/share/6b9b4e54-9c13-4ee3-b5db-66daf0928bcf?miref=share&packId=fceeed6a-45dc-4a58-be11-12b2d370c315)授权：
 [@栗子汤圆Ria](http://www.coolapk.com/u/1375535) 
 
-图标绘制：
+####图标绘制：
+
 [@潮留美海かり](http://www.coolapk.com/u/3701042) 自项目雏形起，合作绘制了大量图标
+
 [@Yife Playte](http://www.coolapk.com/u/2222314) 绘制了大量图标，校对了之前历史遗留的问题图标
+
 [@Eirperuier](http://www.coolapk.com/u/1780934) Luck7、完美曲线申请授权、累计自动化绘制了3000+图标
+
 [@世界第一小莲儿](http://www.coolapk.com/u/1780934) @Mastiff Li @Shahzaib Ahmed
 
-技术支持：
+####技术支持：
+
 [@相见即是缘](http://www.coolapk.com/u/1614257) [@dwhsmcb](http://www.coolapk.com/u/1662815) [@余空_YuK](http://www.coolapk.com/u/680367) [@薛定谔の鼠](http://www.coolapk.com/u/1261690)
