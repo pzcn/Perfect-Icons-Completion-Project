@@ -27,6 +27,8 @@ jobs:
 
       - name: Pack
         run: |
+          echo "version=${{ env.version }}" >> ./addition/module/module.prop
+          echo "ver=${{ env.version }}" >> ./addition/module/module.prop
           chmod 755 ./.github/pack.sh
           ./.github/pack.sh
 

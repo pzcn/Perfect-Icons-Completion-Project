@@ -10,8 +10,6 @@ cp -rf ./default/icons.zip ./mtz/icons
 
 # pack module
 cd module
-echo version=${env.version} >> ./module.prop
-echo ver=${env.version} >> ./module.prop
 XZ_OPT=-9 tar cJf icons.tar.xz icons
 rm -rf icons
 zip -r -9 MIUI_Icons.zip *  >/dev/null
