@@ -100,6 +100,8 @@ Android 10 及以上的 MIUI 12
 
 ### 致谢
 
+感谢主题设计师的授权、参与图标绘制的人员以及对模块提供技术支持的伙伴们。
+
 ####主题授权：
 
 [LRONE主题](http://zhuti.xiaomi.com/detail/share/41f02867-78b0-457c-a134-b9eab07d7ac9?miref=share&packId=fcc4e5ff-1667-4689-a399-c5538c60f349)授权：
