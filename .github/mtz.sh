@@ -6,10 +6,8 @@ cp -rf icons/MIUIdefault/default/icons.zip ./temp
 cd temp
 zip -r -9 icons.zip res  >/dev/null
 cd ..
-mv ./temp/icons.zip ./modules/icons
-cd modules
-echo "version=${{ env.version }}" >> ./module.prop
-echo "ver=${{ env.version }}" >> ./module.prop
-zip -r -9 MIUI_Icons.zip *  >/dev/null
+mv ./temp/icons.zip ./mtz/icons
+cd mtz
+zip -r -9 MIUI_Icons.zip icons  >/dev/null
 cd ..
-cp -rf ./modules/MIUI_Icons.zip ./MIUI_Icons.zip
+cp -rf ./mtz/MIUI_Icons.zip ./MIUI_Icons_CI_latest.mtz
