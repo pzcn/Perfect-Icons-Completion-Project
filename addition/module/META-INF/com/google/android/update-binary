@@ -92,7 +92,7 @@ fi
     echo "description=使用$var_theme_name并补全完美图标 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
     unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
     tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
-    mv $TMPDIR/mtz/icons $TMPDIR/icons.zip
+    mv $TMPDIR/icons $TMPDIR/icons.zip
     [ $need_patch == true ] && patch
     addon
     mkdir -p $FAKEMODPATH/system/media/theme/default/
