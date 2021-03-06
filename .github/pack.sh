@@ -2,7 +2,6 @@
 # pack icons
 mkdir -p ./addition/default/res/drawable-xxhdpi/
 cp -rf icons/* ./addition/default/res/drawable-xxhdpi/
-cp -rf icons-dark/* ./addition/default/res/drawable-night-xxhdpi/
 cd ./addition/default/
 zip -r -9 icons.zip *  >/dev/null
 cd ..

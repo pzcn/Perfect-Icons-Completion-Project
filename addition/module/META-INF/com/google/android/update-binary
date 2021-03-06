@@ -135,7 +135,6 @@ patch(){
     mkdir -p res/drawable-xxhdpi
     mv icons/* res/drawable-xxhdpi
     rm icons
-    $zip -d icons.zip "res/drawable-night-xxdpi/*" >/dev/null
     $zip -d icons.zip "layer_animating_icons/*" >/dev/null
     $zip -r icons.zip layer_animating_icons >/dev/null
     $zip -r icons.zip res >/dev/null
