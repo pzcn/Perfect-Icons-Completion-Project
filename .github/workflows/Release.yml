@@ -22,8 +22,8 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
 
       - name: Get Envs
-        run: echo "date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> $GITHUB_ENV
-             echo "version=${{steps.tag_version.outputs.new_tag}}" >> $GITHUB_ENV
+        run: echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
+             echo version=${{steps.tag_version.outputs.new_tag}} >> $GITHUB_ENV
 
       - name: Pack
         run: |
