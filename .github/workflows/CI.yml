@@ -21,15 +21,8 @@ jobs:
         run: |
           echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
 
-      - name: Get Count
-        run: |
-          cd icons
-          echo count=$(ls -l |grep "^d"|wc -l) >> $GITHUB_ENV
-          cd ..
-
       - name: Pack
         run: |
-          echo "count=${{ env.count }}" >> ./addition/module/module.prop
           echo "version=${{ env.version }}" >> ./addition/module/module.prop
           echo "ver=${{ env.version }}" >> ./addition/module/module.prop
           chmod 755 ./.github/pack.sh
