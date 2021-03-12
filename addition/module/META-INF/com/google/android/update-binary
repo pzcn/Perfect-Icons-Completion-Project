@@ -47,6 +47,7 @@ if [ $VARIANT == 17 ]; then
     MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
     MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择MIUI经典主题"
+    echo "- 已适配图标数量：$COUNT"
 elif [ $VARIANT == 18 ]; then 
     var_theme_name="探·界主题"
     var_theme="explore"
@@ -245,6 +246,7 @@ MODID=`grep_prop id $TMPDIR/module.prop`
 MODPATH=$MODULEROOT/$MODID
 MODNAME=`grep_prop name $TMPDIR/module.prop`
 MODVERSION=`grep_prop version $TMPDIR/module.prop`
+COUNT=`grep_prop count $TMPDIR/module.prop`
 ver=`grep_prop ver $TMPDIR/module.prop`
 rm -rf $MODPATH 2>/dev/null
 mkdir -p $MODPATH
