@@ -37,7 +37,7 @@ jobs:
 
       - name: Rename
         run: |
-          mkdir output
+          mkdir -p output/CI
           cp -rf ./addition/mtz/MIUI_Icons.mtz ./output/CI/MIUI_Icons_CI_latest.mtz
           cp -rf ./addition/module/MIUI_Icons.zip ./output/CI/MIUI_Icons_CI_latest.zip
           cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/CI/Icons_Addon_CI_latest.zip
