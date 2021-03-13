@@ -42,7 +42,7 @@ jobs:
           cp -rf ./addition/module/MIUI_Icons.zip ./output/CI/MIUI_Icons_CI_latest.zip
           cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/CI/Icons_Addon_CI_latest.zip
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/CI/Icons_Archiving_CI_latest.zip
-          echo "{"count": \"${{ env.count }}\"}" >> ./output/count.json
+          echo "{\"count\": "${{ env.count }}"}" >> ./output/Json/count.json
           cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
 
       - name: Pushes files
