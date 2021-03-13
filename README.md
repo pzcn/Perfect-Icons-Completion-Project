@@ -22,6 +22,10 @@
 #### 适配版本
 Android 10 及以上的 MIUI 12
 
+#### 图标数量
+
+[![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Icon%20count&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2Fpzcn%2FIconsCDN%2Fmain%2FJson%2Fcount.json)
+
 #### Magisk模块
 
 模块包内包含默认主题和图标。安装过程支持多主题选择，除默认主题外的其他主题需要在线下载。包含联网检查、网速检查等多项措施。主题包会在线获取最新版本。
