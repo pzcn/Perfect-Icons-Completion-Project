@@ -38,10 +38,11 @@ jobs:
       - name: Rename
         run: |
           mkdir output
-          cp -rf ./addition/mtz/MIUI_Icons.mtz ./output/MIUI_Icons_CI_latest.mtz
-          cp -rf ./addition/module/MIUI_Icons.zip ./output/MIUI_Icons_CI_latest.zip
-          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/Icons_Addon_CI_latest.zip
-          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/Icons_Archiving_CI_latest.zip
+          cp -rf ./addition/mtz/MIUI_Icons.mtz ./output/CI/MIUI_Icons_CI_latest.mtz
+          cp -rf ./addition/module/MIUI_Icons.zip ./output/CI/MIUI_Icons_CI_latest.zip
+          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/CI/Icons_Addon_CI_latest.zip
+          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/CI/Icons_Archiving_CI_latest.zip
+          echo "{"count": \"${{ env.count }}\"}" >> ./output/count.json
           cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
 
       - name: Pushes files
@@ -53,7 +54,7 @@ jobs:
         with:
           source_file: 'output/*'
           destination_repo: 'pzcn/IconsCDN'
-          destination_folder: 'CI'
+          destination_folder: './'
           destination_branch: 'main'
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
