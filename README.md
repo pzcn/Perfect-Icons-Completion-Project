@@ -24,7 +24,7 @@ Android 10 及以上的 MIUI 12
 
 #### 图标数量
 
-[![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Icon%20count&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2Fpzcn%2FIconsCDN%2Fmain%2FJson%2Fcount.json)]
+![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Icon%20count&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2Fpzcn%2FIconsCDN%2Fmain%2FJson%2Fcount.json)
 
 #### Magisk模块
 
