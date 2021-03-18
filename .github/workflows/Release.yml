@@ -27,10 +27,17 @@ jobs:
       - name: Get Version Env
         run: echo version=${{steps.tag_version.outputs.new_tag}} >> $GITHUB_ENV
 
+      - name: Get Count
+        run: |
+          cd icons
+          echo count=$(ls -l |grep "^d"|wc -l) >> $GITHUB_ENV
+          cd ..
+
       - name: Pack
         run: |
           echo "version=${{ env.version }}" >> ./addition/module/module.prop
           echo "ver=${{ env.version }}" >> ./addition/module/module.prop
+          echo "count=${{ env.count }}" >> ./addition/module/module.prop
           chmod 755 ./.github/pack.sh
           ./.github/pack.sh
 
