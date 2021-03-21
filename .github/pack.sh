@@ -38,6 +38,7 @@ cp -rf themes/explore/icons/* mtztemp/explore/res/drawable-xxhdpi/
 cp -rf themes/explore/layer_animating_icons mtztemp/explore/
 cd mtztemp/explore/
 zip -r -9 icons.zip *  >/dev/null
+cd ../..
 
 # pack explore mtz
 cp -rf ./mtztemp/explore/icons.zip ./addition/mtz/explore/icons
@@ -54,6 +55,7 @@ cp -rf themes/flyme9/icons/* mtztemp/flyme9/res/drawable-xxhdpi/
 cp -rf themes/flyme9/layer_animating_icons mtztemp/flyme9/
 cd mtztemp/flyme9/
 zip -r -9 icons.zip *  >/dev/null
+cd ../..
 
 # pack flyme9 mtz
 cp -rf ./mtztemp/flyme9/icons.zip ./addition/mtz/flyme9/icons
