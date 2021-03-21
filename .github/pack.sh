@@ -62,5 +62,5 @@ cp -rf ./mtztemp/flyme9/icons.zip ./addition/mtz/flyme9/icons
 cd addition/mtz/flyme9
 zip -r -9 flyme9.mtz *  >/dev/null
 cd ../..
-mv mtz/flyme9/flyme9.mtz mtz/flyme9.mtz
+mv mtz/flyme9/flyme9.mtz mtz/Flyme9.mtz
 cd ..
