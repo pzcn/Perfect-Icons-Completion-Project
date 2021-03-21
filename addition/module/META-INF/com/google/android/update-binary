@@ -54,7 +54,14 @@ elif [ $VARIANT == 18 ]; then
     MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
     echo "- 已选择探界主题"
     download
-elif [ $VARIANT == 19 ]; then
+elif [ $VARIANT == 19 ]; then 
+    var_theme_name="Flyme9主题"
+    var_theme="flyme9"
+    MODAUTHOR1="@PedroZ @潮留美海かり @Yife Playte @Eirperuier"
+    MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择Flyme9主题"
+    download
+elif [ $VARIANT == 20 ]; then
     var_theme_name="LRONE"
     var_theme="lrone"
     MODAUTHOR1="@Conan @Eirperuier @PedroZ @潮留美海かり"
@@ -62,7 +69,7 @@ elif [ $VARIANT == 19 ]; then
     echo "- 已选择LRONE主题"
     download
     NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 自动化绘制了1000+图标。"
-elif [ $VARIANT == 20 ]; then
+elif [ $VARIANT == 21 ]; then
     var_theme_name="Luck7"
     var_theme="luck7"
     MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ @潮留美海かり"
@@ -70,7 +77,7 @@ elif [ $VARIANT == 20 ]; then
     echo "- 已选择Luck7主题"
     download
     NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 Luck7。\n- 感谢 @Eirperuier 添加此主题。"
-elif [ $VARIANT == 21 ]; then
+elif [ $VARIANT == 22 ]; then
     var_theme_name="完美曲线"
     var_theme="perfectcurve"
     MODAUTHOR1="@栗子汤圆Ria @Eirperuier @PedroZ @潮留美海かり"
