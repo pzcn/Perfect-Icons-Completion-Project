@@ -1,15 +1,11 @@
 name: Update Themes
 on:
-  push:
-    branches: [ main ]
-    paths-ignore:
-    - '**.md'
 
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.event.head_commit.message, '[themes]') }}
     steps:
       - uses: actions/checkout@v2
         with:
