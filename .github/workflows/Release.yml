@@ -44,7 +44,9 @@ jobs:
       - name: Rename
         run: |
           mkdir output
-          cp -rf ./addition/mtz/MIUI_Icons.mtz ./output/MIUI_Icons_${{steps.tag_version.outputs.new_tag}}.mtz
+          cp -rf ./addition/mtz/Default.mtz ./output/Default_${{steps.tag_version.outputs.new_tag}}.mtz
+          cp -rf ./addition/mtz/Flyme9.mtz ./output/Flyme9_${{steps.tag_version.outputs.new_tag}}.mtz
+          cp -rf ./addition/mtz/Explore.mtz ./output/Explore_${{steps.tag_version.outputs.new_tag}}.mtz
           cp -rf ./addition/module/MIUI_Icons.zip ./output/MIUI_Icons_${{steps.tag_version.outputs.new_tag}}.zip
           cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/Icons_Addon_${{steps.tag_version.outputs.new_tag}}.zip
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/Icons_Archiving_${{steps.tag_version.outputs.new_tag}}.zip
