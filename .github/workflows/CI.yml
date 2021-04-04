@@ -61,7 +61,7 @@ jobs:
 
       - name: Share File Via FileStack
         uses: Warhammer4000/FileStack-Share-Artifact@main 
-          id: 
+          id: CI
           with:
               API_KEY: AfgwGEoUMQpikDlSKQtDez
               FILE_PATH: ./output/*
