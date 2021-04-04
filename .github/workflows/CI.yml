@@ -45,6 +45,7 @@ jobs:
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_CI_latest.zip
           echo "{\"count\": "${{ env.count }}"}" >> ./output/count.json
           cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
+          cp -rf github/workspace/build /github/home/
 
       - name: Pushes files
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
