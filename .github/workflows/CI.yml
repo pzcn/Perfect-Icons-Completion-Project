@@ -59,11 +59,11 @@ jobs:
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
 
-      - name: Post to channel
+      - name: upload
         uses: MrFlynn/upload-to-netlify-action@v2
         with:
-          source-file: "./output/*"
-          destination-path: "./"
+          source-file: "./output/MIUI_Icons_CI_latest.zip"
+          destination-path: "./MIUI_Icons_CI_latest.zip"
           site-name: miui
           netlify-token: ${{ secrets.NETLIFY_TOKEN }}
           
