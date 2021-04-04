@@ -45,7 +45,6 @@ jobs:
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_CI_latest.zip
           echo "{\"count\": "${{ env.count }}"}" >> ./output/count.json
           cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
-          sudo cp -rf /home/runner/work/MIUI-Adapted-Icons-Complement-Project/MIUI-Adapted-Icons-Complement-Project/build /home/runner/work/_temp/_github_home
 
       - name: Pushes files
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
@@ -61,11 +60,11 @@ jobs:
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
 
-      - name: Deploy Netlify
-        uses: danakim/gh-action-deploy-netlify@master
+      - uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
-          AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-          SITE_ID: ${{ secrets.NETLIFY_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ID }}
+          build_directory: ./build
 
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
