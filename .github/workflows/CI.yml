@@ -59,12 +59,13 @@ jobs:
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
 
-      - name: Upload public folder to Google Drive
-        uses: Jodebu/upload-to-drive@master
+      - name: Post to channel
+        uses: MrFlynn/upload-to-netlify-action@v2
         with:
-          target: output/MIUI_Icons_CI_latest.zip
-          credentials: ${{ secrets.GD }}
-          folder: ${{ secrets.GDID }}
+          source-file: "./output/*"
+          destination-path: "./"
+          site-name: example-site
+          netlify-token: ${{ secrets.NETLIFY_TOKEN }}
           
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
