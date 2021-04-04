@@ -64,7 +64,7 @@ jobs:
         with:
           source-file: "./output/*"
           destination-path: "./"
-          site-name: example-site
+          site-name: miui
           netlify-token: ${{ secrets.NETLIFY_TOKEN }}
           
       - name: Post to channel
