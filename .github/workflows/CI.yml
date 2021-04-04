@@ -59,12 +59,12 @@ jobs:
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
 
-      - name: Upload public folder to Google Drive
-        uses: Jodebu/upload-to-drive@master
-        with:
-          target: output/*
-          credentials: ${{ secrets.GD }}
-          folder: ${{ secrets.GDID }}
+      - name: Share File Via FileStack
+        uses: Warhammer4000/FileStack-Share-Artifact@main 
+          id: 
+          with:
+              API_KEY: AfgwGEoUMQpikDlSKQtDez
+              FILE_PATH: ./output/*
           
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
@@ -79,7 +79,7 @@ jobs:
             ${{ github.event.head_commit.message }}
             by ${{ github.event.head_commit.author.name }}
             --------------
-            下载链接： https://miuiicons.vercel.app/CI/
+            下载链接： ${{ steps.filestack.outputs.File_LINK}}
             链接内文件更新时间可能需要3~5分钟，中国大陆区域无法保证连通性
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
