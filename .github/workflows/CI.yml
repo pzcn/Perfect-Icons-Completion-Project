@@ -64,7 +64,7 @@ jobs:
         id: CI
         with:
           API_KEY: AfgwGEoUMQpikDlSKQtDez
-          FILE_PATH: ./output/*
+          FILE_PATH: ./output/MIUI_Icons_CI_latest.zip
           
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
