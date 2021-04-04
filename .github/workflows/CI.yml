@@ -37,11 +37,11 @@ jobs:
 
       - name: Rename
         run: |
-          mkdir -p output/CI
-          cp -rf ./addition/mtz/*.mtz ./output/CI/
-          cp -rf ./addition/module/MIUI_Icons.zip ./output/CI/MIUI_Icons_CI_latest.zip
-          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/CI/Icons_Addon_CI_latest.zip
-          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/CI/Icons_Archiving_CI_latest.zip
+          mkdir -p build
+          cp -rf ./addition/mtz/*.mtz ./build
+          cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_CI_latest.zip
+          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./build/Icons_Addon_CI_latest.zip
+          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_CI_latest.zip
           echo "{\"count\": "${{ env.count }}"}" >> ./output/count.json
           cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
 
@@ -59,14 +59,12 @@ jobs:
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
 
-      - name: upload
-        uses: MrFlynn/upload-to-netlify-action@v2
+      - name: Deploy Netlify
+        uses: danakim/gh-action-deploy-netlify@master
         with:
-          source-file: "./output/CI/MIUI_Icons_CI_latest.zip"
-          destination-path: "./MIUI_Icons_CI_latest.zip"
-          site-name: miui
-          netlify-token: ${{ secrets.NETLIFY_TOKEN }}
-          
+          AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+          SITE_ID: miui
+
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
         env:
