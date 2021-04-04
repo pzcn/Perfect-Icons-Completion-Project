@@ -38,12 +38,11 @@ jobs:
       - name: Rename
         run: |
           mkdir -p output/CI
-          mkdir -p output/Json
           cp -rf ./addition/mtz/*.mtz ./output/CI/
           cp -rf ./addition/module/MIUI_Icons.zip ./output/CI/MIUI_Icons_CI_latest.zip
           cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./output/CI/Icons_Addon_CI_latest.zip
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./output/CI/Icons_Archiving_CI_latest.zip
-          echo "{\"count\": "${{ env.count }}"}" >> ./output/Json/count.json
+          echo "{\"count\": "${{ env.count }}"}" >> ./output/count.json
           cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
 
       - name: Pushes files
@@ -53,12 +52,19 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'output/*'
+          source_file: './output/count.json'
           destination_repo: 'pzcn/IconsCDN'
-          destination_folder: './'
+          destination_folder: './Json/'
           destination_branch: 'main'
           user_email: 'pdzzzcn@gmail.com'
           user_name: 'pzcn'
+
+      - name: Upload public folder to Google Drive
+        uses: Jodebu/upload-to-drive@master
+        with:
+          target: output/*
+          credentials: ${{ secrets.GD }}
+          folder: ${{ secrets.GDID }}
           
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
