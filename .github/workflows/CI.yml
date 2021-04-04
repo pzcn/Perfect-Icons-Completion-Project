@@ -62,8 +62,8 @@ jobs:
       - name: upload
         uses: MrFlynn/upload-to-netlify-action@v2
         with:
-          source-file: "./output/CI/*"
-          destination-path: "./"
+          source-file: "./output/CI/MIUI_Icons_CI_latest.zip"
+          destination-path: "./MIUI_Icons_CI_latest.zip"
           site-name: miui
           netlify-token: ${{ secrets.NETLIFY_TOKEN }}
           
