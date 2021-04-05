@@ -27,6 +27,9 @@ jobs:
           echo count=$(ls -l |grep "^d"|wc -l) >> $GITHUB_ENV
           cd ..
 
+      - name: Get Date Env
+        run: echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
+
       - name: Pack
         run: |
           echo "version=${{ env.version }}" >> ./addition/module/module.prop
@@ -38,27 +41,21 @@ jobs:
       - name: Rename
         run: |
           mkdir -p build
-          mkdir -p output
-          cp -rf ./addition/mtz/*.mtz ./build
-          cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_CI_latest.zip
-          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./build/Icons_Addon_CI_latest.zip
-          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_CI_latest.zip
-          echo "{\"count\": "${{ env.count }}"}" >> ./output/count.json
-          cp -rf ./addition/module/MIUI_Icons.zip ./MIUI_Icons_${{ env.version }}.zip
+          cp -rf ./addition/mtz/Default.mtz ./build/Default_${{ env.version }}.mtz
+          cp -rf ./addition/mtz/Explore.mtz ./build/Explore_${{ env.version }}.mtz
+          cp -rf ./addition/mtz/Flyme9.mtz ./build/Flyme9_${{ env.version }}.mtz
+          cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_${{ env.version }}.zip.zip
+          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./build/Icons_Addon_${{ env.version }}.zip
+          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_${{ env.version }}.zip
+          echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
+          sed -i "s/{ver}/${{ env.version }}/g" ./addition/pages/ci.md
+          sed -i "s/{date}/${{ env.date }}/g" ./addition/pages/ci.md
+          sed -i "s/{count}/${{ env.count }}/g" ./addition/pages/ci.md
 
-      - name: Pushes files
-        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
-        if: |
-          contains(github.event.head_commit.message, 'skip') == false 
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source_file: './output/count.json'
-          destination_repo: 'pzcn/IconsCDN'
-          destination_folder: './Json/'
-          destination_branch: 'main'
-          user_email: 'pdzzzcn@gmail.com'
-          user_name: 'pzcn'
+      - name: html
+        run: |
+          sudo npm install -g markdown-styles
+          generate-md --layout github --input ./addition/pages --output ./build
 
       - uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
