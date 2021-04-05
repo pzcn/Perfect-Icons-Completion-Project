@@ -1,3 +1,6 @@
+
+---
+
 ## MIUI完美图标补全计划 CI版本
 
 最新版本：{ver}
@@ -12,7 +15,7 @@
 
 ### Magisk 
 
-[Magisk 主模块](https://miui.netlify.app/Icons_{ver}.zip)
+[Magisk 主模块](https://miui.netlify.app/MIUI_Icons_{ver}.zip)
 
 [Magisk 附加模块](https://miui.netlify.app/Icons_Addon_{ver}.zip)
 

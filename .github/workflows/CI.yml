@@ -44,7 +44,7 @@ jobs:
           cp -rf ./addition/mtz/Default.mtz ./build/Default_${{ env.version }}.mtz
           cp -rf ./addition/mtz/Explore.mtz ./build/Explore_${{ env.version }}.mtz
           cp -rf ./addition/mtz/Flyme9.mtz ./build/Flyme9_${{ env.version }}.mtz
-          cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_${{ env.version }}.zip.zip
+          cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_${{ env.version }}.zip
           cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./build/Icons_Addon_${{ env.version }}.zip
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_${{ env.version }}.zip
           echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
@@ -69,13 +69,15 @@ jobs:
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          MODULE: ./MIUI_Icons_${{ env.version }}.zip
+          MODULE: ./build/MIUI_Icons_${{ env.version }}.zip
           COMMIT_MESSAGE: |+
             新版本${{ env.version }}已发布
             累计适配图标${{ env.count }}个
             --------------
             ${{ github.event.head_commit.message }}
             by ${{ github.event.head_commit.author.name }}
+            --------------
+            下载地址：https://miui.netlify.app/
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
           curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$MODULE"
