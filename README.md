@@ -53,7 +53,7 @@ Android 10 及以上的 MIUI 12
 
 [Telegram 频道](https://t.me/miuiicons) 获取
 
-[CI版本下载](https://miuiicons.vercel.app/CI/) 包含最新的所有的测试版文件
+[下载导航站](https://miui.netlify.app/) 提供CI版下载
 
 ----
 
@@ -107,12 +107,14 @@ Android 10 及以上的 MIUI 12
 
 适配指南见 [Wiki](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/适配指南)
 
-提交适配 提交PR或将文件发送至 [Telegram 群组](https://t.me/miui_icons_dev) 内
+提交适配 提交PR或将文件发送至 [Telegram 群组](https://t.me/miui_icons_dev) 或QQ群内
 
 #### 参与讨论
 
 [![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev)
+
+QQ群：561180493
 
 ----
 
