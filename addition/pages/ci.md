@@ -11,7 +11,7 @@
 
 图标总数：{count}
 
-[更新日志](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/commit/main)
+[更新日志](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/commits/main)
 
 ---
 
@@ -30,4 +30,4 @@
 
 [探·界主题](https://miui.netlify.app/Explore_{ver}.mtz)
 
-[FLyme9 主题](https://miui.netlify.app/Flyme9_{ver}.mtz)
+[Flyme9 主题](https://miui.netlify.app/Flyme9_{ver}.mtz)
