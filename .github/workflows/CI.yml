@@ -51,7 +51,7 @@ jobs:
           sed -i "s/{ver}/${{ env.version }}/g" ./addition/pages/ci.md
           sed -i "s/{date}/${{ env.date }}/g" ./addition/pages/ci.md
           sed -i "s/{count}/${{ env.count }}/g" ./addition/pages/ci.md
-          sed -i "s/{count}/${{ github.event.head_commit.message }}/g" ./addition/pages/ci.md
+          sed -i "s/{Changelog}/${{ github.event.head_commit.message }}/g" ./addition/pages/ci.md
 
       - name: html
         run: |
