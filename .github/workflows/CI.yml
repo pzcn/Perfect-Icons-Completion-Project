@@ -57,12 +57,22 @@ jobs:
           sudo npm install -g markdown-styles
           generate-md --layout github --input ./addition/pages --output ./build
 
-      - uses: jsmrcaga/action-netlify-deploy@v1.1.0
+      - name: build to netlify
+        uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ID }}
           build_directory: ./build
           NETLIFY_DEPLOY_TO_PROD: true
+
+      - name: build to vercel
+      - uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-args: '--prod' #Optional
+          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
+          working-directory: ./build
 
       - name: Post to channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
