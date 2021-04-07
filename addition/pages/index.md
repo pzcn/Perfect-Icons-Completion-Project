@@ -19,7 +19,7 @@
 
 #### 测试版
 
-- [CI Build 下载地址](https://miui.netlify.app/ci.html)
+- [CI Build 下载地址](https://miui.iconsx.tech/ci.html)
 
 ---
 
