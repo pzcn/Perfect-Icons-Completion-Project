@@ -264,8 +264,9 @@ echo "> 注意"
 echo "> 仅在MIUI经典主题下有效"
 echo "> 安装、卸载模块或切换本模块内的主题后，建议在主题壁纸内重新应用MIUI默认主题。"
 echo ""
-echo "- 关注 Telegram 频道 @miuiicons 获得测试版本"
-echo "- 欢迎加入 Telegram 群组讨论参与开发"
+echo "- Telegram 频道：@miuiicons"
+echo "- QQ讨论群：561180493"
+echo "- 欢迎加群讨论参与开发"
 cp -rf $FAKEMODPATH/. $MODPATH
 if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
   set_perm_recursive $MODPATH 0 0 0755 0644

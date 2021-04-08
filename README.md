@@ -51,9 +51,7 @@ Android 10 及以上的 MIUI 12
 
 [Release](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)页面下载
 
-[Telegram 频道](https://t.me/miuiicons) 获取
-
-[下载导航站](https://miui.netlify.app/) 提供CI版下载
+[下载导航站](https://miui.iconsx.tech)
 
 ----
 
