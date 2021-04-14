@@ -21,7 +21,7 @@
 
 - [Github 加速下载站](https://github.iconsx.tech)
 
-- [更新日志](https://iconsx.tech/miuichangelog.html)
+- [更新日志](https://iconsx.tech/miuichangelog.ini)
 
 ---
 
