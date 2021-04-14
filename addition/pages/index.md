@@ -17,7 +17,11 @@
 
 - [Github Release 下载地址](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/latest)
 
+- [蓝奏云镜像](https://pedroz.lanzous.com/b06xxglhc)
+
 - [Github 加速下载站](https://github.iconsx.tech)
+
+- [更新日志](https://iconsx.tech/miuichangelog.html)
 
 ---
 
