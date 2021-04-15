@@ -15,7 +15,7 @@
 
 ---
 
-#### Magisk 
+#### Magisk（推荐） 
 
 - Magisk 主模块
 
@@ -26,7 +26,7 @@
   [下载地址1](https://miui.iconsx.tech/Icons_Addon_{ver}.zip)    [下载地址2](https://miui.netlify.app/Icons_Addon_{ver}.zip)
 
 ---
-#### Mtz主题
+#### Mtz主题（不推荐）
 
 - MIUI12 经典主题
 

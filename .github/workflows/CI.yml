@@ -28,7 +28,9 @@ jobs:
           cd ..
 
       - name: Get Date Env
-        run: echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
+        run: |
+          echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
+          echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
 
       - name: Pack
         run: |
@@ -49,7 +51,7 @@ jobs:
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_${{ env.version }}.zip
           echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
           sed -i "s/{ver}/${{ env.version }}/g" ./addition/pages/ci.md
-          sed -i "s/{date}/${{ env.date }}/g" ./addition/pages/ci.md
+          sed -i "s/{time}/${{ env.date }}/g" ./addition/pages/ci.md
           sed -i "s/{count}/${{ env.count }}/g" ./addition/pages/ci.md
 
       - name: html
