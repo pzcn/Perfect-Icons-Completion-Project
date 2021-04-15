@@ -11,7 +11,7 @@
 
 - 图标总数：{count}
 
-- [更新日志](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/commits/main)
+- [更新日志](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/commits/main)
 
 ---
 
