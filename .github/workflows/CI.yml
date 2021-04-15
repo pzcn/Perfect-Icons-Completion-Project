@@ -51,7 +51,7 @@ jobs:
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_${{ env.version }}.zip
           echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
           sed -i "s/{ver}/${{ env.version }}/g" ./addition/pages/ci.md
-          sed -i "s/{time}/${{ env.date }}/g" ./addition/pages/ci.md
+          sed -i "s/{date}/${{ env.time }}/g" ./addition/pages/ci.md
           sed -i "s/{count}/${{ env.count }}/g" ./addition/pages/ci.md
 
       - name: html
