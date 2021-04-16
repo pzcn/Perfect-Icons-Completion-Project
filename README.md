@@ -26,18 +26,18 @@ Android 10 及以上的 MIUI 12
 
 ![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Icon%20count&query=%24.count&url=https%3A%2F%2Fmiui.netlify.app%2Fcount.json)
 
-#### Magisk模块
+#### Magisk模块（推荐）
 
 模块包内包含默认主题和图标。安装过程支持多主题选择，除默认主题外的其他主题需要在线下载。包含联网检查、网速检查等多项措施。主题包会在线获取最新版本。
 
-#### Mtz主题包
+#### Mtz主题包（不推荐）
 同其他Mtz主题一样，MIUI国内版需要设计师账号或主题破解才可以正常使用。mtz使用相关问题请自行解决。
 
 *注意：部分机型和MIUI版本可能出现手势问题，参考下方常见问题。*
 
 *注意：仅默认主题提供mtz。为保护设计师利益，虽然我们取得了授权，第三方主题也不会提供mtz版本，请使用magisk模块。*
 
-#### 附加模块
+#### 自定义附加模块
 
 （仅供Magisk模块版本使用）搭配MIUI完美图标补全模块，优先使用自己绘制的图标。[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
 
@@ -57,10 +57,10 @@ Android 10 及以上的 MIUI 12
 
 ### 常见问题
 
-1. Q：为什么应用锁/通知栏/设置等 APP 内不显示完美图标？
+1. Q：mtz主题包出现了返回手势结束时直角变圆角现象，如何解决？
 
-   ~~A：完美图标逻辑仅在桌面内会调用，部分没有 Adapt Icon 的 APP也会显示在设置/通知栏中，但是除了桌面其他位置若无法显示，这是已知问题，暂时没有找到简单的解决方案。~~
-   自v1.0.11起，已支持。
+   A：似乎是MIUI系统版本问题，目前发现的两种解决方法：①使用稳定版桌面，卸载内测桌面（部分机型依然无效）②不使用mtz，换用magisk模块。
+   
 
 2. Q：为什么xxx这个图标和原图标不太一样？
 
@@ -70,10 +70,6 @@ Android 10 及以上的 MIUI 12
 3. Q：能把xx图标换成xx样式吗？
 
    A：参考适配指南自行绘制，然后使用[附加模块](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)（针对Magisk版本）。
-
-4. Q：mtz主题包出现了返回手势结束时直角变圆角现象，如何解决？
-
-   A：似乎是MIUI系统版本问题，目前发现的两种解决方法：①使用稳定版桌面，卸载内测桌面（部分机型依然无效）②不使用mtz，换用magisk模块。或者有能力修改system的自行替换也可以
 
 ----
 
@@ -93,13 +89,13 @@ Android 10 及以上的 MIUI 12
 
 #### 申请适配
 
-申请适配 参考适配规则，带上包名、应用名 提交Issue
+目前采用免费+付费的方式进行适配
 
-如果APP自己更换了图标，欢迎提出
+热门应用免费适配，其他应用按照0.5元/个的方式收费适配
 
-在[酷安评论区](https://www.coolapk.com/feed/19929877)留言
+热门应用指酷安下载量高于10万的app
 
-加入[Telegram 群组](https://t.me/miui_icons_dev) 参与讨论，提出建议，申请适配
+在QQ群 561180493 私聊群主进行适配 先适配后付款
 
 #### 适配指南、提交适配
 
@@ -137,7 +133,7 @@ QQ群：561180493
 
 [@Eirperuier](http://www.coolapk.com/u/1780934) Luck7、完美曲线申请授权、累计自动化绘制了3000+图标
 
-[@世界第一小莲儿](http://www.coolapk.com/u/1780934) @Mastiff Li @Shahzaib Ahmed
+[@Mastiff Li](http://www.coolapk.com/u/1305926) [@世界第一小莲儿](http://www.coolapk.com/u/1780934)  @Shahzaib Ahmed
 
 #### 技术支持：
 
