@@ -3,7 +3,7 @@
 
 ### MIUI完美图标补全计划
 
-### CI版本下载站
+### 快速版本下载站
 
 - 最新版本：{ver}
 
@@ -21,7 +21,7 @@
 
   [下载地址1](https://miui.iconsx.tech/MIUI_Icons_{ver}.zip)    [下载地址2](https://miui.netlify.app/MIUI_Icons_{ver}.zip)
 
-- Magisk 附加模块
+- [Magisk 自定义附加模块](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
 
   [下载地址1](https://miui.iconsx.tech/Icons_Addon_{ver}.zip)    [下载地址2](https://miui.netlify.app/Icons_Addon_{ver}.zip)
 
