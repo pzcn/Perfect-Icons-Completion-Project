@@ -5,7 +5,7 @@
 
 ### 下载导航页
 
-- 若下载速度慢，请切换网络或使用代理。
+- 快速版本和慢速版本指更新频率。快速版本更新快，图标数量多，但是下载可能需要代理。慢速版本有蓝奏云镜像。
 
 - 推荐优先使用 Magisk 模块版本，兼容性更好，且不会出现手势动画出现直角的问题。
 
@@ -13,7 +13,7 @@
 
 ---
 
-#### 稳定版 
+#### 慢速版本
 
 - [Github Release 下载地址](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/latest)
 
@@ -23,7 +23,7 @@
 
 ---
 
-#### 测试版
+#### 快速版本
 
 - [CI Build 下载地址](https://miui.iconsx.tech/ci.html)
 
