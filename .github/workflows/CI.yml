@@ -76,7 +76,7 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
           working-directory: ./build
 
-       - name: send custom message
+      - name: send custom message
          uses: appleboy/telegram-action@master
          with:
            to: ${{ secrets.CHANNEL2_ID }}
