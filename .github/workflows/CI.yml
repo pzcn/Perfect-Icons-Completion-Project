@@ -82,10 +82,11 @@ jobs:
           to: ${{ secrets.CHANNEL2_ID }}
           token: ${{ secrets.BOT_TOKEN }}
           message: |
+            MIUI完美图标补全计划
             新版本${{ env.version }}已发布
             累计适配图标${{ env.count }}个
             --------------
             ${{ github.event.head_commit.message }}
             by ${{ github.event.head_commit.author.name }}
             --------------
-            下载导航站：https://miui.iconsx.tech/
+            下载 https://miui.iconsx.tech/
