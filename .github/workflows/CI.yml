@@ -67,15 +67,6 @@ jobs:
           build_directory: ./build
           NETLIFY_DEPLOY_TO_PROD: true
 
-      - name: build to vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-args: '--prod' #Optional
-          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
-          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
-          working-directory: ./build
-
       - name: send custom message
         uses: appleboy/telegram-action@master
         with:
