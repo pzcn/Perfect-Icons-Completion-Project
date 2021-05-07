@@ -25,7 +25,7 @@
 
 #### 快速版本
 
-- [CI Build 下载地址](https://miui.iconsx.tech/ci.html)
+- [CI Build 下载地址](ci.html)
 
 ---
 
