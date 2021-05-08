@@ -13,6 +13,8 @@
 
 - [更新日志](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/commits/main)
 
+- [Github Release (Beta) 下载地址](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/tag/beta)
+
 ---
 
 #### Magisk（推荐） 

@@ -25,7 +25,9 @@
 
 #### 快速版本
 
-- [CI Build 下载地址](ci.html)
+- [Github Release (Beta) 下载地址](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/tag/beta)
+
+- [CI Build 下载页面](ci.html)
 
 ---
 
