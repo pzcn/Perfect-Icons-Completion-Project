@@ -1,5 +1,5 @@
 {
-	"root": "build/",
+	"root": "./",
 
 	"clean_urls": true
 }
