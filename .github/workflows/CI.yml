@@ -43,6 +43,7 @@ jobs:
       - name: Rename
         run: |
           mkdir -p build
+          mkdir -p buildpages
           cp -rf ./addition/mtz/Default.mtz ./build/Default_${{ env.version }}.mtz
           cp -rf ./addition/mtz/Explore.mtz ./build/Explore_${{ env.version }}.mtz
           cp -rf ./addition/mtz/Flyme9.mtz ./build/Flyme9_${{ env.version }}.mtz
@@ -57,8 +58,10 @@ jobs:
       - name: html
         run: |
           sudo npm install -g markdown-styles
-          generate-md --layout github --input ./addition/pages --output ./build
+          generate-md --layout github --input ./addition/pages --output ./buildpages
+          cp -rf ./buildpages/* ./build
           cp -rf ./addition/static.json ./build/static.json
+
      
       - name: heroku
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -76,6 +79,15 @@ jobs:
           build_directory: ./build
           NETLIFY_DEPLOY_TO_PROD: true
 
+      - name: build to vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-args: '--prod' #Optional
+          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
+          working-directory: ./buildpages
+          
       - name: send custom message
         uses: appleboy/telegram-action@master
         with:
