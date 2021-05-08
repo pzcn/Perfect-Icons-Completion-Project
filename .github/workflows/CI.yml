@@ -20,15 +20,9 @@ jobs:
       - name: Get Envs
         run: |
           echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
-
-      - name: Get Count
-        run: |
           cd icons
           echo count=$(ls -l |grep "^d"|wc -l) >> $GITHUB_ENV
           cd ..
-
-      - name: Get Date Env
-        run: |
           echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
           echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
 
@@ -40,7 +34,7 @@ jobs:
           chmod 755 ./.github/pack.sh
           ./.github/pack.sh
 
-      - name: Rename
+      - name: Organize Outputs
         run: |
           mkdir -p build
           mkdir -p buildpages
@@ -50,7 +44,6 @@ jobs:
           cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_${{ env.version }}.zip
           cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./build/Icons_Addon_${{ env.version }}.zip
           cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_${{ env.version }}.zip
-          echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
           sed -i "s/{ver}/${{ env.version }}/g" ./addition/pages/ci.md
           sed -i "s/{date}/${{ env.time }}/g" ./addition/pages/ci.md
           sed -i "s/{count}/${{ env.count }}/g" ./addition/pages/ci.md
@@ -64,15 +57,15 @@ jobs:
           title: ${{ env.date }}
           files: build/
 
-      - name: html
+      - name: Build Pages
         run: |
+          echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
           sudo npm install -g markdown-styles
           generate-md --layout github --input ./addition/pages --output ./buildpages
           cp -rf ./buildpages/* ./build
           cp -rf ./addition/static.json ./build/static.json
 
-     
-      - name: heroku
+      - name: Build to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -80,7 +73,7 @@ jobs:
           heroku_email: "sdustpedro@gmail.com"
           appdir: "build"
 
-      - name: build to netlify
+      - name: Build to netlify
         uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
@@ -88,7 +81,7 @@ jobs:
           build_directory: ./build
           NETLIFY_DEPLOY_TO_PROD: true
 
-      - name: build to vercel
+      - name: Build to vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
@@ -97,13 +90,14 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
           working-directory: ./buildpages
           
-      - name: Post to channel
+      - name: Post to Channel
         if: contains(github.event.head_commit.message, '[skip post]') == false
         env:
           CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MODULE: ./build/MIUI_Icons_${{ env.version }}.zip
           COMMIT_MESSAGE: |+
+            MIUI完美图标补全计划
             新版本${{ env.version }}已发布
             累计适配图标${{ env.count }}个
             --------------
