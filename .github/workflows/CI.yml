@@ -58,13 +58,15 @@ jobs:
         run: |
           sudo npm install -g markdown-styles
           generate-md --layout github --input ./addition/pages --output ./build
-
+          mv static.json ./build/static.json
+     
       - name: heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "iconsx"
           heroku_email: "sdustpedro@gmail.com"
+          appdir: "build"
 
       - name: send custom message
         uses: appleboy/telegram-action@master
