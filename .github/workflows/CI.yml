@@ -58,7 +58,7 @@ jobs:
         run: |
           sudo npm install -g markdown-styles
           generate-md --layout github --input ./addition/pages --output ./build
-          mv static.json ./build/static.json
+          cp -rf ./addition/static.json ./build/static.json
      
       - name: heroku
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -67,6 +67,14 @@ jobs:
           heroku_app_name: "iconsx"
           heroku_email: "sdustpedro@gmail.com"
           appdir: "build"
+
+      - name: build to netlify
+        uses: jsmrcaga/action-netlify-deploy@v1.1.0
+        with:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ID }}
+          build_directory: ./build
+          NETLIFY_DEPLOY_TO_PROD: true
 
       - name: send custom message
         uses: appleboy/telegram-action@master
