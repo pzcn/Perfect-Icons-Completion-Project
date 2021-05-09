@@ -15,7 +15,7 @@
 
 #### 慢速版本
 
-- [Github Release 下载地址](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/latest)
+- [Github Release 下载地址](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/latest)    [镜像加速](https://hub.fastgit.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/latest)
 
 - [蓝奏云镜像](https://pedroz.lanzous.com/b06xxglhc)
 
@@ -25,7 +25,7 @@
 
 #### 快速版本
 
-- [Github Release (Beta) 下载地址](https://github.com.cnpmjs.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/tag/beta)
+- [Github Release (Beta) 下载地址](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/tag/beta)        [镜像加速](https://hub.fastgit.org/pzcn/MIUI-Adapted-Icons-Complement-Project/releases/tag/beta)
 
 - [CI Build 下载页面](ci.html)
 
