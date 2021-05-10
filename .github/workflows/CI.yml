@@ -72,6 +72,7 @@ jobs:
           heroku_app_name: "iconsx"
           heroku_email: "sdustpedro@gmail.com"
           appdir: "build"
+          branch: "main"
 
       - name: Build to netlify
         uses: jsmrcaga/action-netlify-deploy@v1.1.0
