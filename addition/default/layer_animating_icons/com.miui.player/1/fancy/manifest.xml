@@ -17,7 +17,7 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init" x="111" rotation="100*#ratio" />
+	<FolmeState name="state_init" x="111" rotation="300*#ratio" />
 	<FolmeState name="state_end"  x="111" rotation="0" />
 	<FolmeConfig name="state_config" property="x,rotation" ease="-2,0.9,1" fromSpeed="0"/>
 	<!-- view -->
