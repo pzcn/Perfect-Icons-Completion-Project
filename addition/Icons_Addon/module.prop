@@ -2,5 +2,5 @@ id=MIUIiconsplus_addon
 name=MIUI完美图标补全附加模块
 versionCode=1
 author=@PedroZ
-version=1.0
-description=MIUI完美图标补全附加模块，可以添加您自定义图标，放入模块内icons文件夹即可。
+version=2.0
+description=MIUI完美图标补全附加模块，可以添加您自定义图标。静态图标放入模块内icons文件夹，动态图标放入模块内animating_icons即可。

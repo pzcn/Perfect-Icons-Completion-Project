@@ -120,6 +120,8 @@ addon(){
     sed -i '/^version/d' $TMPDIR/module.prop
     echo "version=${ver}_mod" >> $TMPDIR/module.prop
     mkdir -p $TMPDIR/res/drawable-xxhdpi/
+    mkdir -p $TMPDIR/layer_animating_icons
+    cp -rf $addon_path/animating_icons/* $TMPDIR/layer_animating_icons/
     cp -rf $addon_path/icons/* $TMPDIR/res/drawable-xxhdpi/
     cd $TMPDIR
     $zip -r icons.zip res >/dev/null
@@ -130,6 +132,8 @@ addon(){
     sed -i '/^version/d' $TMPDIR/module.prop
     echo "version=${ver}_mod" >> $TMPDIR/module.prop
     mkdir -p $TMPDIR/res/drawable-xxhdpi/
+    mkdir -p $TMPDIR/layer_animating_icons
+    cp -rf $addon_path/animating_icons/* $TMPDIR/layer_animating_icons/
     cp -rf $addon_path/icons/* $TMPDIR/res/drawable-xxhdpi/
     cd $TMPDIR
     $zip -r icons.zip res >/dev/null

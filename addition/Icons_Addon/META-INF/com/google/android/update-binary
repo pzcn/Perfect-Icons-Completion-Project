@@ -7,10 +7,12 @@ print_modname() {
 
 on_install() {
 unzip -o "$ZIPFILE" 'icons/*' -d $TMPDIR/ >&2
+unzip -o "$ZIPFILE" 'icons/*' -d $TMPDIR/ >&2
 zip=$TMPDIR/zip
 chmod 755 $zip
 mod_path="$NVBASE/modules_update/MIUIiconsplus/system/media/theme/default"
 rm -rf $TMPDIR/icons/miui.icons.example
+rm -rf $TMPDIR/animating_icons/miui.icons.example
 copy
 if [ -d "$mod_path" ];then
 echo
@@ -45,7 +47,9 @@ install(){
 mod(){
 mv $mod_path/icons $mod_path/icons.zip
 mkdir -p $mod_path/res/drawable-xxhdpi
-cp -rf $TMPDIR/icons/. $mod_path/res/drawable-xxhdpi/
+mkdir -p $mod_path/layer_animating_icons
+cp -rf $TMPDIR/icons/* $mod_path/res/drawable-xxhdpi/
+cp -rf $TMPDIR/animating_icons/* $mod_path/res/drawable-xxhdpi/
 cd $mod_path
 $zip -r -m icons.zip res >/dev/null
 cd ..
