@@ -7,7 +7,7 @@ print_modname() {
 
 on_install() {
 unzip -o "$ZIPFILE" 'icons/*' -d $TMPDIR/ >&2
-unzip -o "$ZIPFILE" 'icons/*' -d $TMPDIR/ >&2
+unzip -o "$ZIPFILE" 'animating_icons/*' -d $TMPDIR/ >&2
 zip=$TMPDIR/zip
 chmod 755 $zip
 mod_path="$NVBASE/modules_update/MIUIiconsplus/system/media/theme/default"
@@ -41,6 +41,7 @@ install
 
 install(){
     cp -rf $TMPDIR/icons $MODPATH
+    cp -rf $TMPDIR/animating_icons $MODPATH
     cp $TMPDIR/module.prop $MODPATH/module.prop
 }
 
@@ -49,9 +50,10 @@ mv $mod_path/icons $mod_path/icons.zip
 mkdir -p $mod_path/res/drawable-xxhdpi
 mkdir -p $mod_path/layer_animating_icons
 cp -rf $TMPDIR/icons/* $mod_path/res/drawable-xxhdpi/
-cp -rf $TMPDIR/animating_icons/* $mod_path/res/drawable-xxhdpi/
+cp -rf $TMPDIR/animating_icons/* $mod_path/layer_animating_icons/
 cd $mod_path
 $zip -r -m icons.zip res >/dev/null
+$zip -r -m icons.zip layer_animating_icons >/dev/null
 cd ..
 mv $mod_path/icons.zip $mod_path/icons
 sed -i '/^version/d' $MODULEROOT/MIUIiconsplus/module.prop
