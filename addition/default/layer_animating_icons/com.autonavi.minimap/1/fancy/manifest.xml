@@ -18,7 +18,7 @@
  <!-- module -->
  <FolmeState name="state_init" x="-182" y="182" />
  <FolmeState name="state_end" x="0" y="0" />
- <FolmeConfig name="state_config" property="x,y" ease="-2,0.6,1" fromSpeed="0"/>
+ <FolmeConfig name="state_config" property="x,y" ease="-2,0.9,1" fromSpeed="0"/>
  <!-- view -->
  <Group>
   <Image name="fg"  src="fg.png"  folmeMode="true" />
