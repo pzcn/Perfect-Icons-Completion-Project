@@ -22,6 +22,5 @@
   <!-- view -->
   <Group>
     <Image name="bg" src="bg.png" x="191" y="191" pivotX="191" pivotY="191" align="center" alignV="center" folmeMode="true" />
-    <Image name="bg" src="bg.png" folmeMode="true" />
   </Group>
 </bg>
