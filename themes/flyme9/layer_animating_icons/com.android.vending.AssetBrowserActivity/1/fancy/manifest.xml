@@ -16,7 +16,7 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init" x="300*#ratio" y="-25" />
+	<FolmeState name="state_init" x="300*#ratio" y="-35" />
 	<FolmeState name="state_end" x="0" y="0" />
 	<FolmeConfig name="state_config" property="x,y" ease="-2,0.5,1" fromSpeed="0"/>
 	<!-- view -->
