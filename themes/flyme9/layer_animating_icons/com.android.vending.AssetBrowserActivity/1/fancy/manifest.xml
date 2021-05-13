@@ -22,8 +22,8 @@
 	<!-- view -->
 	<Group>
 		<Group w="382" h="382" layered="true">
-			<Image src="icon.png" x="382" y="382" x="0" y="0" />
-			<Image src="fg.png" x="382" y="382" name="icon" x="0" y="0" xfermode="src_atop"/>
+			<Image src="icon.png" x="0" y="0" />
+			<Image src="fg.png" name="icon" x="0" y="0" xfermode="src_atop"/>
 		</Group>
 	</Group>
 </Icon>
