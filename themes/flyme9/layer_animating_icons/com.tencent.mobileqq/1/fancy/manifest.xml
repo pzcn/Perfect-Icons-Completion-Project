@@ -16,12 +16,13 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init" rotation="-100*#ratio" x="133+40*#ratio"/>
+	<Var name="lr" expression="ifelse(#ratio}0,1,-1)" />
+	<FolmeState name="state_init" rotation="-10-#lr*30" x="133+#lr*10"/>
 	<FolmeState name="state_end" rotation="0" x="133"/>
 	<FolmeConfig name="state_config" property="rotation,x" ease="-2,0.4,1" fromSpeed="0"/>
 	<!-- view -->
 	<Group>
 		<Image src="icon.png"/>
-		<Image src="wj.png" name="wj" x="133" y="157" folmeMode="true"/>
+		<Image src="wj.png" name="wj" x="133" y="157" folmeMode="true" pivotX="10" pivotY="0"/>
 	</Group>
 </Icon>
