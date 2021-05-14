@@ -65,15 +65,6 @@ jobs:
           cp -rf ./buildpages/* ./build
           cp -rf ./addition/static.json ./build/static.json
 
-      - name: Build to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "iconsx"
-          heroku_email: "sdustpedro@gmail.com"
-          appdir: "build"
-          branch: "main"
-
       - name: Build to netlify
         uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
@@ -109,3 +100,12 @@ jobs:
         run: |
           ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
           curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$MODULE"
+
+      - name: Build to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "iconsx"
+          heroku_email: "sdustpedro@gmail.com"
+          appdir: "build"
+          branch: "main"
