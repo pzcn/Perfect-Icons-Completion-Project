@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+	<Var name="SIZE" expression="252" const="true"/>
+	 <!-- control -->
+	 <ExternalCommands>
+        <!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+        <Trigger action="init,present,back_home_cancel" >
+			<FolmeCommand target="ball_bg" states="'state_end_bg'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="ball_mask" states="'state_end_mask'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="ball_fg" states="'state_end_fg'" command="setTo" config="'state_config'" />
+       </Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="ball_bg" states="'state_init_bg'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="ball_mask" states="'state_init_mask'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="ball_fg" states="'state_init_fg'" command="setTo" config="'state_config'" />
+		</Trigger>
+    	<!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+			<FolmeCommand target="ball_bg" states="'state_init_bg','state_end_bg'" command="fromTo" config="'state_config'" />
+			<FolmeCommand target="ball_mask" states="'state_init_mask','state_end_mask'" command="fromTo" config="'state_config'" />
+			<FolmeCommand target="ball_fg" states="'state_init_fg','state_end_fg'" command="fromTo" config="'state_config'" />
+        </Trigger>
+    </ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init_bg" x="32" y="72" />
+	<FolmeState name="state_init_fg" x="135" y="102" />
+	<FolmeState name="state_init_mask" x="30" y="0" />
+	<FolmeState name="state_end_bg" x="62" y="72" />
+	<FolmeState name="state_end_fg" x="105" y="102" />
+	<FolmeState name="state_end_mask" x="0" y="0" />
+	<FolmeConfig name="state_config" property="x,y" ease="-2,0.6,1" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-234)/2-0.3" y="(#SIZE-234)/2-0.3">
+		<Group w="234" h="234" layered="true">
+			<Image name="ball_bg" src="ball_bg.png" folmeMode="true"/>
+			<Image name="ball_mask" src="ball_mask.png" xfermode="dst_in"/>
+		</Group>
+		<Image name="ball_fg" src="ball_fg.png" folmeMode="true"/>
+	</Group>
+</Icon>
