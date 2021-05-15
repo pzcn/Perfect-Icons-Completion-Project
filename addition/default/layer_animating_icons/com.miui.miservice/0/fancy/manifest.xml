@@ -21,6 +21,7 @@
  <FolmeConfig name="state_config" property="x,y" ease="-2,0.4,1" fromSpeed="0"/>
  <!-- view -->
  <Group>
+   <Image src="bg.png" />
   <Image name="icon"  src="icon.png"  folmeMode="true" />
  </Group>
 </Icon>
