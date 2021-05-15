@@ -19,8 +19,8 @@
 	<!-- module -->
 	<Var name="src_ani">
 		<VariableAnimation loop="false" initPause="true">
-<AniFrame value="1" time="0"/>
-            <AniFrame value="28" time="600"/>
+			<AniFrame value="1" time="0"/>
+            <AniFrame value="28" time="300"/>
 		</VariableAnimation>
 	</Var>
 	<!-- view -->
