@@ -22,13 +22,13 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init1" x="47" y="100" />
-	<FolmeState name="state_end1" x="87" y="100" />
-	<FolmeState name="state_init2" x="186" y="141" />
-	<FolmeState name="state_end2" x="146" y="141" />
-	<FolmeState name="state_init3" x="182" y="138" />
-	<FolmeState name="state_end3" x="142" y="138" />
-	<FolmeConfig name="state_config" property="x,y" ease="-2,0.6,1" fromSpeed="0" />
+	<FolmeState name="state_init1" x="47" />
+	<FolmeState name="state_end1" x="87" />
+	<FolmeState name="state_init2" x="186" />
+	<FolmeState name="state_end2" x="146" />
+	<FolmeState name="state_init3" x="182" />
+	<FolmeState name="state_end3" x="142" />
+	<FolmeConfig name="state_config" property="x" ease="-2,0.6,1" fromSpeed="0" />
 	<!-- view -->
 	<Group>
 		<Group w="324" h="324" layered="true">
