@@ -18,9 +18,9 @@
 	<!-- module -->
 	<FolmeState name="state_init" scaleX="1.3" scaleY="1.3"/>
 	<FolmeState name="state_end" scaleX="1" scaleY="1"/>
-	<FolmeConfig name="state_config" property="scaleX,scaleY" ease="-2,0.3,1" fromSpeed="0"/>
+	<FolmeConfig name="state_config" property="scaleX,scaleY" ease="-2,0.35,0.9" fromSpeed="0"/>
 	<!-- view -->
 	<Group>
-		<Image name="icon" src="icon.png" folmeMode="true" pivotX="126" pivotY="126" scaleX="2" scaleY="2"/>
+		<Image name="icon" src="icon.png" folmeMode="true" pivotX="126" pivotY="126"/>
 	</Group>
 </Icon>

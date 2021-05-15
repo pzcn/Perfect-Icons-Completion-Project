@@ -16,11 +16,11 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init1" y="-30" />
+	<FolmeState name="state_init1" y="-80" />
 	<FolmeState name="state_end1" y="0" />
-	<FolmeConfig name="state_config" property="y" ease="-2,0.6,1" fromSpeed="0" />
+	<FolmeConfig name="state_config" property="y" ease="-2,0.6,0.8" fromSpeed="0" />
 	<!-- view -->
 	<Group>
-		<Image name="1" src="1.png" x="0" y="0" folmeMode="true" />
+		<Image name="1" src="1.png" x="0" folmeMode="true" />
 	</Group>
 </Icon>
