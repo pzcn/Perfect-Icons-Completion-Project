@@ -43,6 +43,13 @@ cd ./output
 :> luck7.ini
 :> perfectcurve.ini
 :> flyme9.ini
+echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
+echo "file_size=`ls -l ./default.tar.xz | awk '{print $5}'`" >> ./default.ini
+echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./explore.ini
+echo "file_size=`ls -l ./luck7.tar.xz | awk '{print $5}'`" >> ./luck7.ini
+echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./lrone.ini
+echo "file_size=`ls -l ./perfectcurve.tar.xz | awk '{print $5}'`" >> ./perfectcurve.ini
+echo "file_size=`ls -l ./flyme9.tar.xz | awk '{print $5}'`" >> ./flyme9.ini
 echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/icons.tar.xz" >> ./icons.ini
 echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/default.tar.xz" >> ./default.ini
 echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/flyme9.tar.xz" >> ./flyme9.ini
@@ -50,10 +57,10 @@ echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/lrone.tar.xz" >> ./lrone.i
 echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/luck7.tar.xz" >> ./luck7.ini
 echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/explore.tar.xz" >> ./explore.ini
 echo "URL=https://gitee.com/pedroz/MIUIicons/raw/main/perfectcurve.tar.xz" >> ./perfectcurve.ini
-md5sum ./icons.tar.xz|cut -d ' ' -f1 >> ./icons.ini
-md5sum ./default.tar.xz|cut -d ' ' -f1 >> ./default.ini
-md5sum ./explore.tar.xz|cut -d ' ' -f1 >> ./explore.ini
-md5sum ./luck7.tar.xz|cut -d ' ' -f1 >> ./luck7.ini
-md5sum ./lrone.tar.xz|cut -d ' ' -f1 >> ./lrone.ini
-md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1 >> ./perfectcurve.ini
-md5sum ./flyme9.tar.xz|cut -d ' ' -f1 >> ./flyme9.ini
+echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
+echo "md5=`md5sum ./default.tar.xz|cut -d ' ' -f1 " >> ./default.ini
+echo "md5=`md5sum ./explore.tar.xz|cut -d ' ' -f1 " >> ./explore.ini
+echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1 " >> ./luck7.ini
+echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1 " >> ./lrone.ini
+echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1 " >> ./perfectcurve.ini
+echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1 " >> ./flyme9.ini
