@@ -1,6 +1,6 @@
 #!/bin/bash
 
-XZ_OPT=-9 tar cJf icon.tar.xz icons
+XZ_OPT=-9 tar cJf icons.tar.xz icons
 
 cd addition/default
 XZ_OPT=-9 tar cJf default.tar.xz *
