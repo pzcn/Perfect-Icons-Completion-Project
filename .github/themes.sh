@@ -1,4 +1,11 @@
 #!/bin/bash
+
+XZ_OPT=-9 tar cJf icon.tar.xz icons
+
+cd addition/default
+XZ_OPT=-9 tar cJf default.tar.xz *
+cd ../..
+
 cd themes/explore
 XZ_OPT=-9 tar cJf explore.tar.xz *
 cd ../..
@@ -20,6 +27,8 @@ XZ_OPT=-9 tar cJf flyme9.tar.xz *
 cd ../..
 
 mkdir output
+cp -rf ./icons.tar.xz ./output
+cp -rf ./addition/default/default.tar.xz ./output
 cp -rf ./themes/explore/explore.tar.xz ./output
 cp -rf ./themes/lrone/lrone.tar.xz ./output
 cp -rf ./themes/luck7/luck7.tar.xz ./output
