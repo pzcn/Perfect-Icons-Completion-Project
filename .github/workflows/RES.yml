@@ -1,0 +1,29 @@
+name: Update Res
+on:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: |
+          chmod 755 ./.github/themes.sh
+          ./.github/themes.sh
+
+      - name: Pushes files
+        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source_file: 'output/*'
+          destination_repo: 'pzcn/resCDN'
+          destination_folder: './'
+          destination_branch: 'main'
+          user_email: 'pdzzzcn@gmail.com'
+          user_name: 'pzcn'
