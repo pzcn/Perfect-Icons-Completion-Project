@@ -3,7 +3,7 @@ mkdir -p ./temp/res/drawable-xxhdpi/
 cp -rf icons/* ./temp/res/drawable-xxhdpi/
 cd temp
 zip -r -9 icons.zip *  >/dev/null
-mc icons.zip icons
+mv icons.zip icons
 XZ_OPT=-9 tar cJf icons.tar.xz icons
 cd ..
 cd addition/default
