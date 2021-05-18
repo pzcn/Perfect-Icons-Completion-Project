@@ -33,9 +33,9 @@ jobs:
         echo "md5=`md5sum ./default.tar.xz|cut -d ' ' -f1`" >> ./default.ini
         echo "theme_name=MIUI经典主题包" >> ./default.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./default.ini
-        cd ..
+        cd ../..
         cp -rf ./addition/default/default.tar.xz ./output
-        cp -rf ./addition/default/default.tar.xz ./output
+        cp -rf ./addition/default/default.ini ./output
 
     - name: Update flyme9
       run: |
@@ -46,9 +46,9 @@ jobs:
         echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1`" >> ./flyme9.ini
         echo "theme_name=Flyme9主题包" >> ./flyme9.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./flyme9.ini
-        cd ..
+        cd ../..
         cp -rf ./themes/flyme9/flyme9.tar.xz ./output
-        cp -rf ./themes/flyme9/flyme9.tar.xz ./output
+        cp -rf ./themes/flyme9/flyme9.ini ./output
 
     - name: Update explore
       run: |
@@ -59,9 +59,9 @@ jobs:
         echo "md5=`md5sum ./explore.tar.xz|cut -d ' ' -f1`" >> ./explore.ini
         echo "theme_name=探界主题包" >> ./explore.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./explore.ini
-        cd ..
+        cd ../..
         cp -rf ./themes/explore/explore.tar.xz ./output
-        cp -rf ./themes/explore/explore.tar.xz ./output
+        cp -rf ./themes/explore/explore.ini ./output
 
     - name: Update lrone
       run: |
@@ -72,9 +72,9 @@ jobs:
         echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1`" >> ./lrone.ini
         echo "theme_name=lrone主题包" >> ./lrone.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./lrone.ini
-        cd ..
+        cd ../..
         cp -rf ./themes/lrone/lrone.tar.xz ./output
-        cp -rf ./themes/lrone/lrone.tar.xz ./output
+        cp -rf ./themes/lrone/lrone.ini ./output
 
     - name: Update perfectcurve
       run: |
@@ -85,9 +85,9 @@ jobs:
         echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1`" >> ./perfectcurve.ini
         echo "theme_name=完美曲线主题包" >> ./perfectcurve.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./perfectcurve.ini
-        cd ..
+        cd ../..
         cp -rf ./themes/perfectcurve/perfectcurve.tar.xz ./output
-        cp -rf ./themes/perfectcurve/perfectcurve.tar.xz ./output
+        cp -rf ./themes/perfectcurve/perfectcurve.ini ./output
 
     - name: Update luck7
       run: |
@@ -98,9 +98,9 @@ jobs:
         echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1`" >> ./luck7.ini
         echo "theme_name=Luck7主题包" >> ./luck7.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./luck7.ini
-        cd ..
+        cd ../..
         cp -rf ./themes/luck7/luck7.tar.xz ./output
-        cp -rf ./themes/luck7/luck7.tar.xz ./output
+        cp -rf ./themes/luck7/luck7.ini ./output
         
     - name: Pushes files
       uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
