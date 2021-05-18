@@ -21,6 +21,7 @@ jobs:
         echo "theme_name=主图标包" >> ./icons.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
         cd ..
+        mkdir output
         cp -rf ./temp/icons.tar.xz ./output
         cp -rf ./temp/icons.ini ./output
 
@@ -103,7 +104,7 @@ jobs:
         cp -rf ./themes/luck7/luck7.ini ./output
         
     - name: Pushes files
-      uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+      uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
