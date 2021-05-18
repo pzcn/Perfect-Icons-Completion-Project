@@ -128,11 +128,11 @@ jobs:
         cp -rf ./themes/luck7/luck7.tar.xz ./output
         cp -rf ./themes/luck7/luck7.tar.xz ./output
         
-      - name: Pushes files
-        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
-        env:
+    - name: Pushes files
+      uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+      env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
+      with:
         source_file: 'output/*'
         destination_repo: 'pzcn/resCDN'
         destination_folder: './'
