@@ -153,7 +153,7 @@ jobs:
         echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
         echo "theme_name=mtz资源包" >> ./mtz.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
-        cd ../..
+        cd ../../..
         mkdir ./output
         cp -rf ./addition/mtz/default/mtz.tar.xz ./output
         cp -rf ./addition/mtz/default/mtz.ini ./output    
