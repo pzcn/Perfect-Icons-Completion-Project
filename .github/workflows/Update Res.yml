@@ -25,6 +25,8 @@ jobs:
             - 'themes/perfectcurve/**'
           luck7:
             - 'themes/luck7/**'
+          mtz:
+            - 'addition/mtz/default/**'
 
     - name: Update Icons
       if: steps.filter.outputs.Icons == 'true'
@@ -135,7 +137,22 @@ jobs:
         mkdir ./output
         cp -rf ./themes/luck7/luck7.tar.xz ./output
         cp -rf ./themes/luck7/luck7.ini ./output
-        
+
+     - name: Update mtz
+      if: steps.filter.outputs.luck7 == 'true'
+      run: |
+        cd addition/mtz/default
+        XZ_OPT=-9 tar cJf mtz.tar.xz *
+        :> mtz.ini
+        echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini
+        echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
+        echo "theme_name=mtz资源包" >> ./mtz.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
+        cd ../..
+        mkdir ./output
+        cp -rf ./addition/mtz/default/mtz.tar.xz ./output
+        cp -rf ./addition/mtz/default/mtz.ini ./output    
+
     - name: Pushes files
       uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
       env:
