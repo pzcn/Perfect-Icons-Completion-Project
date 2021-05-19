@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="288" height="288" screenWidth="1080" resDensity="480" >
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<AnimationCommand target="src_ani" command="play(1840,1840)"/>
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<AnimationCommand target="src_ani" command="play(0,0)"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<AnimationCommand target="src_ani" command="play(0,1840)" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<Var name="src_ani">
+		<VariableAnimation loop="false" initPause="true">
+			<AniFrame value="1" time="0"/>
+            <AniFrame value="27" time="300"/>
+		</VariableAnimation>
+	</Var>
+	<!-- view -->
+    <Image name="icon" srcExp="'jian' + int(#src_ani) + '.png'" x="144" y="144" align="center" alignV="center" folmeMode="true"/>
+</Icon>
