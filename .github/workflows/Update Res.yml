@@ -31,6 +31,7 @@ jobs:
       run: |
         mkdir -p ./temp/res/drawable-xxhdpi/
         cp -rf icons/* ./temp/res/drawable-xxhdpi/
+        cp -rf addition/default/transform_config.xml ./temp
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
