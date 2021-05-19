@@ -130,12 +130,12 @@ jobs:
         cp -rf ./themes/luck7/luck7.ini ./output
         
     - name: Pushes files
-      uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+      uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source_file: 'output/*'
-        destination_repo: 'pzcn/resCDN'
+        source_file: 'output/.'
+        destination_repo: 'pzcn/IconsCDN'
         destination_folder: './'
         destination_branch: 'main'
         user_email: 'pdzzzcn@gmail.com'
