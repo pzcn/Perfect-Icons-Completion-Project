@@ -18,13 +18,13 @@ jobs:
           flyme9:
             - 'themes/flyme9/**'
           explore:
-            - 'themes/explore/**''
+            - 'themes/explore/**'
           lrone:
-            - 'themes/lrone/**''
+            - 'themes/lrone/**'
           perfectcurve:
-            - 'themes/perfectcurve/**''
+            - 'themes/perfectcurve/**'
           luck7:
-            - 'themes/luck7/**''
+            - 'themes/luck7/**'
 
     - name: Update Icons
       if: steps.filter.outputs.Icons == 'true'
