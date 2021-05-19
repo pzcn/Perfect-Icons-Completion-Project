@@ -143,7 +143,7 @@ jobs:
         cp -rf ./themes/luck7/luck7.tar.xz ./output
         cp -rf ./themes/luck7/luck7.ini ./output
 
-     - name: Update mtz
+    - name: Update mtz
       if: steps.filter.outputs.luck7 == 'true'
       run: |
         cd addition/mtz/default
