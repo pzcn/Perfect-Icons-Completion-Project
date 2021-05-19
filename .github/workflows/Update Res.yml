@@ -48,8 +48,8 @@ jobs:
         echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
         echo "theme_name=主图标包" >> ./icons.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
-        curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/icons.tar.xz?version=latest"
-        curl -T icons.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/icons.ini?version=latest"
+        curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
+        curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
 
     - name: Update default
       if: steps.filter.outputs.default == 'true'
@@ -61,8 +61,8 @@ jobs:
         echo "md5=`md5sum ./default.tar.xz|cut -d ' ' -f1`" >> ./default.ini
         echo "theme_name=MIUI经典主题包" >> ./default.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./default.ini
-        curl -T default.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.tar.xz?version=latest"
-        curl -T default.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.ini?version=latest"
+        curl -T default.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
+        curl -T default.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
 
     - name: Update flyme9
       if: steps.filter.outputs.flyme9 == 'true'
@@ -74,8 +74,8 @@ jobs:
         echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1`" >> ./flyme9.ini
         echo "theme_name=Flyme9主题包" >> ./flyme9.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./flyme9.ini
-        curl -T flyme9.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.tar.xz?version=latest"
-        curl -T flyme9.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.ini?version=latest"
+        curl -T flyme9.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
+        curl -T flyme9.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
 
     - name: Update explore
       if: steps.filter.outputs.explore == 'true'
@@ -87,8 +87,8 @@ jobs:
         echo "md5=`md5sum ./explore.tar.xz|cut -d ' ' -f1`" >> ./explore.ini
         echo "theme_name=探界主题包" >> ./explore.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./explore.ini
-        curl -T explore.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/explore.tar.xz?version=latest"
-        curl -T explore.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/explore.ini?version=latest"
+        curl -T explore.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/explore.tar.xz?version=latest"
+        curl -T explore.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/explore.ini?version=latest"
 
     - name: Update lrone
       if: steps.filter.outputs.lrone == 'true'
@@ -100,8 +100,8 @@ jobs:
         echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1`" >> ./lrone.ini
         echo "theme_name=MIUI经典主题包" >> ./lrone.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./lrone.ini
-        curl -T lrone.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/lrone.tar.xz?version=latest"
-        curl -T lrone.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/lrone.ini?version=latest"
+        curl -T lrone.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.tar.xz?version=latest"
+        curl -T lrone.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.ini?version=latest"
 
     - name: Update perfectcurve
       if: steps.filter.outputs.perfectcurve == 'true'
@@ -113,8 +113,8 @@ jobs:
         echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1`" >> ./perfectcurve.ini
         echo "theme_name=MIUI经典主题包" >> ./perfectcurve.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./perfectcurve.ini
-        curl -T perfectcurve.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/perfectcurve.tar.xz?version=latest"
-        curl -T perfectcurve.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/perfectcurve.ini?version=latest"
+        curl -T perfectcurve.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.tar.xz?version=latest"
+        curl -T perfectcurve.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.ini?version=latest"
 
     - name: Update luck7
       if: steps.filter.outputs.luck7 == 'true'
@@ -126,8 +126,8 @@ jobs:
         echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1`" >> ./luck7.ini
         echo "theme_name=MIUI经典主题包" >> ./luck7.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./luck7.ini
-        curl -T luck7.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/luck7.tar.xz?version=latest"
-        curl -T luck7.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/luck7.ini?version=latest"
+        curl -T luck7.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.tar.xz?version=latest"
+        curl -T luck7.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.ini?version=latest"
 
     - name: Update mtz
       if: steps.filter.outputs.mtz == 'true'
@@ -139,6 +139,6 @@ jobs:
         echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
         echo "theme_name=mtz资源包" >> ./mtz.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
-        curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/mtz.tar.xz?version=latest"
-        curl -T mtz.ini -u ${{secrets.coding_password}} "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/mtz.ini?version=latest"
+        curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
+        curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
         
