@@ -144,7 +144,7 @@ jobs:
         cp -rf ./themes/luck7/luck7.ini ./output
 
     - name: Update mtz
-      if: steps.filter.outputs.luck7 == 'true'
+      if: steps.filter.outputs.mtz == 'true'
       run: |
         cd addition/mtz/default
         XZ_OPT=-9 tar cJf mtz.tar.xz *
