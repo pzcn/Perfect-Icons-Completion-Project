@@ -48,10 +48,8 @@ jobs:
         echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
         echo "theme_name=主图标包" >> ./icons.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
-        cd ..
-        mkdir ./output
-        cp -rf ./temp/icons.tar.xz ./output
-        cp -rf ./temp/icons.ini ./output
+        curl -T icons.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/icons.tar.xz?version=latest"
+        curl -T icons.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/icons.ini?version=latest"
 
     - name: Update default
       if: steps.filter.outputs.default == 'true'
@@ -63,10 +61,8 @@ jobs:
         echo "md5=`md5sum ./default.tar.xz|cut -d ' ' -f1`" >> ./default.ini
         echo "theme_name=MIUI经典主题包" >> ./default.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./default.ini
-        cd ../..
-        mkdir ./output
-        cp -rf ./addition/default/default.tar.xz ./output
-        cp -rf ./addition/default/default.ini ./output
+        curl -T default.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.tar.xz?version=latest"
+        curl -T default.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.ini?version=latest"
 
     - name: Update flyme9
       if: steps.filter.outputs.flyme9 == 'true'
@@ -78,10 +74,8 @@ jobs:
         echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1`" >> ./flyme9.ini
         echo "theme_name=Flyme9主题包" >> ./flyme9.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./flyme9.ini
-        cd ../..
-        mkdir ./output
-        cp -rf ./themes/flyme9/flyme9.tar.xz ./output
-        cp -rf ./themes/flyme9/flyme9.ini ./output
+        curl -T flyme9.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.tar.xz?version=latest"
+        curl -T flyme9.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/default.ini?version=latest"
 
     - name: Update explore
       if: steps.filter.outputs.explore == 'true'
@@ -93,10 +87,8 @@ jobs:
         echo "md5=`md5sum ./explore.tar.xz|cut -d ' ' -f1`" >> ./explore.ini
         echo "theme_name=探界主题包" >> ./explore.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./explore.ini
-        cd ../..
-        mkdir ./output
-        cp -rf ./themes/explore/explore.tar.xz ./output
-        cp -rf ./themes/explore/explore.ini ./output
+        curl -T explore.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/explore.tar.xz?version=latest"
+        curl -T explore.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/explore.ini?version=latest"
 
     - name: Update lrone
       if: steps.filter.outputs.lrone == 'true'
@@ -108,10 +100,8 @@ jobs:
         echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1`" >> ./lrone.ini
         echo "theme_name=MIUI经典主题包" >> ./lrone.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./lrone.ini
-        cd ../..
-        mkdir ./output
-        cp -rf ./themes/lrone/lrone.tar.xz ./output
-        cp -rf ./themes/lrone/lrone.ini ./output
+        curl -T lrone.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/lrone.tar.xz?version=latest"
+        curl -T lrone.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/lrone.ini?version=latest"
 
     - name: Update perfectcurve
       if: steps.filter.outputs.perfectcurve == 'true'
@@ -123,10 +113,8 @@ jobs:
         echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1`" >> ./perfectcurve.ini
         echo "theme_name=MIUI经典主题包" >> ./perfectcurve.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./perfectcurve.ini
-        cd ../..
-        mkdir ./output
-        cp -rf ./themes/perfectcurve/perfectcurve.tar.xz ./output
-        cp -rf ./themes/perfectcurve/perfectcurve.ini ./output
+        curl -T perfectcurve.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/perfectcurve.tar.xz?version=latest"
+        curl -T perfectcurve.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/perfectcurve.ini?version=latest"
 
     - name: Update luck7
       if: steps.filter.outputs.luck7 == 'true'
@@ -138,10 +126,8 @@ jobs:
         echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1`" >> ./luck7.ini
         echo "theme_name=MIUI经典主题包" >> ./luck7.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./luck7.ini
-        cd ../..
-        mkdir ./output
-        cp -rf ./themes/luck7/luck7.tar.xz ./output
-        cp -rf ./themes/luck7/luck7.ini ./output
+        curl -T luck7.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/luck7.tar.xz?version=latest"
+        curl -T luck7.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/luck7.ini?version=latest"
 
     - name: Update mtz
       if: steps.filter.outputs.mtz == 'true'
@@ -155,17 +141,6 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
         cd ../../..
         mkdir ./output
-        cp -rf ./addition/mtz/default/mtz.tar.xz ./output
-        cp -rf ./addition/mtz/default/mtz.ini ./output    
-
-    - name: Pushes files
-      uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      with:
-        source_file: 'output/.'
-        destination_repo: 'pzcn/IconsCDN'
-        destination_folder: './'
-        destination_branch: 'main'
-        user_email: 'pdzzzcn@gmail.com'
-        user_name: 'pzcn'
+        curl -T mtz.tar.xz -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/mtz.tar.xz?version=latest"
+        curl -T mtz.ini -u zpz136@163.com:<PASSWORD> "https://sdustpedro-generic.pkg.coding.net/miuiicons/files/mtz.ini?version=latest"
+        
