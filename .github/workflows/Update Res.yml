@@ -1,6 +1,11 @@
 name: Update Res
 on:
   push:
+    paths:
+      - 'themes/**'
+      - 'icons/**'
+      - 'addition/default/**'
+      - 'addition/mtz/default/**'
   workflow_dispatch:
 jobs:
   tests:
