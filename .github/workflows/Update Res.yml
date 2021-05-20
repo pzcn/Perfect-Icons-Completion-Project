@@ -4,8 +4,7 @@ on:
     paths:
       - 'themes/**'
       - 'icons/**'
-      - 'addition/default/**'
-      - 'addition/mtz/default/**'
+      - 'addition/mtz/**'
   workflow_dispatch:
 jobs:
   update:
@@ -70,7 +69,7 @@ jobs:
     - name: Update mtz
       if: steps.filter.outputs.mtz == 'true'
       run: |
-        cd addition/mtz/default
+        cd addition/mtz
         XZ_OPT=-9 tar cJf mtz.tar.xz *
         :> mtz.ini
         echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini

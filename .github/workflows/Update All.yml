@@ -24,7 +24,7 @@ jobs:
         curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
     - name: Update mtz
       run: |
-        cd addition/mtz/default
+        cd addition/mtz
         XZ_OPT=-9 tar cJf mtz.tar.xz *
         :> mtz.ini
         echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini
