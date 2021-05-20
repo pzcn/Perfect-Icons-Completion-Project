@@ -113,7 +113,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* AmethystLake
-        cd themes/AmethystLake
+        cd AmethystLake
         XZ_OPT=-9 tar cJf AmethystLake.tar.xz *
         :> AmethystLake.ini
         echo "file_size=`ls -l ./AmethystLake.tar.xz | awk '{print $5}'`" >> ./AmethystLake.ini
@@ -126,7 +126,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* Aquamarine
-        cd themes/Aquamarine
+        cd Aquamarine
         XZ_OPT=-9 tar cJf Aquamarine.tar.xz *
         :> Aquamarine.ini
         echo "file_size=`ls -l ./Aquamarine.tar.xz | awk '{print $5}'`" >> ./Aquamarine.ini
@@ -139,7 +139,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* GoldenBeach
-        cd themes/GoldenBeach
+        cd GoldenBeach
         XZ_OPT=-9 tar cJf GoldenBeach.tar.xz *
         :> GoldenBeach.ini
         echo "file_size=`ls -l ./GoldenBeach.tar.xz | awk '{print $5}'`" >> ./GoldenBeach.ini
@@ -152,7 +152,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* LightWings
-        cd themes/LightWings
+        cd LightWings
         XZ_OPT=-9 tar cJf LightWings.tar.xz *
         :> LightWings.ini
         echo "file_size=`ls -l ./LightWings.tar.xz | awk '{print $5}'`" >> ./LightWings.ini
@@ -165,7 +165,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* Nebulae
-        cd themes/Nebulae
+        cd Nebulae
         XZ_OPT=-9 tar cJf Nebulae.tar.xz *
         :> Nebulae.ini
         echo "file_size=`ls -l ./Nebulae.tar.xz | awk '{print $5}'`" >> ./Nebulae.ini
@@ -178,7 +178,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* Reconstruction
-        cd themes/Reconstruction
+        cd Reconstruction
         XZ_OPT=-9 tar cJf Reconstruction.tar.xz *
         :> Reconstruction.ini
         echo "file_size=`ls -l ./Reconstruction.tar.xz | awk '{print $5}'`" >> ./Reconstruction.ini
@@ -191,7 +191,7 @@ jobs:
       run: |
         cd themes
         cp -rf common/* StarrySky
-        cd themes/StarrySky
+        cd StarrySky
         XZ_OPT=-9 tar cJf StarrySky.tar.xz *
         :> StarrySky.ini
         echo "file_size=`ls -l ./StarrySky.tar.xz | awk '{print $5}'`" >> ./StarrySky.ini
