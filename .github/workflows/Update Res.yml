@@ -8,7 +8,7 @@ on:
       - 'addition/mtz/default/**'
   workflow_dispatch:
 jobs:
-  tests:
+  update:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,8 +18,12 @@ jobs:
         filters: |
           Icons:
             - 'icons/**'
+          mtz:
+            - 'addition/mtz/default/**'
+          common:
+            - 'themes/common/**'
           default:
-            - 'addition/default/**'
+            - 'themes/default/**'
           flyme9:
             - 'themes/flyme9/**'
           explore:
@@ -30,8 +34,6 @@ jobs:
             - 'themes/perfectcurve/**'
           luck7:
             - 'themes/luck7/**'
-          mtz:
-            - 'addition/mtz/default/**'
           AmethystLake:
             - 'themes/AmethystLake/**'
           Aquamarine:
@@ -47,12 +49,13 @@ jobs:
           StarrySky:
             - 'themes/StarrySky/**'
 
+
     - name: Update Icons
       if: steps.filter.outputs.Icons == 'true'
       run: |
         mkdir -p ./temp/res/drawable-xxhdpi/
         cp -rf icons/* ./temp/res/drawable-xxhdpi/
-        cp -rf addition/default/transform_config.xml ./temp
+        cp -rf addition/transform_config.xml ./temp
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
@@ -64,11 +67,22 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
         curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
         curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
-
+    - name: Update mtz
+      if: steps.filter.outputs.mtz == 'true'
+      run: |
+        cd addition/mtz/default
+        XZ_OPT=-9 tar cJf mtz.tar.xz *
+        :> mtz.ini
+        echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini
+        echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
+        echo "theme_name=mtz资源包" >> ./mtz.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
+        curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
+        curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
     - name: Update default
       if: steps.filter.outputs.default == 'true'
       run: |
-        cd addition/default
+        cd themes/default
         XZ_OPT=-9 tar cJf default.tar.xz *
         :> default.ini
         echo "file_size=`ls -l ./default.tar.xz | awk '{print $5}'`" >> ./default.ini
@@ -79,9 +93,11 @@ jobs:
         curl -T default.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
 
     - name: Update flyme9
-      if: steps.filter.outputs.flyme9 == 'true'
+      if: steps.filter.outputs.flyme9 == 'true' || steps.filter.outputs.common == 'true'
       run: |
-        cd themes/flyme9
+        cd themes
+        cp -rf common/* flyme9
+        cd flyme9
         XZ_OPT=-9 tar cJf flyme9.tar.xz *
         :> flyme9.ini
         echo "file_size=`ls -l ./flyme9.tar.xz | awk '{print $5}'`" >> ./flyme9.ini
@@ -92,9 +108,11 @@ jobs:
         curl -T flyme9.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
 
     - name: Update explore
-      if: steps.filter.outputs.explore == 'true'
+      if: steps.filter.outputs.explore == 'true' || steps.filter.outputs.common == 'true'
       run: |
-        cd themes/explore
+        cd themes
+        cp -rf common/* explore
+        cd explore
         XZ_OPT=-9 tar cJf explore.tar.xz *
         :> explore.ini
         echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./explore.ini
@@ -112,7 +130,7 @@ jobs:
         :> lrone.ini
         echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./lrone.ini
         echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1`" >> ./lrone.ini
-        echo "theme_name=MIUI经典主题包" >> ./lrone.ini
+        echo "theme_name=lrone主题包" >> ./lrone.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./lrone.ini
         curl -T lrone.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.tar.xz?version=latest"
         curl -T lrone.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.ini?version=latest"
@@ -125,7 +143,7 @@ jobs:
         :> perfectcurve.ini
         echo "file_size=`ls -l ./perfectcurve.tar.xz | awk '{print $5}'`" >> ./perfectcurve.ini
         echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1`" >> ./perfectcurve.ini
-        echo "theme_name=MIUI经典主题包" >> ./perfectcurve.ini
+        echo "theme_name=完美曲线主题包" >> ./perfectcurve.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./perfectcurve.ini
         curl -T perfectcurve.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.tar.xz?version=latest"
         curl -T perfectcurve.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.ini?version=latest"
@@ -138,26 +156,16 @@ jobs:
         :> luck7.ini
         echo "file_size=`ls -l ./luck7.tar.xz | awk '{print $5}'`" >> ./luck7.ini
         echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1`" >> ./luck7.ini
-        echo "theme_name=MIUI经典主题包" >> ./luck7.ini
+        echo "theme_name=luck7主题包" >> ./luck7.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./luck7.ini
         curl -T luck7.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.tar.xz?version=latest"
         curl -T luck7.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.ini?version=latest"
 
-    - name: Update mtz
-      if: steps.filter.outputs.mtz == 'true'
-      run: |
-        cd addition/mtz/default
-        XZ_OPT=-9 tar cJf mtz.tar.xz *
-        :> mtz.ini
-        echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini
-        echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
-        echo "theme_name=mtz资源包" >> ./mtz.ini
-        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
-        curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
-        curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
     - name: Update AmethystLake
-      if: steps.filter.outputs.AmethystLake == 'true'
+      if: steps.filter.outputs.AmethystLake == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* AmethystLake
         cd themes/AmethystLake
         XZ_OPT=-9 tar cJf AmethystLake.tar.xz *
         :> AmethystLake.ini
@@ -168,8 +176,10 @@ jobs:
         curl -T AmethystLake.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/AmethystLake.tar.xz?version=latest"
         curl -T AmethystLake.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/AmethystLake.ini?version=latest"
     - name: Update Aquamarine
-      if: steps.filter.outputs.Aquamarine == 'true'
+      if: steps.filter.outputs.Aquamarine == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* Aquamarine
         cd themes/Aquamarine
         XZ_OPT=-9 tar cJf Aquamarine.tar.xz *
         :> Aquamarine.ini
@@ -180,8 +190,10 @@ jobs:
         curl -T Aquamarine.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Aquamarine.tar.xz?version=latest"
         curl -T Aquamarine.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Aquamarine.ini?version=latest"
     - name: Update GoldenBeach
-      if: steps.filter.outputs.GoldenBeach == 'true'
+      if: steps.filter.outputs.GoldenBeach == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* GoldenBeach
         cd themes/GoldenBeach
         XZ_OPT=-9 tar cJf GoldenBeach.tar.xz *
         :> GoldenBeach.ini
@@ -192,8 +204,10 @@ jobs:
         curl -T GoldenBeach.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/GoldenBeach.tar.xz?version=latest"
         curl -T GoldenBeach.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/GoldenBeach.ini?version=latest"
     - name: Update LightWings
-      if: steps.filter.outputs.LightWings == 'true'
+      if: steps.filter.outputs.LightWings == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* LightWings
         cd themes/LightWings
         XZ_OPT=-9 tar cJf LightWings.tar.xz *
         :> LightWings.ini
@@ -204,8 +218,10 @@ jobs:
         curl -T LightWings.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/LightWings.tar.xz?version=latest"
         curl -T LightWings.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/LightWings.ini?version=latest"
     - name: Update Nebulae
-      if: steps.filter.outputs.Nebulae == 'true'
+      if: steps.filter.outputs.Nebulae == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* Nebulae
         cd themes/Nebulae
         XZ_OPT=-9 tar cJf Nebulae.tar.xz *
         :> Nebulae.ini
@@ -216,8 +232,10 @@ jobs:
         curl -T Nebulae.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Nebulae.tar.xz?version=latest"
         curl -T Nebulae.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Nebulae.ini?version=latest"
     - name: Update Reconstruction
-      if: steps.filter.outputs.Reconstruction == 'true'
+      if: steps.filter.outputs.Reconstruction == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* Reconstruction
         cd themes/Reconstruction
         XZ_OPT=-9 tar cJf Reconstruction.tar.xz *
         :> Reconstruction.ini
@@ -228,8 +246,10 @@ jobs:
         curl -T Reconstruction.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Reconstruction.tar.xz?version=latest"
         curl -T Reconstruction.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Reconstruction.ini?version=latest"
     - name: Update StarrySky
-      if: steps.filter.outputs.StarrySky == 'true'
+      if: steps.filter.outputs.StarrySky == 'true' || steps.filter.outputs.common == 'true'
       run: |
+        cd themes
+        cp -rf common/* StarrySky
         cd themes/StarrySky
         XZ_OPT=-9 tar cJf StarrySky.tar.xz *
         :> StarrySky.ini

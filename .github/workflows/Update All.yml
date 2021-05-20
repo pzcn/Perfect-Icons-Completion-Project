@@ -2,94 +2,201 @@ name: Update All
 on:
   workflow_dispatch:
 jobs:
-  tests:
+  update:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
-        - name: Update
-          run: |
-            mkdir -p ./temp/res/drawable-xxhdpi/
-            cp -rf icons/* ./temp/res/drawable-xxhdpi/
-            cp -rf addition/default/transform_config.xml ./temp
-            cd temp
-            zip -r -9 icons.zip *  >/dev/null
-            mv icons.zip icons
-            XZ_OPT=-9 tar cJf icons.tar.xz icons
-            :> icons.ini
-            echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
-            echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
-            echo "theme_name=主图标包" >> ./icons.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
-            curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
-            curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
-            cd ..
-            cd addition/default
-            XZ_OPT=-9 tar cJf default.tar.xz *
-            :> default.ini
-            echo "file_size=`ls -l ./default.tar.xz | awk '{print $5}'`" >> ./default.ini
-            echo "md5=`md5sum ./default.tar.xz|cut -d ' ' -f1`" >> ./default.ini
-            echo "theme_name=MIUI经典主题包" >> ./default.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./default.ini
-            curl -T default.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
-            curl -T default.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
-            cd ../..
-            cd themes/flyme9
-            XZ_OPT=-9 tar cJf flyme9.tar.xz *
-            :> flyme9.ini
-            echo "file_size=`ls -l ./flyme9.tar.xz | awk '{print $5}'`" >> ./flyme9.ini
-            echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1`" >> ./flyme9.ini
-            echo "theme_name=Flyme9主题包" >> ./flyme9.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./flyme9.ini
-            curl -T flyme9.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
-            curl -T flyme9.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
-            cd ../..
-            cd themes/explore
-            XZ_OPT=-9 tar cJf explore.tar.xz *
-            :> explore.ini
-            echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./explore.ini
-            echo "md5=`md5sum ./explore.tar.xz|cut -d ' ' -f1`" >> ./explore.ini
-            echo "theme_name=探界主题包" >> ./explore.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./explore.ini
-            curl -T explore.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/explore.tar.xz?version=latest"
-            curl -T explore.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/explore.ini?version=latest"
-            cd ../..
-            cd themes/lrone
-            XZ_OPT=-9 tar cJf lrone.tar.xz *
-            :> lrone.ini
-            echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./lrone.ini
-            echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1`" >> ./lrone.ini
-            echo "theme_name=MIUI经典主题包" >> ./lrone.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./lrone.ini
-            curl -T lrone.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.tar.xz?version=latest"
-            curl -T lrone.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.ini?version=latest"
-            cd ../..
-            cd themes/perfectcurve
-            XZ_OPT=-9 tar cJf perfectcurve.tar.xz *
-            :> perfectcurve.ini
-            echo "file_size=`ls -l ./perfectcurve.tar.xz | awk '{print $5}'`" >> ./perfectcurve.ini
-            echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1`" >> ./perfectcurve.ini
-            echo "theme_name=MIUI经典主题包" >> ./perfectcurve.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./perfectcurve.ini
-            curl -T perfectcurve.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.tar.xz?version=latest"
-            curl -T perfectcurve.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.ini?version=latest"
-            cd ../..
-            cd themes/luck7
-            XZ_OPT=-9 tar cJf luck7.tar.xz *
-            :> luck7.ini
-            echo "file_size=`ls -l ./luck7.tar.xz | awk '{print $5}'`" >> ./luck7.ini
-            echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1`" >> ./luck7.ini
-            echo "theme_name=MIUI经典主题包" >> ./luck7.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./luck7.ini
-            curl -T luck7.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.tar.xz?version=latest"
-            curl -T luck7.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.ini?version=latest"
-            cd ../..
-            cd addition/mtz/default
-            XZ_OPT=-9 tar cJf mtz.tar.xz *
-            :> mtz.ini
-            echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini
-            echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
-            echo "theme_name=mtz资源包" >> ./mtz.ini
-            echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
-            curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
-            curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
-            
+    - uses: actions/checkout@v2
+    - name: Update Icons
+      run: |
+        mkdir -p ./temp/res/drawable-xxhdpi/
+        cp -rf icons/* ./temp/res/drawable-xxhdpi/
+        cp -rf addition/transform_config.xml ./temp
+        cd temp
+        zip -r -9 icons.zip *  >/dev/null
+        mv icons.zip icons
+        XZ_OPT=-9 tar cJf icons.tar.xz icons
+        :> icons.ini
+        echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
+        echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
+        echo "theme_name=主图标包" >> ./icons.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
+        curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
+        curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
+    - name: Update mtz
+      run: |
+        cd addition/mtz/default
+        XZ_OPT=-9 tar cJf mtz.tar.xz *
+        :> mtz.ini
+        echo "file_size=`ls -l ./mtz.tar.xz | awk '{print $5}'`" >> ./mtz.ini
+        echo "md5=`md5sum ./mtz.tar.xz|cut -d ' ' -f1`" >> ./mtz.ini
+        echo "theme_name=mtz资源包" >> ./mtz.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
+        curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
+        curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
+    - name: Update default
+      run: |
+        cd themes/default
+        XZ_OPT=-9 tar cJf default.tar.xz *
+        :> default.ini
+        echo "file_size=`ls -l ./default.tar.xz | awk '{print $5}'`" >> ./default.ini
+        echo "md5=`md5sum ./default.tar.xz|cut -d ' ' -f1`" >> ./default.ini
+        echo "theme_name=MIUI经典主题包" >> ./default.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./default.ini
+        curl -T default.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
+        curl -T default.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
+
+    - name: Update flyme9
+      run: |
+        cd themes
+        cp -rf common/* flyme9
+        cd flyme9
+        XZ_OPT=-9 tar cJf flyme9.tar.xz *
+        :> flyme9.ini
+        echo "file_size=`ls -l ./flyme9.tar.xz | awk '{print $5}'`" >> ./flyme9.ini
+        echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1`" >> ./flyme9.ini
+        echo "theme_name=Flyme9主题包" >> ./flyme9.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./flyme9.ini
+        curl -T flyme9.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
+        curl -T flyme9.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
+
+    - name: Update explore
+      run: |
+        cd themes
+        cp -rf common/* explore
+        cd explore
+        XZ_OPT=-9 tar cJf explore.tar.xz *
+        :> explore.ini
+        echo "file_size=`ls -l ./explore.tar.xz | awk '{print $5}'`" >> ./explore.ini
+        echo "md5=`md5sum ./explore.tar.xz|cut -d ' ' -f1`" >> ./explore.ini
+        echo "theme_name=探界主题包" >> ./explore.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./explore.ini
+        curl -T explore.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/explore.tar.xz?version=latest"
+        curl -T explore.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/explore.ini?version=latest"
+
+    - name: Update lrone
+      run: |
+        cd themes/lrone
+        XZ_OPT=-9 tar cJf lrone.tar.xz *
+        :> lrone.ini
+        echo "file_size=`ls -l ./lrone.tar.xz | awk '{print $5}'`" >> ./lrone.ini
+        echo "md5=`md5sum ./lrone.tar.xz|cut -d ' ' -f1`" >> ./lrone.ini
+        echo "theme_name=lrone主题包" >> ./lrone.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./lrone.ini
+        curl -T lrone.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.tar.xz?version=latest"
+        curl -T lrone.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/lrone.ini?version=latest"
+
+    - name: Update perfectcurve
+      run: |
+        cd themes/perfectcurve
+        XZ_OPT=-9 tar cJf perfectcurve.tar.xz *
+        :> perfectcurve.ini
+        echo "file_size=`ls -l ./perfectcurve.tar.xz | awk '{print $5}'`" >> ./perfectcurve.ini
+        echo "md5=`md5sum ./perfectcurve.tar.xz|cut -d ' ' -f1`" >> ./perfectcurve.ini
+        echo "theme_name=完美曲线主题包" >> ./perfectcurve.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./perfectcurve.ini
+        curl -T perfectcurve.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.tar.xz?version=latest"
+        curl -T perfectcurve.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/perfectcurve.ini?version=latest"
+
+    - name: Update luck7
+      run: |
+        cd themes/luck7
+        XZ_OPT=-9 tar cJf luck7.tar.xz *
+        :> luck7.ini
+        echo "file_size=`ls -l ./luck7.tar.xz | awk '{print $5}'`" >> ./luck7.ini
+        echo "md5=`md5sum ./luck7.tar.xz|cut -d ' ' -f1`" >> ./luck7.ini
+        echo "theme_name=luck7主题包" >> ./luck7.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./luck7.ini
+        curl -T luck7.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.tar.xz?version=latest"
+        curl -T luck7.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/luck7.ini?version=latest"
+
+    - name: Update AmethystLake
+      run: |
+        cd themes
+        cp -rf common/* AmethystLake
+        cd themes/AmethystLake
+        XZ_OPT=-9 tar cJf AmethystLake.tar.xz *
+        :> AmethystLake.ini
+        echo "file_size=`ls -l ./AmethystLake.tar.xz | awk '{print $5}'`" >> ./AmethystLake.ini
+        echo "md5=`md5sum ./AmethystLake.tar.xz|cut -d ' ' -f1`" >> ./AmethystLake.ini
+        echo "theme_name=EMUI-紫晶湖主题包" >> ./AmethystLake.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./AmethystLake.ini
+        curl -T AmethystLake.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/AmethystLake.tar.xz?version=latest"
+        curl -T AmethystLake.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/AmethystLake.ini?version=latest"
+    - name: Update Aquamarine
+      run: |
+        cd themes
+        cp -rf common/* Aquamarine
+        cd themes/Aquamarine
+        XZ_OPT=-9 tar cJf Aquamarine.tar.xz *
+        :> Aquamarine.ini
+        echo "file_size=`ls -l ./Aquamarine.tar.xz | awk '{print $5}'`" >> ./Aquamarine.ini
+        echo "md5=`md5sum ./Aquamarine.tar.xz|cut -d ' ' -f1`" >> ./Aquamarine.ini
+        echo "theme_name=鸿蒙-润泽主题包" >> ./Aquamarine.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./Aquamarine.ini
+        curl -T Aquamarine.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Aquamarine.tar.xz?version=latest"
+        curl -T Aquamarine.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Aquamarine.ini?version=latest"
+    - name: Update GoldenBeach
+      run: |
+        cd themes
+        cp -rf common/* GoldenBeach
+        cd themes/GoldenBeach
+        XZ_OPT=-9 tar cJf GoldenBeach.tar.xz *
+        :> GoldenBeach.ini
+        echo "file_size=`ls -l ./GoldenBeach.tar.xz | awk '{print $5}'`" >> ./GoldenBeach.ini
+        echo "md5=`md5sum ./GoldenBeach.tar.xz|cut -d ' ' -f1`" >> ./GoldenBeach.ini
+        echo "theme_name=EMUI-碧海金沙主题包" >> ./GoldenBeach.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./GoldenBeach.ini
+        curl -T GoldenBeach.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/GoldenBeach.tar.xz?version=latest"
+        curl -T GoldenBeach.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/GoldenBeach.ini?version=latest"
+    - name: Update LightWings
+      run: |
+        cd themes
+        cp -rf common/* LightWings
+        cd themes/LightWings
+        XZ_OPT=-9 tar cJf LightWings.tar.xz *
+        :> LightWings.ini
+        echo "file_size=`ls -l ./LightWings.tar.xz | awk '{print $5}'`" >> ./LightWings.ini
+        echo "md5=`md5sum ./LightWings.tar.xz|cut -d ' ' -f1`" >> ./LightWings.ini
+        echo "theme_name=EMUI-光之翼主题包" >> ./LightWings.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./LightWings.ini
+        curl -T LightWings.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/LightWings.tar.xz?version=latest"
+        curl -T LightWings.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/LightWings.ini?version=latest"
+    - name: Update Nebulae
+      run: |
+        cd themes
+        cp -rf common/* Nebulae
+        cd themes/Nebulae
+        XZ_OPT=-9 tar cJf Nebulae.tar.xz *
+        :> Nebulae.ini
+        echo "file_size=`ls -l ./Nebulae.tar.xz | awk '{print $5}'`" >> ./Nebulae.ini
+        echo "md5=`md5sum ./Nebulae.tar.xz|cut -d ' ' -f1`" >> ./Nebulae.ini
+        echo "theme_name=EMUI-宇宙之眼主题包" >> ./Nebulae.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./Nebulae.ini
+        curl -T Nebulae.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Nebulae.tar.xz?version=latest"
+        curl -T Nebulae.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Nebulae.ini?version=latest"
+    - name: Update Reconstruction
+      run: |
+        cd themes
+        cp -rf common/* Reconstruction
+        cd themes/Reconstruction
+        XZ_OPT=-9 tar cJf Reconstruction.tar.xz *
+        :> Reconstruction.ini
+        echo "file_size=`ls -l ./Reconstruction.tar.xz | awk '{print $5}'`" >> ./Reconstruction.ini
+        echo "md5=`md5sum ./Reconstruction.tar.xz|cut -d ' ' -f1`" >> ./Reconstruction.ini
+        echo "theme_name=EMUI-未来之翼主题包" >> ./Reconstruction.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./Reconstruction.ini
+        curl -T Reconstruction.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Reconstruction.tar.xz?version=latest"
+        curl -T Reconstruction.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Reconstruction.ini?version=latest"
+    - name: Update StarrySky
+      run: |
+        cd themes
+        cp -rf common/* StarrySky
+        cd themes/StarrySky
+        XZ_OPT=-9 tar cJf StarrySky.tar.xz *
+        :> StarrySky.ini
+        echo "file_size=`ls -l ./StarrySky.tar.xz | awk '{print $5}'`" >> ./StarrySky.ini
+        echo "md5=`md5sum ./StarrySky.tar.xz|cut -d ' ' -f1`" >> ./StarrySky.ini
+        echo "theme_name=EMUI-星夜彩绘主题包" >> ./StarrySky.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./StarrySky.ini
+        curl -T StarrySky.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/StarrySky.tar.xz?version=latest"
+        curl -T StarrySky.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/StarrySky.ini?version=latest"
