@@ -79,9 +79,11 @@ jobs:
         curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
         curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
     - name: Update default
-      if: steps.filter.outputs.default == 'true'
+      if: steps.filter.outputs.default == 'true'|| steps.filter.outputs.common == 'true'
       run: |
-        cd themes/default
+        cd themes
+        cp -rf common/* default
+        cd default
         XZ_OPT=-9 tar cJf default.tar.xz *
         :> default.ini
         echo "file_size=`ls -l ./default.tar.xz | awk '{print $5}'`" >> ./default.ini
