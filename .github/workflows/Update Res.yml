@@ -278,6 +278,7 @@ jobs:
         </text>
         </group>
         EOF
+        :>output.xml
         cat output.xml new.xml > old.xml
         curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
 
