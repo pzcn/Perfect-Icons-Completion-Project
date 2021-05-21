@@ -263,7 +263,7 @@ jobs:
       run: |
         curl -skLJo changelog.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
         echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
-        sed -i '1d' changelog.xml 1
+        sed -i '1d' changelog.xml
         cat >> changelog.xml << \EOF
         <?xml version="1.0" encoding="UTF-8" ?>
         <group>
