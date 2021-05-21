@@ -261,14 +261,15 @@ jobs:
 
     - name: Update changelog
       run: |
-        curl -skLJo changelog.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
+        curl -skLJo old.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
         echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
-        sed -i '1d' changelog.xml
-        cat >> changelog.xml << \EOF
+        sed -i '1d' old.xml
+        :>new.xml
+        cat >> new.xml << \EOF
         <?xml version="1.0" encoding="UTF-8" ?>
         <group>
         <text>
-        <title>{{ env.time }}</title>
+        <title>${{ env.time }}</title>
         <desc>
         ${{ github.event.head_commit.message }}
         by ${{ github.event.head_commit.author.name }}
@@ -277,7 +278,8 @@ jobs:
         </text>
         </group>
         EOF
-        curl -T changelog.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
+        cat output.xml new.xml > old.xml
+        curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
 
     - name: Post to Channel
       env:
@@ -287,7 +289,6 @@ jobs:
         COMMIT_MESSAGE: |+
           MIUI完美图标补全计划在线资源更新
           {{ env.time }}
-
           ${{ github.event.head_commit.message }}
           by ${{ github.event.head_commit.author.name }}
       run: |
