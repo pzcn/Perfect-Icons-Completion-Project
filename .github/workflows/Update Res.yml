@@ -279,7 +279,7 @@ jobs:
         </group>
         EOF
         :>output.xml
-        cat output.xml new.xml > old.xml
+        cat new.xml old.xml > output.xml
         curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
 
     - name: Post to Channel
