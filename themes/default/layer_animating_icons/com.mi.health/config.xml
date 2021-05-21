@@ -5,5 +5,5 @@
         <Variable name="fancy_work" value="false" type="string"/>
         <Variable name="layer_only_quiet0" value="true" type="string"/>
         <Variable name="layer_only_quiet1" value="false" type="string"/>
-    </Variables>
+</Variables>
 </Config>
