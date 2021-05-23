@@ -18,7 +18,7 @@
 	<!-- module -->
 	<FolmeState name="state_init" scaleX="4" scaleY="4" />
 	<FolmeState name="state_end" scaleX="1" scaleY="1" />
-	<FolmeConfig name="state_config" property="scaleX,scaleY" ease="-2,0.9,1" fromSpeed="0"/>
+	<FolmeConfig name="state_config" property="scaleX,scaleY" ease="-2,0.9,0.5" fromSpeed="0"/>
 	<!-- view -->
 	<Group>
 		<Group w="432" h="432" layered="true">

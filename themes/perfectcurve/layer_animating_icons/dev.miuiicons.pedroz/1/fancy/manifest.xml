@@ -16,13 +16,11 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init" y="-150" />
-	<FolmeState name="state_end" y="0" />
-	<FolmeConfig name="state_config" property="y" ease="-2,0.9,1" fromSpeed="0"/>
+	<FolmeState name="state_init" y="-150" scaleX="2" scaleY="2" />
+	<FolmeState name="state_end" y="0" scaleX="1" scaleY="1" />
+	<FolmeConfig name="state_config" property="y,scaleX,scaleY" ease="-2,0.7,0.7" fromSpeed="0"/>
 	<!-- view -->
 	<Group>
-		<Group w="432" h="432" layered="true">
-			<Image src="fg.png" name="fg" x="0"/>
-		</Group>
+		<Image src="fg.png" name="fg" x="0" pivotX="216" pivotY="216" />
 	</Group>
 </Icon>
