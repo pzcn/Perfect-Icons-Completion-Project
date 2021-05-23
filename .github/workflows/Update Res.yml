@@ -275,10 +275,8 @@ jobs:
         <group>
         <text>
         <title>${{ env.time }}</title>
-        <desc>
-        ${{ github.event.head_commit.message }}
-        by ${{ github.event.head_commit.author.name }}
-        </desc>
+        <desc>${{ github.event.head_commit.message }}
+        by ${{ github.event.head_commit.author.name }}</desc>
         <slice break="break" link="${{ github.event.head_commit.url }}" underline="underline"> 轻触查看详细内容>> </slice>
         </text>
         </group>
