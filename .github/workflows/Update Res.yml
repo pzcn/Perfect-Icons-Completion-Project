@@ -105,8 +105,8 @@ jobs:
         echo "md5=`md5sum ./flyme9.tar.xz|cut -d ' ' -f1`" >> ./flyme9.ini
         echo "theme_name=Flyme9主题包" >> ./flyme9.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./flyme9.ini
-        curl -T flyme9.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.tar.xz?version=latest"
-        curl -T flyme9.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/default.ini?version=latest"
+        curl -T flyme9.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/flyme9.tar.xz?version=latest"
+        curl -T flyme9.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/flyme9.ini?version=latest"
 
     - name: Update explore
       if: steps.filter.outputs.explore == 'true' || steps.filter.outputs.common == 'true'
