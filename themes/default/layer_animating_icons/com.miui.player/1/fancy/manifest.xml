@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
-	<Var name="SIZE" expression="252" const="true"/>
+<Icon version="1" frameRate="60" width="384" height="384" screenWidth="1080" resDensity="480">
 	<!-- control -->
 	<ExternalCommands>
 		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
@@ -17,11 +16,11 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init" x="59" rotation="100*#ratio" />
-	<FolmeState name="state_end"  x="59" rotation="0" />
+	<FolmeState name="state_init" x="111" rotation="200*#ratio" />
+	<FolmeState name="state_end"  x="111" rotation="0" />
 	<FolmeConfig name="state_config" property="x,rotation" ease="-2,0.9,1" fromSpeed="0"/>
 	<!-- view -->
-	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
-		<Image name="icon"  src="icon.png"  x="59" y="61" folmeMode="true" pivotX="55" pivotY="82"/>
+	<Group>
+		<Image name="icon"  src="icon.png"  x="111" y="111" folmeMode="true" pivotX="82" pivotY="82"/>
 	</Group>
 </Icon>
