@@ -8,10 +8,12 @@
 		</Trigger>
 		<!-- 退出APP返回桌面的瞬间 -->
 		<Trigger action="back_home_start">
+			<FrameRateCommand rate="90"/>
 			<AnimationCommand target="src_ani" command="play(0,0)"/>
 		</Trigger>
 		<!-- 退出APP回到桌面 -->
 		<Trigger action="back_home_finish">
+            <FrameRateCommand rate="0" delay="721"/>  
 			<AnimationCommand target="src_ani" command="play(0,1840)" />
 		</Trigger>
 	</ExternalCommands>
@@ -19,7 +21,8 @@
 	<Var name="src_ani">
 		<VariableAnimation loop="false" initPause="true">
 			<AniFrame value="0" time="0"/>
-			<AniFrame value="36" time="540"/>
+			<AniFrame value="0" time="180"/>
+			<AniFrame value="36" time="720"/>
 		</VariableAnimation>
 	</Var>
 	<!-- view -->
