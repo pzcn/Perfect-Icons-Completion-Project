@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
-	<Var name="SIZE" expression="252" const="true"/>
+<Icon version="1" frameRate="120" width="252" height="252" screenWidth="1080" resDensity="480">
 	<!-- control -->
 	<ExternalCommands>
 		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
@@ -8,24 +7,18 @@
 			<FolmeCommand target="purple" states="'purple_state_end'" command="setTo" config="'purple_state_config'" />
 			<FolmeCommand target="hill_r" states="'hill_r_state_end'" command="setTo" config="'hill_r_state_config'" />
 			<FolmeCommand target="hill_l" states="'hill_l_state_end'" command="setTo" config="'hill_l_state_config'" />
-			<FolmeCommand target="sunX" states="'sunX_state_end'" command="setTo" config="'sun_state_configX'" />
-			<FolmeCommand target="sunY" states="'sunY_state_end'" command="setTo" config="'sun_state_configY'" />
 		</Trigger>
 		<!-- 退出APP返回桌面的瞬间 -->
 		<Trigger action="back_home_start">
 			<FolmeCommand target="purple" states="'purple_state_init'" command="setTo" config="'purple_state_config'"/>
 			<FolmeCommand target="hill_r" states="'hill_r_state_init'" command="setTo" config="'hill_r_state_config'"/>
 			<FolmeCommand target="hill_l" states="'hill_l_state_init'" command="setTo" config="'hill_l_state_config'"/>
-			<FolmeCommand target="sunX"   states="'sunX_state_init'  " command="setTo" config="'sun_state_configX'"/>
-			<FolmeCommand target="sunY"   states="'sunY_state_init'  " command="setTo" config="'sun_state_configY'"/>
 		</Trigger>
 		<!-- 退出APP回到桌面 -->
 		<Trigger action="back_home_finish">
 			<FolmeCommand target="purple" states="'purple_state_init','purple_state_end'" command="fromTo" config="'purple_state_config'" />
 			<FolmeCommand target="hill_r" states="'hill_r_state_init','hill_r_state_end'" command="fromTo" config="'hill_r_state_config'" />
 			<FolmeCommand target="hill_l" states="'hill_l_state_init','hill_l_state_end'" command="fromTo" config="'hill_l_state_config'" />
-			<FolmeCommand target="sunX"   states="'sunX_state_init','sunX_state_end'" command="fromTo" config="'sun_state_configX'" />
-			<FolmeCommand target="sunY"   states="'sunY_state_init','sunY_state_end'" command="fromTo" config="'sun_state_configY'" />
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
@@ -40,21 +33,9 @@
 	<FolmeState name="hill_l_state_init" x="-44+120*#ratio"/>
 	<FolmeState name="hill_l_state_end" x="-44"/>
 	<FolmeConfig name="hill_l_state_config" property="x" ease="-2,0.9,1.2" fromSpeed="0"/>
-
-	<FolmeState name="sunX_state_init" x="156-#ratio/abs(#ratio)*200"/>
-	<FolmeState name="sunX_state_end"  x="156"/>
-	<FolmeState name="sunY_state_init" y="60"/>
-	<FolmeState name="sunY_state_end"  y="0"/>
-	<FolmeConfig name="sun_state_configX" property="x" ease="15,1100" fromSpeed="0"/>
-	<FolmeConfig name="sun_state_configY" property="y" ease="6,900" fromSpeed="0"/>
 	<!-- view -->
-	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
-        <Image src="bg.png" x="0" y="0" />
-        <Image name="purple" src="purple.png" x="0" y="0" pivotX="126" pivotY="126" folmeMode="true"/>
-		<Group name="sunY">
-        	<Image name="sunX" src="sun.png" x="156" y="72"  folmeMode="true"/>
-		</Group>
-        <Image name="hill_r" src="hill_r.png" x="55"  y="123" pivotX="103" pivotY="126-123" folmeMode="true"/>
-        <Image name="hill_l" src="hill_l.png" x="-44" y="102" pivotX="130" pivotY="126-102" folmeMode="true"/>
-	</Group>
+    <Image src="bg.png" x="0" y="0" />
+    <Image name="purple" src="purple.png" x="0" y="0" pivotX="126" pivotY="126" folmeMode="true"/>
+    <Image name="hill_r" src="hill_r.png" x="55"  y="123" pivotX="103" pivotY="126-123" folmeMode="true"/>
+    <Image name="hill_l" src="hill_l.png" x="-44" y="102" pivotX="130" pivotY="126-102" folmeMode="true"/>
 </Icon>
