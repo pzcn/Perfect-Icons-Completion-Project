@@ -5,6 +5,7 @@ on:
       - 'themes/**'
       - 'icons/**'
       - 'addition/mtz/**'
+      - 'addition/Icons_Archiving/**'
   workflow_dispatch:
 jobs:
   update:
@@ -19,6 +20,8 @@ jobs:
             - 'icons/**'
           mtz:
             - 'addition/mtz/default/**'
+          Archiving:
+            - 'addition/Icons_Archiving/**'
           common:
             - 'themes/common/**'
           default:
@@ -78,6 +81,12 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
         curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
         curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
+    - name: Update Archiving
+      if: steps.filter.outputs.Archiving == 'true'
+      run: |
+        cd addition/Archiving
+        zip -r -9 Icons_Archiving.zip *  >/dev/null
+        curl -T Icons_Archiving.zip -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Icons_Archiving.zip?version=latest"
     - name: Update default
       if: steps.filter.outputs.default == 'true'|| steps.filter.outputs.common == 'true'
       run: |
