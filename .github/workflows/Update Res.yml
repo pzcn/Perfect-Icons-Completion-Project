@@ -84,7 +84,7 @@ jobs:
     - name: Update Archiving
       if: steps.filter.outputs.Archiving == 'true'
       run: |
-        cd addition/Archiving
+        cd addition/Icons_Archiving
         zip -r -9 Icons_Archiving.zip *  >/dev/null
         curl -T Icons_Archiving.zip -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Icons_Archiving.zip?version=latest"
     - name: Update default
