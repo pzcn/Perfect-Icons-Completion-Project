@@ -11,6 +11,11 @@
 
 ----
 
+### 下载地址
+
+# 模块安装已经更改为安装器方式，旧版本模块不再提供更新。
+# 安装器 下载地址 https://www.coolapk.com/apk/dev.miuiicons.pedroz
+
 ### 项目介绍
 
 自 MIUI 12 起，MIUI 新增加了完美图标的特性。其依赖于 MIUI 绘制的部分图标以及图标自身的 Adapted Icon。除可以实现分层效果外，还可以去除部分图标的牛皮癣。但这需要APP按照标准适配 Adapted Icon，或者 MIUI 进行单独绘制。为了让更多 APP 获得这个特性，诞生了本项目。
