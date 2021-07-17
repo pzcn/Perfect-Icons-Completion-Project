@@ -61,7 +61,7 @@ jobs:
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
-        XZ_OPT=-9 tar cJf icons.tar.xz icons
+        tar -cf - icons | xz -9 -c - > icons.tar.xz
         :> icons.ini
         echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
         echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
