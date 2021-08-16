@@ -28,7 +28,7 @@
 	<FolmeState name="state_end2" x="146" y="141" />
 	<FolmeState name="state_init3" x="182" y="138" />
 	<FolmeState name="state_end3" x="142" y="138" />
-	<FolmeConfig name="state_config" property="x,y" ease="-2,0.6,1" fromSpeed="0" />
+	<FolmeConfig name="state_config" property="x,y" ease="-2,0.6,0.75" fromSpeed="0" />
 	<!-- view -->
 	<Group>
 		<Group w="324" h="324" layered="true">

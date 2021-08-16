@@ -23,8 +23,8 @@
 	<FolmeState name="state_end1" scaleX="1" scaleY="1" />
 	<FolmeState name="state_init2" scaleX="1.8" scaleY="1.8" />
 	<FolmeState name="state_end2" scaleX="1" scaleY="1" />
-	<FolmeConfig name="state_config1" property="y" ease="-2,0.6,1" fromSpeed="0" />
-	<FolmeConfig name="state_config2" property="y" ease="-2,0.35,1" fromSpeed="0" />
+	<FolmeConfig name="state_config1" property="y" ease="-2,0.6,0.75" fromSpeed="0" />
+	<FolmeConfig name="state_config2" property="y" ease="-2,0.35,0.75" fromSpeed="0" />
 	<!-- view -->
 	<Group>
 		<Image name="1" src="1.png" pivotX="126" pivotY="126" folmeMode="true" />
