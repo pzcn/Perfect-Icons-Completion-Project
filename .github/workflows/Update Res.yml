@@ -295,4 +295,4 @@ jobs:
         curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
     - name: Push changelog
       run: |
-        curl -i -X POST -H 'Content-type':'application/json' -d '{"token":"${{secrets.push_token}}","title":"MIUI完美图标更新了","content":"### 更新时间：${{ env.time }} \n 更新内容 \n ${{ github.event.head_commit.message }} \n by ${{ github.event.head_commit.author.name }} \n 前往${{ github.event.head_commit.url }}查看详细更新内容 \n 前往MIUI完美图标APP进行更新","topic":"MIUI"}' http://www.pushplus.plus/send
+        curl -i -X POST -H 'Content-type':'application/json' -d '{"token":"${{secrets.push_token}}","title":"MIUI完美图标更新了","content":"### 更新时间：${{ env.time }} \n 更新内容 \n ${{ github.event.head_commit.message }} \n by ${{ github.event.head_commit.author.name }} \n 前往${{ github.event.head_commit.url }}查看详细更新内容 \n 前往MIUI完美图标APP进行更新","topic":"MIUI","template":"markdown"}' http://www.pushplus.plus/send
