@@ -1,0 +1,52 @@
+name: CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, '[skip ci]') == false 
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get Envs
+        run: |
+          echo version=$(echo ${{ github.event.head_commit.id }} | head -c 8) >> $GITHUB_ENV
+          cd icons
+          echo count=$(ls -l |grep "^d"|wc -l) >> $GITHUB_ENV
+          cd ..
+          echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
+          echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
+
+      - name: Pack
+        run: |
+          echo "version=${{ env.version }}" >> ./addition/module/module.prop
+          echo "ver=${{ env.version }}" >> ./addition/module/module.prop
+          echo "count=${{ env.count }}" >> ./addition/module/module.prop
+          chmod 755 ./.github/pack.sh
+          ./.github/pack.sh
+
+      - name: Organize Outputs
+        run: |
+          mkdir -p build
+          mkdir -p buildpages
+          cp -rf ./addition/mtz/Default.mtz ./build/Default_${{ env.version }}.mtz
+          cp -rf ./addition/mtz/Explore.mtz ./build/Explore_${{ env.version }}.mtz
+          cp -rf ./addition/mtz/Flyme9.mtz ./build/Flyme9_${{ env.version }}.mtz
+          cp -rf ./addition/module/MIUI_Icons.zip ./build/MIUI_Icons_${{ env.version }}.zip
+          cp -rf ./addition/Icons_Addon/Icons_Addon.zip ./build/Icons_Addon_${{ env.version }}.zip
+          cp -rf ./addition/Icons_Archiving/Icons_Archiving.zip ./build/Icons_Archiving_${{ env.version }}.zip
+          sed -i "s/{ver}/${{ env.version }}/g" ./addition/pages/ci.md
+          sed -i "s/{date}/${{ env.time }}/g" ./addition/pages/ci.md
+          sed -i "s/{count}/${{ env.count }}/g" ./addition/pages/ci.md
+
+      - name: Upload Release Asset
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: beta
+          prerelease: true
+          title: ${{ env.date }}
+          files: build/
