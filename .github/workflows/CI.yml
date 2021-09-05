@@ -1,4 +1,4 @@
-name: Update Res
+name: CI
 on:
   push:
   workflow_dispatch:
