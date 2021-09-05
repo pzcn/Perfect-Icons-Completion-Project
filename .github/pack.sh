@@ -1,8 +1,11 @@
 #!/bin/bash
+#fix
+cp -rf ./themes/default ./addition
+
 # pack icons
 mkdir -p ./addition/default/res/drawable-xxhdpi/
 cp -rf icons/* ./addition/default/res/drawable-xxhdpi/
-cd ./themes/default/
+cd ./addition/default/
 zip -r -9 icons.zip *  >/dev/null
 cd ..
 
