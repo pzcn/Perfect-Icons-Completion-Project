@@ -1,5 +1,6 @@
-name: CI
+name: Update Res
 on:
+  push:
   workflow_dispatch:
 jobs:
   build:
