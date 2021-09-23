@@ -9,12 +9,10 @@
 		</Trigger>
 		<!-- 退出APP返回桌面的瞬间 -->
 		<Trigger action="back_home_start">
-			<FrameRateCommand rate="90"/>
 			<AnimationCommand target="src_ani" command="play(0,0)"/>
 		</Trigger>
 		<!-- 退出APP回到桌面 -->
 		<Trigger action="back_home_finish">
-            <FrameRateCommand rate="0" delay="1001"/>  
 			<AnimationCommand target="src_ani" command="play(0,1840)"/>
 		</Trigger>
 	</ExternalCommands>
