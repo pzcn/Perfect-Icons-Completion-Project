@@ -1,0 +1,9 @@
+<Config>
+    <Variables>
+        <Variable name="layer0" value="0" type="string"/>
+        <Variable name="layer1" value="1" type="string"/>
+        <Variable name="fancy_work" value="false" type="string"/>
+        <Variable name="layer_only_quiet0" value="true" type="string"/>
+        <Variable name="layer_only_quiet1" value="false" type="string"/>
+    </Variables>
+</Config>
