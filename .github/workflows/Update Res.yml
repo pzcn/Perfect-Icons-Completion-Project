@@ -273,6 +273,11 @@ jobs:
     - name: Get Env
       run: |
         echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
+
+    - name: Push changelog
+      run: |
+        curl -i -X POST -H 'Content-type':'application/json' -d '{"token":"${{secrets.push_token}}","title":"MIUI完美图标更新通知","content":" **MIUI完美图标更新了** \n \n **更新时间：${{ env.time }}** \n \n **更新内容** \n \n ``` \n \n ${{ github.event.head_commit.message }} \n \n ``` \n \n by ` ${{ github.event.head_commit.author.name }} ` \n \n [查看详细更新内容](${{ github.event.head_commit.url }}) \n \n 可前往MIUI完美图标APP进行更新","topic":"MIUI","template":"markdown"}' http://www.pushplus.plus/send
+
     - name: Update changelog
       run: |
         curl -skLJo old.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
@@ -293,6 +298,3 @@ jobs:
         :>output.xml
         cat new.xml old.xml > output.xml
         curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
-    - name: Push changelog
-      run: |
-        curl -i -X POST -H 'Content-type':'application/json' -d '{"token":"${{secrets.push_token}}","title":"MIUI完美图标更新通知","content":" **MIUI完美图标更新了** \n \n **更新时间：${{ env.time }}** \n \n **更新内容** \n \n ``` \n \n ${{ github.event.head_commit.message }} \n \n ``` \n \n by ` ${{ github.event.head_commit.author.name }} ` \n \n [查看详细更新内容](${{ github.event.head_commit.url }}) \n \n 可前往MIUI完美图标APP进行更新","topic":"MIUI","template":"markdown"}' http://www.pushplus.plus/send

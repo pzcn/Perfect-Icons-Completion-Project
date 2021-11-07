@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Icon version="1" frameRate="120" width="252" height="252" screenWidth="1080" resDensity="480">
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
 	<Var name="SIZE" expression="252" const="true"/>
 	 <!-- control -->
 	 <ExternalCommands>

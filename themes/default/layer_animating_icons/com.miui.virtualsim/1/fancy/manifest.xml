@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Icon version="1" frameRate="90" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
 	<Var name="SIZE" expression="252" const="true"/>
 	<!-- control -->
 	<ExternalCommands>
@@ -9,12 +9,10 @@
 		</Trigger>
 		<!-- 退出APP返回桌面的瞬间 -->
 		<Trigger action="back_home_start">
-			<FrameRateCommand rate="90"/>
 			<AnimationCommand target="src_ani" command="play(0,0)"/>
 		</Trigger>
 		<!-- 退出APP回到桌面 -->
 		<Trigger action="back_home_finish">
-            <FrameRateCommand rate="0" delay="671"/>  
 			<AnimationCommand target="src_ani" command="play(0,1840)"/>
 		</Trigger>
 	</ExternalCommands>
@@ -22,7 +20,7 @@
 	<Var name="src_ani">
 		<VariableAnimation loop="false" initPause="true">
 			<AniFrame value="0" time="0"/>
-			<AniFrame value="59" time="670"/>
+			<AniFrame value="59" time="1000"/>
 		</VariableAnimation>
 	</Var>
 	<Var name="srcStr" expression="ifelse(#ratio}0,'right','left')" type="string"/>

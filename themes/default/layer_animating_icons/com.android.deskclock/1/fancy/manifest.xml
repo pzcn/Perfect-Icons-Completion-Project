@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Icon version="1" frameRate="0" width="252" height="252" screenWidth="1080" resDensity="480">
+<Icon version="1" frameRate="0" width="252" height="252" screenWidth="1080" resDensity="480" useVariableUpdater="DateTime.Minute">
+	
 	<Var name="SIZE" expression="252" const="true"/>
 	<Var name="hour_angle_raw" expression="#hour12 * 30 + #minute/2"/>
 	<Var name="minute_angle_raw" expression="-135 + #minute * 6"/>
@@ -7,7 +8,7 @@
 
 	<Var expression="#minute" threshold="1">
 		<Trigger condition="#needSet">
-            <FrameRateCommand rate="120"/>
+            <FrameRateCommand rate="60"/>
             <VariableCommand name="needSet" expression="0" />
             <VariableCommand name="needSet"  expression="1" delay="50"/>
 			<FrameRateCommand rate="0" delay="50"/>   
@@ -19,14 +20,14 @@
 	<ExternalCommands>
 		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
 		<Trigger action="init,present,back_home_cancel">
-            <FrameRateCommand rate="120"/>
+            <FrameRateCommand rate="60"/>
             <FrameRateCommand rate="0" delay="50"/>  
 			<FolmeCommand target="h" states="'h_state_end'" command="setTo" config="'state_config'" />
 			<FolmeCommand target="m" states="'m_state_end'" command="setTo" config="'state_config'" />
 		</Trigger>
 		<!-- 退出APP返回桌面的瞬间 -->
 		<Trigger action="back_home_start">
-			<FrameRateCommand rate="120"/>
+			<FrameRateCommand rate="60"/>
             <VariableCommand name="needSet" expression="0" />
 
 			<FolmeCommand target="h" states="'h_state_init'" command="setTo" config="'state_config'" />

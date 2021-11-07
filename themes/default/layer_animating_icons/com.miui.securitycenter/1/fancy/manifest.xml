@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
+	<Var name="SIZE" expression="252" const="true"/>
 	<!-- control -->
 	<ExternalCommands>
 		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
@@ -27,7 +28,7 @@
 	<FolmeState name="state_end1" y="95" rotationY="0"/>
 	<FolmeConfig name="state_config1" property="y,rotationY" ease="-2,0.6,0.8" fromSpeed="0"/>
 	<!-- view -->
-	<Group x="0" y="0">
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
 		<Group name="c0" folmeMode="true">
 			<Image src="bg.png" x="55" y="62" />
 			<Image src="sld.png" x="126" y="77" />
