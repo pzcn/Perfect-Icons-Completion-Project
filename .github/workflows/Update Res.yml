@@ -50,6 +50,8 @@ jobs:
             - 'themes/Reconstruction/**'
           StarrySky:
             - 'themes/StarrySky/**'
+          coloros12:
+            - 'themes/coloros12/**'
 
 
     - name: Update Icons
