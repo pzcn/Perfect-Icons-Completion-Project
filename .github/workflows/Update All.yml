@@ -200,3 +200,16 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./StarrySky.ini
         curl -T StarrySky.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/StarrySky.tar.xz?version=latest"
         curl -T StarrySky.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/StarrySky.ini?version=latest"
+    - name: Update coloros12
+      run: |
+        cd themes
+        cp -rf common/* coloros12
+        cd StarrySky
+        XZ_OPT=-9 tar cJf coloros12.tar.xz *
+        :> coloros12.ini
+        echo "file_size=`ls -l ./coloros12.tar.xz | awk '{print $5}'`" >> ./coloros12.ini
+        echo "md5=`md5sum ./coloros12.tar.xz|cut -d ' ' -f1`" >> ./coloros12.ini
+        echo "theme_name=ColorOS12主题包" >> ./coloros12.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./coloros12.ini
+        curl -T coloros12.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/coloros12.tar.xz?version=latest"
+        curl -T coloros12.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/coloros12.ini?version=latest"
