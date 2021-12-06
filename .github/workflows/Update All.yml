@@ -22,6 +22,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
         curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
         curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
+
     - name: Update mtz
       run: |
         cd addition/mtz
@@ -33,6 +34,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./mtz.ini
         curl -T mtz.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.tar.xz?version=latest"
         curl -T mtz.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/mtz.ini?version=latest"
+
     - name: Update default
       run: |
         cd themes/default
@@ -122,6 +124,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./AmethystLake.ini
         curl -T AmethystLake.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/AmethystLake.tar.xz?version=latest"
         curl -T AmethystLake.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/AmethystLake.ini?version=latest"
+    
     - name: Update Aquamarine
       run: |
         cd themes
@@ -135,6 +138,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./Aquamarine.ini
         curl -T Aquamarine.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Aquamarine.tar.xz?version=latest"
         curl -T Aquamarine.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Aquamarine.ini?version=latest"
+    
     - name: Update GoldenBeach
       run: |
         cd themes
@@ -148,6 +152,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./GoldenBeach.ini
         curl -T GoldenBeach.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/GoldenBeach.tar.xz?version=latest"
         curl -T GoldenBeach.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/GoldenBeach.ini?version=latest"
+    
     - name: Update LightWings
       run: |
         cd themes
@@ -161,6 +166,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./LightWings.ini
         curl -T LightWings.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/LightWings.tar.xz?version=latest"
         curl -T LightWings.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/LightWings.ini?version=latest"
+    
     - name: Update Nebulae
       run: |
         cd themes
@@ -174,6 +180,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./Nebulae.ini
         curl -T Nebulae.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Nebulae.tar.xz?version=latest"
         curl -T Nebulae.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Nebulae.ini?version=latest"
+    
     - name: Update Reconstruction
       run: |
         cd themes
@@ -187,6 +194,7 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./Reconstruction.ini
         curl -T Reconstruction.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Reconstruction.tar.xz?version=latest"
         curl -T Reconstruction.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/Reconstruction.ini?version=latest"
+    
     - name: Update StarrySky
       run: |
         cd themes
@@ -200,11 +208,12 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./StarrySky.ini
         curl -T StarrySky.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/StarrySky.tar.xz?version=latest"
         curl -T StarrySky.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/StarrySky.ini?version=latest"
+    
     - name: Update coloros12
       run: |
         cd themes
         cp -rf common/* coloros12
-        cd StarrySky
+        cd coloros12
         XZ_OPT=-9 tar cJf coloros12.tar.xz *
         :> coloros12.ini
         echo "file_size=`ls -l ./coloros12.tar.xz | awk '{print $5}'`" >> ./coloros12.ini
