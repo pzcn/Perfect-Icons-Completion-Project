@@ -13,7 +13,7 @@ jobs:
       - uses: mfinelli/setup-imagemagick@v1
       - name: Convert MIUI to EMUI
         run: |
-          git clone -b main https://github.com/pzcn/emui-icons.git
+          git clone -b main https://github.com/pzcn/emui-icons.git emui
           cd icons
           flist=$(ls)
           for f in $flist
