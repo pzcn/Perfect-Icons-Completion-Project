@@ -13,6 +13,7 @@ jobs:
       - uses: mfinelli/setup-imagemagick@v1
       - name: Convert MIUI to EMUI
         run: |
+          git clone -b main https://github.com/pzcn/emui-icons.git
           cd icons
           flist=$(ls)
           for f in $flist
@@ -63,7 +64,7 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.ORG_ID_emui}}  #Required
+          vercel-org-id: ${{ secrets.ORG_ID_EMUI }}  #Required
           vercel-args: '--prod' #Optional
-          vercel-project-id: ${{ secrets.PROJECT_ID_emui}} #Required 
+          vercel-project-id: ${{ secrets.PROJECT_ID_EMUI }} #Required 
           working-directory: ./emui/outputpages
