@@ -12,6 +12,7 @@
 ----
 
 ### 项目介绍
+
 自 MIUI 12 起，系统启动器新增了完美图标特性。其依赖于 MIUI 系统内置的部分图标以及图标自身的 Adapted Icon 特性。除可以实现分层效果外，还可以去除部分图标的牛皮癣。但这需要 APP 本身按照标准适配 Adapted Icon 或者 MIUI 系统对相应图标进行单独绘制来实现。为了让更多 APP 获得这个特性，诞生了本项目。
 
 在 MIUI 12 早期版本中，MIUI 绘制的第三方桌面图标有着较高的优先级。但是某次更新后，若 APP 自身拥有 Adapted Icon，则会优先调用。这就造成了部分图标显示效果不佳，包括但不限于支付宝、淘宝等，表现为包含牛皮癣（双十一、购物节等）、不按照标准适配（整张图片只有一层、底层为纯色等）。
@@ -25,13 +26,14 @@
 ----
 
 ### 使用方法
-#### 1、Magisk 模块（推荐）
+
+#### 1. Magisk 模块（推荐）
 
 > 需使用 [安装器](https://www.coolapk.com/apk/dev.miuiicons.pedroz) ，支持自主选择主题包，联网下载最新资源后通过 `Magisk 模块`方式安装。还包含`检测更新`、`更新日志`、`图标预览`、`自定义图标`、`导出 Mtz 主题包`等功能
 
-#### 2、 Mtz 主题包（不推荐）
+#### 2. Mtz 主题包（不推荐）
 
->  同其他 Mtz 主题一样，MIUI 国内版需要`设计师账号`或`主题破解`才可以正常使用。Mtz 使用相关问题请自行解决
+>  需使用 [安装器](https://www.coolapk.com/apk/dev.miuiicons.pedroz) 导出主题包，同其他 Mtz 主题一样，MIUI 国内版需要`设计师账号`或`主题破解`才可以正常使用。Mtz 使用相关问题请自行解决
 >  *注意：使用 Mtz 主题包方式部分机型和 MIUI 版本可能出现手势问题，参考下方`常见问题`*
 
 ----
@@ -40,11 +42,11 @@
 
 ##### 自定义图标
 
-> 优先使用自己绘制的图标（仅支持`Magisk 模块`方式） [详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
+> 优先使用自己绘制的图标，[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
 
 ##### 图标存档
 
-> 提供部分图标的其他样式，有需要的话解压后通过`自定义图标`使用 [详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E5%9B%BE%E6%A0%87%E5%AD%98%E6%A1%A3) 
+> 提供部分图标的其他样式，有需要的话解压后通过`自定义图标`使用，[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E5%9B%BE%E6%A0%87%E5%AD%98%E6%A1%A3) 
 
 ----
 
@@ -68,7 +70,7 @@
 
 3. Q：能把xx图标换成xx样式吗？
 
->  A：参考适配指南自行绘制，使用 [自定义图标](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97) （仅支持 `Magisk 模块`方式）
+>  A：参考适配指南自行绘制，使用 [自定义图标](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
 
 ----
 
