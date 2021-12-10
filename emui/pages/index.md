@@ -10,7 +10,7 @@
 - 若下载速度慢，可以尝试切换下载地址、切换网络或使用代理。
 - 图标数量：{count}
 - 更新时间：{date}
-- [更新日志](https://github.com/pzcn/emui-icons/commits/main)    [镜像加速](https://hub.fastgit.org/pzcn/emui-icons/commits/main)
+- [订阅更新日志](https://iconsx.tech/push.html) 
 
 ---
 
@@ -193,15 +193,9 @@
 
 ---
 
-#### Github Release 下载
-
-- [下载地址](https://github.com/pzcn/emui-icons/releases/latest)    [镜像加速](https://hub.fastgit.org/pzcn/emui-icons/releases/latest)
-
----
-
 #### 参与讨论
 
-- [项目地址](https://github.com/pzcn/emui-icons/releases/)  点个star吧😀
+- [项目地址](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project) 点个star吧😀
 
 - [Telegram频道](https://t.me/miuiicons)
 
