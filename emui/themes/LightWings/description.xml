@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Light Wings Plus {id}</title>
+    <title-cn>光之翼 图标补全  {name}</title-cn>
+    <author>EMUI</author>
+    <designer>EMUI</designer>
+    <screen>FHD</screen>
+    <version>11.0.4</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+    <wallpaper-dark>true</wallpaper-dark>
+    <briefinfo>EMUI 完美图标补全计划 更新时间：{date}</briefinfo>
+</HwTheme>

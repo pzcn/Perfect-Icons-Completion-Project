@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Blush Gold {id}</title>
+    <title-cn>8号色 {name}</title-cn>
+    <author>PedroZ</author>
+    <designer>PedroZ</designer>
+    <screen>FHD</screen>
+    <version>11.0.0</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+<briefinfo>
+EMUI 鸿蒙OS 完美图标补全计划 更新时间：{date}
+</briefinfo>
+</HwTheme>
