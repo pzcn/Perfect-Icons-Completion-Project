@@ -24,6 +24,7 @@ jobs:
               - 'emui/icons/**'
 
       - name: Update themes
+        if: steps.filter.outputs.Themes == 'true'
         run: |
           cd emui/themes
           tlist=$(ls)
@@ -40,6 +41,7 @@ jobs:
           done
 
       - name: Update style
+        if: steps.filter.outputs.Style == 'true'
         run: |
           cd emui/style
           XZ_OPT=-9 tar cJf style.tar.xz *
@@ -68,8 +70,7 @@ jobs:
               cp -r $f ../emui/icons
             fi
           done
-          cd ../..
-          cd emui/icons
+          cd ../emui/icons
           XZ_OPT=-9 tar cJf icons.tar.xz *
           :> icons.ini
           echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
