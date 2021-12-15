@@ -54,6 +54,7 @@ jobs:
           curl -T style.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.ini?version=latest"
 
       - name: Convert MIUI to EMUI
+        if: steps.filter.outputs.Icons == 'true'
         run: |
           cd icons
           rm -rf *.png
