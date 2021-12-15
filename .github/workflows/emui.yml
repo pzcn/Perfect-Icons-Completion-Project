@@ -11,7 +11,50 @@ jobs:
           fetch-depth: 1
 
       - uses: mfinelli/setup-imagemagick@v1
+
+      - uses: dorny/paths-filter@v2.10.1
+      id: filter
+      with:
+        filters: |
+          Themes:
+            - 'emui/themes/**'
+          Style:
+            - 'emui/style/**'
+          Icons:
+            - 'emui/icons/**'
+            
+      - name: Update themes
+        if: steps.filter.outputs.Themes == 'true'
+        run: |
+          cd emui/themes
+          tlist=$(ls)
+          for t in $tlist
+          do
+          XZ_OPT=-9 tar cJf $t.tar.xz $t/*
+          :> icons.ini
+          echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
+          echo "theme_name=主题包" >> ./style.ini
+          echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
+          curl -T $t.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.ini?version=latest"
+          curl -T $t.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.tar.xz?version=latest"
+          done
+
+      - name: Update style
+        if: steps.filter.outputs.Style == 'true'
+        run: |
+          cd /emui/style
+          XZ_OPT=-9 tar cJf style.tar.xz *
+          :> style.ini
+          echo "file_size=`ls -l ./style.tar.xz | awk '{print $5}'`" >> ./style.ini
+          echo "md5=`md5sum ./style.tar.xz|cut -d ' ' -f1`" >> ./style.ini
+          echo "theme_name=图标风格" >> ./style.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./style.ini
+          curl -T style.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.tar.xz?version=latest"
+          curl -T style.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.ini?version=latest"
+
       - name: Convert MIUI to EMUI
+        if: steps.filter.outputs.Icons == 'true'
         run: |
           cd icons
           flist=$(ls)
@@ -29,41 +72,12 @@ jobs:
             fi
           done
           cd ../../
-
-      - name: Get Count
-        run: |
-          cd emui/icons
-          echo count=$(ls -l |grep "^d"|wc -l) >> $GITHUB_ENV
-          echo date1=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d') >> $GITHUB_ENV
-          echo date=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
-
-      - name: Pack
-        run: |
-          chmod 755 ./.github/pack-emui.sh
-          ./.github/pack-emui.sh
-
-      - name: upload
-        run: |
-          cd emui/outputs
-          path=$1
-          files=$(ls $path)
-          for filename in $files
-          do
-          curl -T $filename -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$filename?version=latest"
-          done
-
-      - name: html
-        run: |
-          sed -i "s/{date}/${{ env.date }}/g" ./emui/pages/index.md
-          sed -i "s/{count}/${{ env.count }}/g" ./emui/pages/index.md
-          sudo npm install -g markdown-styles
-          generate-md --layout github --input ./emui/pages --output ./emui/outputpages
-
-      - name: build to vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.ORG_ID_EMUI }}  #Required
-          vercel-args: '--prod' #Optional
-          vercel-project-id: ${{ secrets.PROJECT_ID_EMUI }} #Required 
-          working-directory: ./emui/outputpages
+          cd /emui/icons
+          XZ_OPT=-9 tar cJf icons.tar.xz *
+          :> icons.ini
+          echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
+          echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
+          echo "theme_name=图标包" >> ./icons.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
+          curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
+          curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
