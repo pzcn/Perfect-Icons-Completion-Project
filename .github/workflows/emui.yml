@@ -13,18 +13,17 @@ jobs:
       - uses: mfinelli/setup-imagemagick@v1
 
       - uses: dorny/paths-filter@v2.10.1
-      id: filter
-      with:
-        filters: |
-          Themes:
-            - 'emui/themes/**'
-          Style:
-            - 'emui/style/**'
-          Icons:
-            - 'emui/icons/**'
-            
+        id: filter
+        with:
+          filters: |
+            Themes:
+              - 'emui/themes/**'
+            Style:
+              - 'emui/style/**'
+            Icons:
+              - 'emui/icons/**'
+
       - name: Update themes
-        if: steps.filter.outputs.Themes == 'true'
         run: |
           cd emui/themes
           tlist=$(ls)
@@ -41,7 +40,6 @@ jobs:
           done
 
       - name: Update style
-        if: steps.filter.outputs.Style == 'true'
         run: |
           cd /emui/style
           XZ_OPT=-9 tar cJf style.tar.xz *
@@ -54,7 +52,6 @@ jobs:
           curl -T style.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.ini?version=latest"
 
       - name: Convert MIUI to EMUI
-        if: steps.filter.outputs.Icons == 'true'
         run: |
           cd icons
           flist=$(ls)
