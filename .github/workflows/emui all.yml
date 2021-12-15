@@ -1,0 +1,80 @@
+name: update-emui-icons
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - uses: mfinelli/setup-imagemagick@v1
+
+      - uses: dorny/paths-filter@v2.10.1
+        id: filter
+        with:
+          filters: |
+            Themes:
+              - 'emui/themes/**'
+            Style:
+              - 'emui/style/**'
+            Icons:
+              - 'emui/icons/**'
+
+      - name: Update themes
+        run: |
+          cd emui/themes
+          tlist=$(ls)
+          for t in $tlist
+          do
+          XZ_OPT=-9 tar cJf $t.tar.xz $t/*
+          :> icons.ini
+          echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
+          echo "theme_name=主题包" >> ./style.ini
+          echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
+          curl -T $t.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.ini?version=latest"
+          curl -T $t.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.tar.xz?version=latest"
+          done
+
+      - name: Update style
+        run: |
+          cd emui/style
+          XZ_OPT=-9 tar cJf style.tar.xz *
+          :> style.ini
+          echo "file_size=`ls -l ./style.tar.xz | awk '{print $5}'`" >> ./style.ini
+          echo "md5=`md5sum ./style.tar.xz|cut -d ' ' -f1`" >> ./style.ini
+          echo "theme_name=图标风格" >> ./style.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./style.ini
+          curl -T style.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.tar.xz?version=latest"
+          curl -T style.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.ini?version=latest"
+
+      - name: Convert MIUI to EMUI
+        run: |
+          cd icons
+          rm -rf *.png
+          flist=$(ls)
+          for f in $flist
+          do
+            if test -d ./$f
+            then
+              cd $f
+              convert 0.png -gravity center -crop 93.75%x93.75%+0+0 background.png
+              rm 0.png
+              convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png
+              rm 1.png
+              cd ..
+              cp -r $f ../emui/icons
+            fi
+          done
+          cd ../emui/icons
+          zip -r icons.zip *
+          XZ_OPT=-9 tar cJf icons.tar.xz icons.zip
+          :> icons.ini
+          echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
+          echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
+          echo "theme_name=图标包" >> ./icons.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
+          curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
+          curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
