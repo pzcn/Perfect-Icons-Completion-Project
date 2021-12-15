@@ -54,9 +54,9 @@ jobs:
           curl -T style.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.ini?version=latest"
 
       - name: Convert MIUI to EMUI
-        if: steps.filter.outputs.Icons == 'true'
         run: |
           cd icons
+          rm -rf *.png
           flist=$(ls)
           for f in $flist
           do
@@ -72,7 +72,8 @@ jobs:
             fi
           done
           cd ../emui/icons
-          XZ_OPT=-9 tar cJf icons.tar.xz *
+          zip -r icons.zip *
+          XZ_OPT=-9 tar cJf icons.tar.xz icons.zip
           :> icons.ini
           echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
           echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
