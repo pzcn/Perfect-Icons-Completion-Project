@@ -41,7 +41,7 @@ jobs:
 
       - name: Update style
         run: |
-          cd /emui/style
+          cd emui/style
           XZ_OPT=-9 tar cJf style.tar.xz *
           :> style.ini
           echo "file_size=`ls -l ./style.tar.xz | awk '{print $5}'`" >> ./style.ini
@@ -68,8 +68,8 @@ jobs:
               cp -r $f ../emui/icons
             fi
           done
-          cd ../../
-          cd /emui/icons
+          cd ../..
+          cd emui/icons
           XZ_OPT=-9 tar cJf icons.tar.xz *
           :> icons.ini
           echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
