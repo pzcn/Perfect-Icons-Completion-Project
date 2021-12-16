@@ -1,36 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Icon version="1" frameRate="60" width="1080" height="1080" screenWidth="1080" resDensity="480">
+<Icon version="1" frameRate="60" width="512" height="512" screenWidth="1080" resDensity="480">
     <!-- control -->
     <ExternalCommands>
         <!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
         <Trigger action="init,present,back_home_cancel">
-            <FolmeCommand target="1" states="'state_end'" command="setTo" config="'state_config1'" />
-            <FolmeCommand target="2" states="'state_end'" command="setTo" config="'state_config2'" />
-            <FolmeCommand target="3" states="'state_end'" command="setTo" config="'state_config3'" />
+            <AnimationCommand target="p1" command="play(1600,1600)"/>
+            <AnimationCommand target="p2" command="play(1600,1600)"/>
+            <AnimationCommand target="p3" command="play(1600,1600)"/>
+            <FolmeCommand target="fg" states="'state_end'" command="setTo" config="'state_config'"/>
         </Trigger>
         <!-- 退出APP返回桌面的瞬间 -->
         <Trigger action="back_home_start">
-            <FolmeCommand target="1" states="'state_init'" command="setTo" config="'state_config1'"/>
-            <FolmeCommand target="2" states="'state_init'" command="setTo" config="'state_config2'"/>
-            <FolmeCommand target="3" states="'state_init'" command="setTo" config="'state_config3'"/>
+            <AnimationCommand target="p1" command="play(0,0)"/>
+            <AnimationCommand target="p2" command="play(0,0)"/>
+            <AnimationCommand target="p3" command="play(0,0)"/>
+            <FolmeCommand target="fg" states="'state_init'" command="setTo" config="'state_config'"/>
         </Trigger>
         <!-- 退出APP回到桌面 -->
         <Trigger action="back_home_finish">
-            <FolmeCommand target="1" states="'state_init','state_end'" command="fromTo" config="'state_config1'" />
-            <FolmeCommand target="2" states="'state_init','state_end'" command="fromTo" config="'state_config2'" />
-            <FolmeCommand target="3" states="'state_init','state_end'" command="fromTo" config="'state_config3'" />
+            <AnimationCommand target="p1" command="play(0,1600)"/>
+            <AnimationCommand target="p2" command="play(0,1600)"/>
+            <AnimationCommand target="p3" command="play(0,1600)"/>
+            <FolmeCommand target="fg" states="'state_init','state_end'" command="fromTo" config="'state_config'"/>
         </Trigger>
     </ExternalCommands>
     <!-- module -->
-    <FolmeState name="state_init" alpha="0"/>
-    <FolmeState name="state_end" alpha="255"/>
-    <FolmeConfig name="state_config1" property="alpha" ease="-1,0.6,0.33" fromSpeed="0"/>
-    <FolmeConfig name="state_config2" property="alpha" ease="-1,0.6,0.66" fromSpeed="0"/>
-    <FolmeConfig name="state_config3" property="alpha" ease="-1,0.6,0.99" fromSpeed="0"/>
+    <FolmeState name="state_init" y="-150"/>
+    <FolmeState name="state_end" y="0"/>
+    <FolmeConfig name="state_config" property="y" ease="-2,0.6,0.4" fromSpeed="0"/>
     <!-- view -->
-    <Group>
-        <Image name="1" src="1.png" x="0" y="0" folmeMode="true"/>
-        <Image name="2" src="2.png" x="0" y="0" folmeMode="true"/>
-        <Image name="3" src="3.png" x="0" y="0" folmeMode="true"/>
+    <Group name="bg">
+        <Image name="p1" src="p1.png" x="0" y="0">
+            <PositionAnimation>
+                <Item x="0" y="20" time="0"/>
+                <Item x="0" y="0" time="250"/>
+            </PositionAnimation>
+            <AlphaAnimation>
+                <Item value="0" time="0"/>
+                <Item value="255" time="250"/>
+            </AlphaAnimation>
+        </Image>
+        <Image name="p2" src="p2.png" x="0" y="0">
+            <PositionAnimation>
+                <Item x="0" y="20" time="0"/>
+                <Item x="0" y="20" time="150"/>
+                <Item x="0" y="0" time="400"/>
+            </PositionAnimation>
+            <AlphaAnimation>
+                <Item value="0" time="0"/>
+                <Item value="0" time="150"/>
+                <Item value="255" time="400"/>
+            </AlphaAnimation>
+        </Image>
+        <Image name="p3" src="p3.png" x="0" y="0">
+            <PositionAnimation>
+                <Item x="0" y="20" time="0"/>
+                <Item x="0" y="20" time="300"/>
+                <Item x="0" y="0" time="550"/>
+            </PositionAnimation>
+            <AlphaAnimation>
+                <Item value="0" time="0"/>
+                <Item value="0" time="300"/>
+                <Item value="255" time="550"/>
+            </AlphaAnimation>
+        </Image>
     </Group>
 </Icon>
