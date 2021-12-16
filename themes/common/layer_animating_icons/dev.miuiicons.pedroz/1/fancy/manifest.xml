@@ -29,7 +29,7 @@
     <FolmeState name="state_end" y="0"/>
     <FolmeConfig name="state_config" property="y" ease="-2,0.6,0.4" fromSpeed="0"/>
     <!-- view -->
-    <Group name="bg">
+    <Group name="fg">
         <Image name="p1" src="p1.png" x="0" y="0">
             <PositionAnimation>
                 <Item x="0" y="20" time="0"/>
