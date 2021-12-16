@@ -21,7 +21,7 @@ jobs:
             Style:
               - 'emui/style/**'
             Icons:
-              - 'emui/icons/**'
+              - 'icons/**'
 
       - name: Update themes
         if: steps.filter.outputs.Themes == 'true'
