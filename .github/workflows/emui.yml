@@ -57,6 +57,7 @@ jobs:
         if: steps.filter.outputs.Icons == 'true'
         run: |
           cd icons
+          mkdir emui/icons
           rm -rf *.png
           flist=$(ls)
           for f in $flist
