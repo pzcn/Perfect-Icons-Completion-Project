@@ -1,6 +1,6 @@
 # MIUI 完美图标补全计划
 
-使用 Magisk 模块和 mtz 主题包的形式，补全/修复 MIUI12 中未适配以及适配不佳的图标。基于官方图标去除牛皮癣，制作成分层图标。本项目现已采用 Github Action 自动生成主题包。
+基于官方图标去除牛皮癣，制作成分层图标。目前支持使用 Magisk 模块和 mtz 主题包的形式，补全/修复 MIUI12 中未适配以及适配不佳的图标。生成hwt主题包，供EMUI/鸿蒙OS使用。
 
 [![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev) 
@@ -90,13 +90,7 @@
 
 #### 申请适配
 
-目前采用 `免费` +`付费` 的方式进行适配：
-
-> 热门应用免费适配，其他应用按照0.5元/个的方式收费适配
-
-> 热门应用指`酷安`下载量高于10万的 APP
-
-> 在 QQ 群私聊群主进行适配 先适配后付款
+暂不接受适配申请
 
 #### 适配指南、提交适配
 
