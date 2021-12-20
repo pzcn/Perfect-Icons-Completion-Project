@@ -1,6 +1,9 @@
 name: Update Emui Res
 on:
   push:
+    paths:
+      - 'emui/**'
+      - 'icons/**'
   workflow_dispatch:
 jobs:
   build:
