@@ -5,9 +5,6 @@
 [![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev) 
 [![Stars](https://img.shields.io/github/stars/pzcn/MIUI-Adapted-Icons-Complement-Project)](https://github.com/MIUI-Adapted-Icons-Complement-Projectreleases/)
-[![Download](https://img.shields.io/github/downloads/pzcn/MIUI-Adapted-Icons-Complement-Project/total)](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)
-[![GitHub release](https://img.shields.io/github/v/release/pzcn/MIUI-Adapted-Icons-Complement-Project)](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/releases)
-[![](https://data.jsdelivr.com/v1/package/gh/pzcn/IconsCDN/badge?style=rounded)](https://www.jsdelivr.com/package/gh/pzcn/IconsCDN)
 
 ----
 
