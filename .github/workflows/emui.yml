@@ -1,4 +1,4 @@
-name: update-emui-icons
+name: Update Emui Res
 on:
   push:
   workflow_dispatch:
@@ -30,10 +30,12 @@ jobs:
           tlist=$(ls)
           for t in $tlist
           do
+          source $t/config.ini
+          rm -rf source $t/config.ini
           XZ_OPT=-9 tar cJf $t.tar.xz $t/*
           :> icons.ini
           echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
-          echo "theme_name=主题包" >> ./style.ini
+          echo "theme_name=$name" >> ./$t.ini
           echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
           echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
           curl -T $t.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.ini?version=latest"
