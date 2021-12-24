@@ -1,0 +1,27 @@
+name: test
+on:
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - name: Create local changes
+      run: |
+        mkdir output
+        mv icons output/icons
+
+    - name: Push dir to Git
+      uses: liziwl/git-push-action@master
+      with:
+        git_token_holder: '${{ secrets.GIT_USERS }}'
+        git_token: '${{ secrets.GIT_TOKEN }}'
+        commit_user: 'pedroz'
+        commit_email: 'test@test.com'
+        push_dir: 'output/'
+        repository_url: 'e.coding.net/miuiicons/icons/icons.git'
+        keep_history: true
+        branch: MIUI
