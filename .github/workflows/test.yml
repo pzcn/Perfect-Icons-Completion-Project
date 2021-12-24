@@ -25,7 +25,7 @@ jobs:
         cp -r /tmp/dest/.git/ /tmp/git_push/.git/
         git add .
         git commit -m "${commit_msg}" || true
-        git push -f origin HEAD:MIUI || true
+        git push || true
         cd ${GITHUB_WORKSPACE}
         mkdir -p temp/res/
         cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
