@@ -26,8 +26,7 @@ jobs:
         git commit -m "${commit_msg}"
         git push -f origin HEAD:MIUI
         cd ${GITHUB_WORKSPACE}
-        mkdir -p ./temp/res/drawable-xxhdpi/
-        cp -rf /tmp/git_push/* ./temp/res/drawable-xxhdpi/
+        cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
         cp -rf addition/transform_config.xml ./temp
         cd temp
         zip -r -9 icons.zip *  >/dev/null
