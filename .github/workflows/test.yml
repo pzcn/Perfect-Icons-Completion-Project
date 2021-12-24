@@ -19,7 +19,7 @@ jobs:
         mkdir -p /tmp/git_push
         cp -a -r icons/* /tmp/git_push
         cd /tmp/git_push
-        remote_repo="https://${INPUT_GIT_TOKEN_HOLDER}:${INPUT_GIT_TOKEN}@e.coding.net/miuiicons/icons/icons.git"
+        remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/icons.git"
         git clone --depth 1 $remote_repo -b MIUI /tmp/dest
         cp -r /tmp/dest/.git/ /tmp/git_push/.git/
         git add .
