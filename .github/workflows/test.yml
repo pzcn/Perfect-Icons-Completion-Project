@@ -12,6 +12,8 @@ jobs:
 
     - name: Update Icons
       run: |
+        git config --global user.email sdustpedro@gmail.com
+        git config --global user.name pedroz
         sha=$(git rev-parse --short HEAD)
         commit_msg="Deploy ${sha}"
         mkdir -p /tmp/git_push
