@@ -12,6 +12,22 @@ jobs:
 
     - name: Update Icons
       run: |
+        mkdir -p ./temp/res/drawable-xxhdpi/
+        cp -rf icons/* ./temp/res/drawable-xxhdpi/
+        cp -rf addition/transform_config.xml ./temp
+        cd temp
+        zip -r -9 icons.zip *  >/dev/null
+        mv icons.zip icons
+        XZ_OPT=-9 tar cJf icons.tar.xz icons
+        :> icons.ini
+        echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
+        echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
+        echo "theme_name=主图标包" >> ./icons.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
+        curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
+        curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
+        cd ..
+        rm -rf temp
         git config --global user.email sdustpedro@gmail.com
         git config --global user.name pedroz
         sha=$(git rev-parse --short HEAD)
@@ -33,11 +49,11 @@ jobs:
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
-        XZ_OPT=-9 tar cJf icons.tar.xz icons 
-        :> icons.ini
-        echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
-        echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
-        echo "theme_name=主图标包" >> ./icons.ini
-        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
-        curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.tar.xz?version=latest"
-        curl -T icons.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/icons.ini?version=latest"
+        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons 
+        :> iconsrepo.ini
+        echo "file_size=`ls -l ./iconsrepo.tar.xz | awk '{print $5}'`" >> ./iconsrepo.ini
+        echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
+        echo "theme_name=主图标包" >> ./iconsrepo.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
+        curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.tar.xz?version=latest"
+        curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.ini?version=latest"
