@@ -12,7 +12,7 @@ jobs:
 
     - name: Update Icons
       run: |
-          cp icons icons1 
+          cp -rf icons icons1 
           mkdir -p emui/icons
           cd icons1 
           rm -rf *.png

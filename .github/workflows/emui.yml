@@ -62,7 +62,7 @@ jobs:
       - name: Convert MIUI to EMUI
         if: steps.filter.outputs.Icons == 'true'
         run: |
-          cp icons icons1 
+          cp -rf icons icons1 
           mkdir -p emui/icons
           cd icons1 
           rm -rf *.png
