@@ -30,7 +30,7 @@ jobs:
               cp -r $f ../emui/update
             fi
           done
-          cd ../..
+          cd ${GITHUB_WORKSPACE}
           rm -rf icons
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
@@ -41,8 +41,8 @@ jobs:
           cp -rf emui/update/* icons
           cd icons
           git add .
-          git commit -m "${commit_msg}" || true
-          git push || true
+          git commit -m "${commit_msg}" 
+          git push 
           zip -r icons.zip * >/dev/null
           XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons.zip
           :> iconsrepo.ini
