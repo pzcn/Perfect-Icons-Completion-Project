@@ -12,10 +12,12 @@ jobs:
 
     - name: Update Icons
       run: |
-          mkdir -p emui/update
-          rm -rf icons/*.png
+          cp icons icons1 
+          mkdir -p emui/icons
+          cd icons1 
+          rm -rf *.png
           flist=$(ls)
-          for f in $flist; do
+          for f in $flist
           do
             if test -d ./$f
             then
