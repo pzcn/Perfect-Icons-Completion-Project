@@ -9,15 +9,13 @@ jobs:
       with:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-    - name: Get changed files
-      id: changed-files
-      uses: tj-actions/changed-files@v2.0.0
+
     - name: Update Icons
       run: |
           mkdir -p emui/update
           rm -rf icons/*.png
           flist=$(ls)
-          for f in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          for f in $flist; do
           do
             if test -d ./$f
             then
@@ -38,7 +36,6 @@ jobs:
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
           git clone --depth 1 $remote_repo icons
           cp -rf emui/update icons
-          rm -rf ${{ steps.changed-files.outputs.deleted_files }}
           git add .
           git commit -m "${commit_msg}" || true
           git push || true
