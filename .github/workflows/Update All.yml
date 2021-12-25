@@ -222,3 +222,17 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./coloros12.ini
         curl -T coloros12.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/coloros12.tar.xz?version=latest"
         curl -T coloros12.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/coloros12.ini?version=latest"
+
+    - name: Update iOS
+      run: |
+        cd themes
+        cp -rf common/* iOS
+        cd iOS
+        XZ_OPT=-9 tar cJf iOS.tar.xz *
+        :> iOS.ini
+        echo "file_size=`ls -l ./iOS.tar.xz | awk '{print $5}'`" >> ./iOS.ini
+        echo "md5=`md5sum ./iOS.tar.xz|cut -d ' ' -f1`" >> ./iOS.ini
+        echo "theme_name=iOS主题包" >> ./iOS.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iOS.ini
+        curl -T iOS.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iOS.tar.xz?version=latest"
+        curl -T iOS.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iOS.ini?version=latest"
