@@ -106,7 +106,7 @@ jobs:
               cp -r $f ../emui/update
             fi
           done
-          rm --rf icons
+          rm -rf icons
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
           sha=$(git rev-parse --short HEAD)
