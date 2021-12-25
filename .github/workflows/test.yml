@@ -43,7 +43,8 @@ jobs:
           git add .
           git commit -m "${commit_msg}" 
           git push 
-          zip -r icons.zip * >/dev/null
+          cd ..
+          zip -r icons.zip icons >/dev/null
           XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons.zip
           :> iconsrepo.ini
           echo "file_size=`ls -l ./iconsrepo.tar.xz | awk '{print $5}'`" >> ./iconsrepo.ini
