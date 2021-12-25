@@ -13,7 +13,7 @@ jobs:
     - name: Update Icons
       run: |
           cp -rf icons icons1 
-          mkdir -p emui/icons
+          mkdir -p emui/update
           cd icons1 
           rm -rf *.png
           flist=$(ls)
