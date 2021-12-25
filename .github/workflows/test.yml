@@ -39,10 +39,10 @@ jobs:
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
           git clone --depth 1 $remote_repo icons
           cp -rf emui/update/* icons
+          cd icons
           git add .
           git commit -m "${commit_msg}" || true
           git push || true
-          cd icons
           zip -r icons.zip * >/dev/null
           XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons.zip
           :> iconsrepo.ini

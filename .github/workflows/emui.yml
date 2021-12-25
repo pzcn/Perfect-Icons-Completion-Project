@@ -90,6 +90,7 @@ jobs:
           echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
           curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
           curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
+          cd ${GITHUB_WORKSPACE}
           mkdir -p emui/update
           rm -rf icons/*.png
           flist=$(ls)
@@ -107,13 +108,14 @@ jobs:
             fi
           done
           rm -rf icons
+          cd 
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
           sha=$(git rev-parse --short HEAD)
           commit_msg="Deploy ${sha}"
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
           git clone --depth 1 $remote_repo icons
-          cp -rf emui/update icons
+          cp -rf emui/update/* icons
           rm -rf ${{ steps.changed-files.outputs.deleted_files }}
           git add .
           git commit -m "${commit_msg}" || true
