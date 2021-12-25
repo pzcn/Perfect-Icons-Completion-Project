@@ -30,6 +30,7 @@ jobs:
               cp -r $f ../emui/update
             fi
           done
+          cd ../..
           rm -rf icons
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
