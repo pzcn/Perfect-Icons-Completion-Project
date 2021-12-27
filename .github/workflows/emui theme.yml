@@ -2,8 +2,8 @@ name: Update Emui Theme
 on:
   workflow_dispatch:
     inputs:
-      DEVICE_URL:
-        description: 'THEME'
+      THEME_NAME:
+        description: 'THEME ID'
         required: true
         default: 'Aquamarine'
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Update themes
         run: |
           cd emui/themes
-          t=${{ github.event.inputs.THEME }}
+          t=${{ github.event.inputs.THEME_NAME }}
           source $t/config.ini
           rm -rf source $t/config.ini
           XZ_OPT=-9 tar cJf $t.tar.xz $t/*
