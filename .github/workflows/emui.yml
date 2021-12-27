@@ -95,7 +95,7 @@ jobs:
           mkdir -p /tmp/emui/update
           if [ ! -z "${{ steps.changed-files.outputs.all_changed_files }}" ];then
           mkdir /tmp/changed 
-          for f in "${{ steps.changed-files.outputs.all_changed_files }}"
+          for f in ${{ steps.changed-files.outputs.all_changed_files }}
           do
           cp --parents "./$f" /tmp/changed/
           done
