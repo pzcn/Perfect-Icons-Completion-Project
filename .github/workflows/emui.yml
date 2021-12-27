@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 0
       - uses: mfinelli/setup-imagemagick@v1
       - name: Get changed files
         id: changed-files
@@ -91,11 +91,18 @@ jobs:
           curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
           curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
           cd ${GITHUB_WORKSPACE}
-          mkdir -p emui/update
-          rm -rf icons/*.png
-          flist=$(ls)
+          mkdir -p /tmp/repo
+          mkdir -p /tmp/emui/update
           if [ ! -z "${{ steps.changed-files.outputs.all_changed_files }}" ];then
-          for f in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          mkdir /tmp/changed 
+          for f in "${{ steps.changed-files.outputs.all_changed_files }}"
+          do
+          cp --parents "./$f" /tmp/changed/
+          done
+          cd /tmp/changed/icons
+          rm -rf *.png
+          flist=$(ls)
+          for f in $flist
           do
             if test -d ./$f
             then
@@ -105,26 +112,26 @@ jobs:
               convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png
               rm 1.png
               cd ..
-              cp -r $f ../emui/update
+              cp -r $f /tmp/emui/update
             fi
           done
           fi
-          rm -rf icons
-          cd 
+          cd ${GITHUB_WORKSPACE}
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
           sha=$(git rev-parse --short HEAD)
           commit_msg="Deploy ${sha}"
+          cd /tmp/repo
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
           git clone --depth 1 $remote_repo icons
-          cp -rf emui/update/* icons
+          cp -rf /tmp/emui/update/* /tmp/repo/icons
           if [ ! -z "${{ steps.changed-files.outputs.deleted_files }}" ];then
           rm -rf ${{ steps.changed-files.outputs.deleted_files }}
           fi
-          cd icons
+          cd /tmp/repo/icons
           git add .
-          git commit -m "${commit_msg}" || true
-          git push || true
+          git commit -m "${commit_msg}" 
+          git push
           zip -r icons.zip * >/dev/null
           XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons.zip
           :> iconsrepo.ini
