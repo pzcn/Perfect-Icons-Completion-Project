@@ -2,7 +2,6 @@ name: Update Emui Res
 on:
   push:
     paths:
-      - 'emui/**'
       - 'icons/**'
   workflow_dispatch:
 jobs:
@@ -16,51 +15,8 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v2.0.0
-      - uses: dorny/paths-filter@v2.10.1
-        id: filter
-        with:
-          filters: |
-            Themes:
-              - 'emui/themes/**'
-            Style:
-              - 'emui/style/**'
-            Icons:
-              - 'icons/**'
-
-      - name: Update themes
-        if: steps.filter.outputs.Themes == 'true'
-        run: |
-          cd emui/themes
-          tlist=$(ls)
-          for t in $tlist
-          do
-          source $t/config.ini
-          rm -rf source $t/config.ini
-          XZ_OPT=-9 tar cJf $t.tar.xz $t/*
-          :> icons.ini
-          echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
-          echo "theme_name=$name" >> ./$t.ini
-          echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
-          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
-          curl -T $t.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.ini?version=latest"
-          curl -T $t.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.tar.xz?version=latest"
-          done
-
-      - name: Update style
-        if: steps.filter.outputs.Style == 'true'
-        run: |
-          cd emui/style
-          XZ_OPT=-9 tar cJf style.tar.xz *
-          :> style.ini
-          echo "file_size=`ls -l ./style.tar.xz | awk '{print $5}'`" >> ./style.ini
-          echo "md5=`md5sum ./style.tar.xz|cut -d ' ' -f1`" >> ./style.ini
-          echo "theme_name=图标风格" >> ./style.ini
-          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./style.ini
-          curl -T style.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.tar.xz?version=latest"
-          curl -T style.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/style.ini?version=latest"
 
       - name: Convert MIUI to EMUI
-        if: steps.filter.outputs.Icons == 'true'
         run: |
           cp -rf icons icons1 
           mkdir -p emui/icons
