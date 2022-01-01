@@ -15,40 +15,9 @@ jobs:
       - uses: mfinelli/setup-imagemagick@v1
 
       - id: file_changes
-        uses: trilom/file-changes-action@v1.2.3
+        uses: trilom/file-changes-action@v1.2.4
         with:
-          output: ' '
-
-      - name: push icons
-        run: |
-          cp -rf icons icons1 
-          mkdir -p emui/icons
-          cd icons1 
-          rm -rf *.png
-          flist=$(ls)
-          for f in $flist
-          do
-            if test -d ./$f
-            then
-              cd $f
-              convert 0.png -gravity center -crop 93.75%x93.75%+0+0 background.png
-              rm 0.png
-              convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png
-              rm 1.png
-              cd ..
-              cp -r $f ../emui/icons
-            fi
-          done
-          cd ../emui/icons
-          zip -r icons.zip *
-          XZ_OPT=-9 tar cJf icons.tar.xz icons.zip
-          :> icons.ini
-          echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
-          echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
-          echo "theme_name=图标包" >> ./icons.ini
-          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
-          curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
-          curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
+          output: ','
 
       - name: push icons repo
         run: |
@@ -57,19 +26,16 @@ jobs:
           mkdir -p /tmp/emui/update
           mkdir /tmp/changed 
           mod=0
+
           if [ ! -z "${{ steps.file_changes.outputs.files_added }}" ];then
-          for f in ${{ steps.file_changes.outputs.files_added }}
-          do
-          cp --parents "./$f" /tmp/changed/
-          done
+          list="${{ steps.file_changes.outputs.files_added }}"
+          source ${GITHUB_WORKSPACE}/.github/copy.sh
           mod=1
           fi
 
           if [ ! -z "${{ steps.file_changes.outputs.files_modified }}" ];then
-          for f in ${{ steps.file_changes.outputs.files_modified }}
-          do
-          cp --parents "./$f" /tmp/changed/
-          done
+          list="${{ steps.file_changes.outputs.files_modified }}"
+          source ${GITHUB_WORKSPACE}/.github/copy.sh
           mod=1
           fi
 
@@ -102,7 +68,9 @@ jobs:
           git clone --depth 1 $remote_repo icons
           cp -rf /tmp/emui/update/* /tmp/repo/icons
           if [ ! -z "${{ steps.file_changes.outputs.files_removed }}" ];then
-          rm -rf ${{ steps.file_changes.outputs.files_removed }}
+          list="${{ steps.file_changes.outputs.files_removed }}"
+          source ${GITHUB_WORKSPACE}/.github/rm.sh
+          mod=1
           fi
           cd /tmp/repo/icons
           git add .
@@ -117,3 +85,4 @@ jobs:
           echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
           curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest"
           curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.ini?version=latest"
+        shell: bash
