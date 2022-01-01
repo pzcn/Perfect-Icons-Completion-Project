@@ -11,12 +11,15 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: mfinelli/setup-imagemagick@v1
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v2.0.0
 
-      - name: Convert MIUI to EMUI
+      - uses: mfinelli/setup-imagemagick@v1
+
+      - id: file_changes
+        uses: trilom/file-changes-action@v1.2.3
+        with:
+          output: ' '
+
+      - name: push icons
         run: |
           cp -rf icons icons1 
           mkdir -p emui/icons
@@ -46,15 +49,31 @@ jobs:
           echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
           curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
           curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
+
+      - name: push icons repo
+        run: |
           cd ${GITHUB_WORKSPACE}
           mkdir -p /tmp/repo
           mkdir -p /tmp/emui/update
-          if [ ! -z "${{ steps.changed-files.outputs.all_changed_files }}" ];then
           mkdir /tmp/changed 
-          for f in ${{ steps.changed-files.outputs.all_changed_files }}
+          mod=0
+          if [ ! -z "${{ steps.file_changes.outputs.files_added }}" ];then
+          for f in ${{ steps.file_changes.outputs.files_added }}
           do
           cp --parents "./$f" /tmp/changed/
           done
+          mod=1
+          fi
+
+          if [ ! -z "${{ steps.file_changes.outputs.files_modified }}" ];then
+          for f in ${{ steps.file_changes.outputs.files_modified }}
+          do
+          cp --parents "./$f" /tmp/changed/
+          done
+          mod=1
+          fi
+
+          if [ $mod == 1 ];then
           cd /tmp/changed/icons
           rm -rf *.png
           flist=$(ls)
@@ -72,6 +91,7 @@ jobs:
             fi
           done
           fi
+
           cd ${GITHUB_WORKSPACE}
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
@@ -81,8 +101,8 @@ jobs:
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
           git clone --depth 1 $remote_repo icons
           cp -rf /tmp/emui/update/* /tmp/repo/icons
-          if [ ! -z "${{ steps.changed-files.outputs.deleted_files }}" ];then
-          rm -rf ${{ steps.changed-files.outputs.deleted_files }}
+          if [ ! -z "${{ steps.file_changes.outputs.files_removed }}" ];then
+          rm -rf ${{ steps.file_changes.outputs.files_removed }}
           fi
           cd /tmp/repo/icons
           git add .
