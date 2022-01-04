@@ -51,11 +51,17 @@ jobs:
 
       - name: push icons repo
         run: |
-          cd ${GITHUB_WORKSPACE}
           mkdir -p /tmp/repo
           mkdir -p /tmp/emui/update
           mkdir /tmp/changed 
           mod=0
+          git config --global user.email sdustpedro@gmail.com
+          git config --global user.name pedroz
+          sha=$(git rev-parse --short HEAD)
+          commit_msg="Deploy ${sha}"
+          cd /tmp/repo
+          remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
+          git clone --depth 1 $remote_repo icons
 
           if [ ! -z "${{ steps.file_changes.outputs.files_added }}" ];then
           list="${{ steps.file_changes.outputs.files_added }}"
@@ -78,29 +84,19 @@ jobs:
             if test -d ./$f
             then
               cd $f
-              convert 0.png -gravity center -crop 93.75%x93.75%+0+0 background.png
-              rm 0.png
-              convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png
-              rm 1.png
+              [ -f 0.png ] && convert 0.png -gravity center -crop 93.75%x93.75%+0+0 background.png && rm 0.png
+              [ -f 1.png ] && convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png && rm 1.png
               cd ..
               cp -r $f /tmp/emui/update
             fi
           done
+          cp -rf /tmp/emui/update/* /tmp/repo/icons
           fi
 
-          cd ${GITHUB_WORKSPACE}
-          git config --global user.email sdustpedro@gmail.com
-          git config --global user.name pedroz
-          sha=$(git rev-parse --short HEAD)
-          commit_msg="Deploy ${sha}"
           cd /tmp/repo
-          remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
-          git clone --depth 1 $remote_repo icons
-          cp -rf /tmp/emui/update/* /tmp/repo/icons
           if [ ! -z "${{ steps.file_changes.outputs.files_removed }}" ];then
           list="${{ steps.file_changes.outputs.files_removed }}"
           source ${GITHUB_WORKSPACE}/.github/rm.sh
-          mod=1
           fi
           cd /tmp/repo/icons
           git add .
