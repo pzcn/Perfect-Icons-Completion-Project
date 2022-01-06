@@ -1,5 +1,6 @@
 name: CI
 on:
+  push:
   workflow_dispatch:
 jobs:
   build:
@@ -50,56 +51,3 @@ jobs:
           prerelease: true
           title: ${{ env.date }}
           files: build/
-
-      - name: Build Pages
-        run: |
-          echo "{\"count\": "${{ env.count }}"}" >> ./build/count.json
-          sudo npm install -g markdown-styles
-          generate-md --layout github --input ./addition/pages --output ./buildpages
-          cp -rf ./buildpages/* ./build
-          cp -rf ./addition/static.json ./build/static.json
-
-      - name: Build to netlify
-        uses: jsmrcaga/action-netlify-deploy@v1.1.0
-        with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ID }}
-          build_directory: ./build
-          NETLIFY_DEPLOY_TO_PROD: true
-
-      - name: Build to vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-args: '--prod' #Optional
-          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
-          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
-          working-directory: ./buildpages
-          
-      - name: Post to Channel
-        if: contains(github.event.head_commit.message, '[skip post]') == false
-        env:
-          CHANNEL_ID: ${{ secrets.CHANNEL2_ID }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          MODULE: ./build/MIUI_Icons_${{ env.version }}.zip
-          COMMIT_MESSAGE: |+
-            MIUI完美图标补全计划
-            新版本${{ env.version }}已发布
-            累计适配图标${{ env.count }}个
-            --------------
-            ${{ github.event.head_commit.message }}
-            by ${{ github.event.head_commit.author.name }}
-            --------------
-            下载导航站：https://miui.iconsx.tech/
-        run: |
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://module%22,%22caption%22:${ESCAPED}%7D%5D"  -F module="@$MODULE"
-
-      - name: Build to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "iconsx"
-          heroku_email: "sdustpedro@gmail.com"
-          appdir: "build"
-          branch: "main"

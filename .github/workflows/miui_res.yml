@@ -1,4 +1,4 @@
-name: Update Res
+name: Update MIUI Res
 on:
   push:
     paths:

@@ -1,0 +1,24 @@
+name: Update MIUI Theme
+on:
+  workflow_dispatch:
+    inputs:
+      THEME_NAME:
+        description: 'THEME ID'
+        required: true
+        default: 'default'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update theme
+      run: |
+        cd themes/${{ github.event.inputs.THEME_NAME }}
+        XZ_OPT=-9 tar cJf ${{ github.event.inputs.THEME_NAME }}.tar.xz *
+        :> ${{ github.event.inputs.THEME_NAME }}.ini
+        echo "file_size=`ls -l ./${{ github.event.inputs.THEME_NAME }}.tar.xz | awk '{print $5}'`" >> ./${{ github.event.inputs.THEME_NAME }}.ini
+        echo "md5=`md5sum ./${{ github.event.inputs.THEME_NAME }}.tar.xz|cut -d ' ' -f1`" >> ./${{ github.event.inputs.THEME_NAME }}.ini
+        echo "theme_name=MIUI经典主题包" >> ./${{ github.event.inputs.THEME_NAME }}.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./${{ github.event.inputs.THEME_NAME }}.ini
+        curl -T ${{ github.event.inputs.THEME_NAME }}.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/${{ github.event.inputs.THEME_NAME }}.tar.xz?version=latest"
+        curl -T ${{ github.event.inputs.THEME_NAME }}.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/${{ github.event.inputs.THEME_NAME }}.ini?version=latest"
