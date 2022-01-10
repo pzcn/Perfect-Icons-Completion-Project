@@ -18,36 +18,6 @@ jobs:
         uses: trilom/file-changes-action@v1.2.4
         with:
           output: ','
-      - name: push icons
-        run: |
-          cp -rf icons icons1 
-          mkdir -p emui/icons
-          cd icons1 
-          rm -rf *.png
-          flist=$(ls)
-          for f in $flist
-          do
-            if test -d ./$f
-            then
-              cd $f
-              convert 0.png -gravity center -crop 93.75%x93.75%+0+0 background.png
-              rm 0.png
-              convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png
-              rm 1.png
-              cd ..
-              cp -r $f ../emui/icons
-            fi
-          done
-          cd ../emui/icons
-          zip -r icons.zip *
-          XZ_OPT=-9 tar cJf icons.tar.xz icons.zip
-          :> icons.ini
-          echo "file_size=`ls -l ./icons.tar.xz | awk '{print $5}'`" >> ./icons.ini
-          echo "md5=`md5sum ./icons.tar.xz|cut -d ' ' -f1`" >> ./icons.ini
-          echo "theme_name=图标包" >> ./icons.ini
-          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./icons.ini
-          curl -T icons.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.tar.xz?version=latest"
-          curl -T icons.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/icons.ini?version=latest"
 
       - name: push icons repo
         run: |
