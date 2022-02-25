@@ -15,7 +15,7 @@ jobs:
       run: |
         cd themes
         if [ "${{ github.event.inputs.THEME_NAME }}" != "lrone" ] && [ "${{ github.event.inputs.THEME_NAME }}" != "luck7" ]; then
-        cp -rf common/* ${{ github.event.inputs.THEME_NAME }}/*
+        cp -rf common/* ${{ github.event.inputs.THEME_NAME }}
         fi
         cd ${{ github.event.inputs.THEME_NAME }}
         XZ_OPT=-9 tar cJf ${{ github.event.inputs.THEME_NAME }}.tar.xz *
