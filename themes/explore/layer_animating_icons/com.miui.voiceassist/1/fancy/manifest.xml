@@ -17,14 +17,14 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init" x="76+100*#ratio" scaleX="5" scaleY="5"/>
-	<FolmeState name="state_end" x="76" scaleX="1" scaleY="1"/>
+	<FolmeState name="state_init" x="77+100*#ratio" scaleX="5" scaleY="5"/>
+	<FolmeState name="state_end" x="77" scaleX="1" scaleY="1"/>
 	<FolmeConfig name="state_config" property="x,scaleX,scaleY" ease="-2,0.9,1" fromSpeed="0"/>
 	<!-- view -->
 	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
 		<Group w="252" h="252" layered="true">
-			<Image src="icon.png" x="76" y="77" />
-			<Image src="icon.png" x="76" y="77" name="icon" pivotX="49" pivotY="46" scaleX="5" scaleY="5" xfermode="src_atop"/>
+			<Image src="icon.png" x="77" y="77" />
+			<Image src="icon.png" x="77" y="77" name="icon" pivotX="49" pivotY="46" scaleX="5" scaleY="5" xfermode="src_atop"/>
 		</Group>
 	</Group>
 </Icon>

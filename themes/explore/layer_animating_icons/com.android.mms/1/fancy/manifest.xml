@@ -5,6 +5,7 @@
 	<ExternalCommands>
 		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
 		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="c0" states="'state_end'" command="setTo" config="'state_config'" />
 			<FolmeCommand target="c1" states="'state_end'" command="setTo" config="'state_config'" />
 		</Trigger>
 		<!-- 退出APP返回桌面的瞬间 -->
@@ -13,6 +14,7 @@
 		</Trigger>
 		<!-- 退出APP回到桌面 -->
 		<Trigger action="back_home_finish">
+			<FolmeCommand target="c0" states="'state_init','state_end'" command="fromTo" config="'state_config'" />
 			<FolmeCommand target="c1" states="'state_init','state_end'" command="fromTo" config="'state_config'" />
 		</Trigger>
 	</ExternalCommands>
@@ -22,7 +24,14 @@
 	<FolmeConfig name="state_config" property="rotationX" ease="-2,0.8,1.2" fromSpeed="0"/>
 	<!-- view -->
 	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
-		<Image src="c0.png" x="58" y="60.3" />
-		<Image name="c1" src="c1.png" x="55.6" y="60.3" pivotX="71" pivotY="25" folmeMode="true" />
+		<Image src="bg.png" />
+		<Group x="0" y="0" w="252" h="252" layered="true">
+			<Image src="bg.png"/>
+			<Image name="c0" src="fg.png" x="80" y="83" pivotX="46" pivotY="0" folmeMode="true" xfermode="src_in" />
+		</Group>
+		<Group x="0" y="0" w="252" h="252" layered="true">
+			<Image name="c1" src="mask.png" x="80" y="83" pivotX="46" pivotY="0" folmeMode="true"/>
+			<Image src="bg.png" xfermode="dst_out" />
+		</Group>
 	</Group>
 </Icon>

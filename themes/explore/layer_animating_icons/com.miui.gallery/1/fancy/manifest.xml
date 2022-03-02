@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480" extraResourcesDensity="320,440,480" extraResources="sw1536-den320:den440:1,sw1200-den320:den320:1" extraScaleByDensity="320:0.7262,440:1" extraScales="sw1536-den320:1,sw1200-den320:0.7262">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="b1" states="'state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="b2" states="'state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="g1" states="'state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="g2" states="'state_end'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="b1" states="'state_init_b'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="b2" states="'state_init_b'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="g1" states="'state_init_g'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="g2" states="'state_init_g'" command="setTo" config="'state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="b1" states="'state_init_b','state_end'" command="fromTo" config="'state_config'" delay="50" />
+			<FolmeCommand target="b2" states="'state_init_b','state_end'" command="fromTo" config="'state_config'" delay="50" />
+			<FolmeCommand target="g1" states="'state_init_g','state_end'" command="fromTo" config="'state_config'" delay="100" />
+			<FolmeCommand target="g2" states="'state_init_g','state_end'" command="fromTo" config="'state_config'" delay="100" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init_b" x="-25*#ratio" y="0"/>
+	<FolmeState name="state_init_g" x="25*#ratio" y="0"/>
+	<FolmeState name="state_end"  x="0" y="0"/>
+	<FolmeConfig name="state_config" property="x,y" ease="-2,0.7,1" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Image name="b1" src="blue.png" />
+		<Image name="g1" src="green.png" />
+		<!-- 蓝黄 -->
+		<Group w="252" h="252" layered="true">
+			<Image name="b2" src="blue.png"/>
+			<Image name="g2" src="green.png" xfermode="src_in" />
+			<Rectangle x="5" y="5" w="242" h="242" fillColor="#3E60FF" xfermode="src_in"/>
+		</Group>
+	</Group>
+</Icon>

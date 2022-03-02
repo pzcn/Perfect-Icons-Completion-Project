@@ -22,6 +22,6 @@
 	<FolmeConfig name="state_config" property="scaleX,scaleY,rotation" ease="-2,0.9,0.6" fromSpeed="0"/>
 	<!-- view -->
 	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
-		<Image name="icon" src="icon.png" x="86" y="76" pivotX="45" pivotY="50" folmeMode="true" />
+		<Image name="icon" src="icon.png" x="83" y="73" pivotX="48" pivotY="50" folmeMode="true" />
 	</Group>
 </Icon>
