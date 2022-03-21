@@ -8,7 +8,5 @@
     <version>11.0.10</version>
     <font>Default</font>
     <font-cn>默认</font-cn>
-    <icon-show>false</icon-show>
-    <theme-banner-show>true</theme-banner-show>
     <briefinfo>EMUI 完美图标补全计划 更新时间：{date}</briefinfo>
 </HwTheme>
