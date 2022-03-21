@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Ocean Realm Plus {id}</title>
+    <title-cn>海之境 图标补全 {name}</title-cn>
+    <author>MAGIC UI PedroZ</author>
+    <designer>Honor PedroZ</designer>
+    <screen>FHD</screen>
+    <version>11.0.11</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+    <briefinfo>华为完美图标补全计划 更新时间：{date}</briefinfo>
+</HwTheme>
