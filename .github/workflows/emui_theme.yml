@@ -20,7 +20,7 @@ jobs:
           t=${{ github.event.inputs.THEME_NAME }}
           source $t/config.ini
           rm -rf source $t/config.ini
-          XZ_OPT=-9 tar cJf $t.tar.xz $t/*
+          tar cJf $t.tar.xz $t/*
           :> icons.ini
           echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
           echo "theme_name=$name" >> ./$t.ini
