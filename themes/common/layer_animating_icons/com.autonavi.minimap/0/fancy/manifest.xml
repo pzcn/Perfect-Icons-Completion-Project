@@ -16,8 +16,8 @@
   </Trigger>
  </ExternalCommands>
  <!-- module -->
- <FolmeState name="state_init" x="134" y="-382" />
- <FolmeState name="state_end" x="-250" y="0" />
+ <FolmeState name="state_init" x="0" y="-382" />
+ <FolmeState name="state_end" x="-382" y="0" />
  <FolmeConfig name="state_config" property="x,y" ease="-2,0.9,1" fromSpeed="0"/>
  <!-- view -->
  <Group>
