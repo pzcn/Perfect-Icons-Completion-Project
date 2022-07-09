@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: mfinelli/setup-imagemagick@v1
+      - uses: mfinelli/setup-imagemagick@v1.1.1
 
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.4
