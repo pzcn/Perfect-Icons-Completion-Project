@@ -1,0 +1,20 @@
+name: test
+on:
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update Icons
+      run: |
+        :> 111.txt
+        echo 222 >> ./111.txt
+        curl -fsSL "https://nn.ci/alist.sh" | sudo bash -s install
+        sudo systemctl stop alist
+        echo ${{ secrets.DBBASE64 }} > base64.txt
+        base64 --decode base64.txt > "$GITHUB_WORKSPACE"/db.zip
+        unzip "$GITHUB_WORKSPACE"/db.zip -d "$GITHUB_WORKSPACE"
+        sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
+        sudo systemctl start alist
+        curl -T 111.txt -u user:password http://127.0.0.1:5244/dav/miuiicons
