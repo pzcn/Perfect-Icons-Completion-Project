@@ -12,6 +12,7 @@ jobs:
 
     - name: Update Icons
       run: |
+          rm -rf icons
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
           git clone --depth 1 $remote_repo icons
           XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
