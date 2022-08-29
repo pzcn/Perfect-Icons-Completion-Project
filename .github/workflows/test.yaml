@@ -47,4 +47,4 @@ jobs:
             unzip "$GITHUB_WORKSPACE"/db.zip -d "$GITHUB_WORKSPACE"
             sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
             sudo systemctl start alist
-            curl --user 'user:password' --anyauth --progress-bar -sw '%{http_code}' 'http://0.0.0.0:5244/dav/miui/' -T 'iconsrepo.tar.xz'
+         curl -T iconsrepo.tar.xz -u  user:password "http://0.0.0.0:5244/dav/miui/iconsrepo.tar.xz"
