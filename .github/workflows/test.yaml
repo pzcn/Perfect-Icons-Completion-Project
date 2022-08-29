@@ -11,20 +11,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Update Icons
       run: |
-        git config --global user.email sdustpedro@gmail.com
-        git config --global user.name pedroz
-        sha=$(git rev-parse --short HEAD)
-        commit_msg="Deploy ${sha}"
-        mkdir -p /tmp/git_push
-        cp -a -r icons/* /tmp/git_push
-        cd /tmp/git_push
-        remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/icons.git"
-        git clone --depth 1 $remote_repo /tmp/dest
-        rm -rf /tmp/git_push/.git
-        cp -r /tmp/dest/.git/ /tmp/git_push/.git/
-        git add .
-        git commit -m "${commit_msg}" || true
-        git push || true
         cd ${GITHUB_WORKSPACE}
         mkdir -p temp/res/
         cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
@@ -50,5 +36,4 @@ jobs:
             unzip "$GITHUB_WORKSPACE"/db.zip -d "$GITHUB_WORKSPACE"
             sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
             sudo systemctl start alist
-            rclone copy -P iconsrepo.tar.xz 123pan:/miui/ --transfers=8
             curl --user 'user:password' --anyauth --progress-bar -sw '%{http_code}' 'http://0.0.0.0:5244/dav/miui/' -T 'iconsrepo.tar.xz'
