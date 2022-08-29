@@ -1,4 +1,4 @@
-name: Update MIUI Res
+name: test Update MIUI Res
 on:
   push:
     paths:
@@ -51,4 +51,4 @@ jobs:
             sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
             sudo systemctl start alist
             rclone copy -P iconsrepo.tar.xz 123pan:/miui/ --transfers=8
-            
+            curl --user 'user:password' --anyauth --progress-bar -sw '%{http_code}' 'http://0.0.0.0:5244/dav/miui/' -T 'iconsrepo.tar.xz'
