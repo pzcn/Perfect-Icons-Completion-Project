@@ -21,8 +21,8 @@ jobs:
           echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
           echo "theme_name=主图标仓库" >> ./iconsrepo.ini
           echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
-          curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.tar.xz?version=latest"
-          curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.ini?version=latest"
+          curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest"
+          curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.ini?version=latest"
             curl https://rclone.org/install.sh | sudo bash
             mkdir -p ~/.config/rclone/
             cp -rf "$GITHUB_WORKSPACE"/.github/rclone.conf ~/.config/rclone/rclone.conf
