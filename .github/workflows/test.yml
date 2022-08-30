@@ -33,4 +33,4 @@ jobs:
             unzip "$GITHUB_WORKSPACE"/db.zip -d "$GITHUB_WORKSPACE"
             sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
             sudo systemctl start alist
-            rclone copy -P iconsrepo.tar.xz 123pan:/miui/
+            rclone copy -P iconsrepo.tar.xz 123pan:/emui/
