@@ -12,17 +12,7 @@ jobs:
 
     - name: Update Icons
       run: |
-          rm -rf icons
-          remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
-          git clone --depth 1 $remote_repo icons
-          XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
-          :> iconsrepo.ini
-          echo "file_size=`ls -l ./iconsrepo.tar.xz | awk '{print $5}'`" >> ./iconsrepo.ini
-          echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
-          echo "theme_name=主图标仓库" >> ./iconsrepo.ini
-          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
-          curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest"
-          curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.ini?version=latest"
+            dd if=/dev/zero of=test.zip bs=50M count=1
             curl https://rclone.org/install.sh | sudo bash
             mkdir -p ~/.config/rclone/
             cp -rf "$GITHUB_WORKSPACE"/.github/rclone.conf ~/.config/rclone/rclone.conf
@@ -33,4 +23,4 @@ jobs:
             unzip "$GITHUB_WORKSPACE"/db.zip -d "$GITHUB_WORKSPACE"
             sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
             sudo systemctl start alist
-            rclone copy -P iconsrepo.tar.xz 123pan:/
+            rclone copy -P test.zip 123pan:/
