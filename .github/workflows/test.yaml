@@ -1,8 +1,5 @@
 name: test Update MIUI Res
 on:
-  push:
-    paths:
-      - 'icons/**'
   workflow_dispatch:
 jobs:
   update:
