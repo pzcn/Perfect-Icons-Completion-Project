@@ -23,10 +23,10 @@ jobs:
         unzip aliyunpan-v0.2.1-linux-amd64.zip
         cd aliyunpan-v0.2.1-linux-amd64
         ./aliyunpan login -RefreshToken=$token
-        curl -o iconsrepo.tar.xz https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.tar.xz?version=latest 
+        curl -skLJo iconsrepo.tar.xz "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.tar.xz?version=latest"
         rclone copy -P iconsrepo.tar.xz 123pan:/miui/
-        ./aliyunpan upload iconsrepo.tar.xz /icons/miui
+        ./aliyunpan upload --ow iconsrepo.tar.xz /icons/miui
         rm -rf iconsrepo.tar.xz
-        curl -o iconsrepo.tar.xz https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest 
+        curl -skLJo iconsrepo.tar.xz "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest"
         rclone copy -P iconsrepo.tar.xz 123pan:/emui/
-        ./aliyunpan upload iconsrepo.tar.xz /icons/emui
+        ./aliyunpan upload --ow iconsrepo.tar.xz /icons/emui
