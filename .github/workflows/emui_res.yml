@@ -82,7 +82,6 @@ jobs:
           curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest"
           curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.ini?version=latest"
           curl https://rclone.org/install.sh | sudo bash
-          curl https://rclone.org/install.sh | sudo bash
           mkdir -p ~/.config/rclone/
           echo ${{ secrets.DBBASE64 }} > base64.txt
           base64 --decode base64.txt > ~/.config/rclone/rclone.conf
