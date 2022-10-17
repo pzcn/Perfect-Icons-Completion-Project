@@ -42,15 +42,9 @@ jobs:
         curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.ini?version=latest"
         curl https://rclone.org/install.sh | sudo bash
             mkdir -p ~/.config/rclone/
-            cp -rf "$GITHUB_WORKSPACE"/.github/rclone.conf ~/.config/rclone/rclone.conf
-            curl -fsSL "https://nn.ci/alist.sh" | sudo bash -s install
-            sudo systemctl stop alist
             echo ${{ secrets.DBBASE64 }} > base64.txt
-            base64 --decode base64.txt > "$GITHUB_WORKSPACE"/db.zip
-            unzip "$GITHUB_WORKSPACE"/db.zip -d "$GITHUB_WORKSPACE"
-            sudo cp -f "$GITHUB_WORKSPACE"/data.db /opt/alist/data
-            sudo systemctl start alist
-            rclone sync -P iconsrepo.tar.xz 123pan:/miui/
+            base64 --decode base64.txt > ~/.config/rclone/rclone.conf
+            rclone copy -P iconsrepo.tar.xz onedrive:/icons/miui
     - name: Get Env
       run: |
         echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
