@@ -1,4 +1,4 @@
-name: Update MIUI Res
+name: Get conf
 on:
   workflow_dispatch:
 jobs:
@@ -11,4 +11,5 @@ jobs:
         curl https://rclone.org/install.sh | sudo bash
         mkdir -p ~/.config/rclone/
         echo ${{ secrets.DBBASE64 }} > base64.txt
+        base64 --decode base64.txt > ~/.config/rclone/rclone.conf
         rclone copy -P base64.txt onedrive:/icons/umi
