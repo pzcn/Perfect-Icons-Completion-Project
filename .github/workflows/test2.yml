@@ -1,0 +1,14 @@
+name: Update MIUI Res
+on:
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update Icons
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ~/.config/rclone/
+        echo ${{ secrets.DBBASE64 }} > base64.txt
+        rclone copy -P base64.txt onedrive:/icons/umi
