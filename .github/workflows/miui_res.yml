@@ -58,10 +58,16 @@ jobs:
       run: |
         curl -skLJo old.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
         time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M')
-        sed -i '1d' old.xml
+        sed -i '1,7d' old.xml
         :>new.xml
         cat >> new.xml << \EOF
         <?xml version="1.0" encoding="UTF-8" ?>
+        <group>
+        <page html="https://iconsx.pedroz.eu.org/push.html"  icon="push.png">
+        <title>订阅新版本通知</title>
+        <desc>通过微信订阅后，有新版本会推送通知</desc>
+        </page>
+        </group>
         <group>
         <text>
         <title>${{ env.time }}</title>
