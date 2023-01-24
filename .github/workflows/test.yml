@@ -26,10 +26,9 @@ jobs:
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
         XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons 
-        zstd icons -o iconsrepo.zst --rm
+        zstd -z -15 icons -o iconsrepo.zst --rm
         curl https://rclone.org/install.sh | sudo bash
             mkdir -p ~/.config/rclone/
             echo ${{ secrets.DBBASE64 }} > base64.txt
             base64 --decode base64.txt > ~/.config/rclone/rclone.conf
             rclone copy -P iconsrepo.zst onedrive:/icons/miui/test
-            rclone copy -P iconsrepo.tar.xz onedrive:/icons/miui/test
