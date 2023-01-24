@@ -1,20 +1,35 @@
-name: test emui 
+name: Test
 on:
   workflow_dispatch:
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-      with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-
+    - uses: actions/checkout@v2
     - name: Update Icons
       run: |
-          dd if=/dev/zero of=test.zip bs=50M count=1
-          curl https://rclone.org/install.sh | sudo bash
-          mkdir -p ~/.config/rclone/
-          echo ${{ secrets.DBBASE64 }} > base64.txt
-          base64 --decode base64.txt > ~/.config/rclone/rclone.conf
-          rclone copy -P test.zip onedrive:/icons/miui
+        sudo apt install zstd
+        git config --global user.email sdustpedro@gmail.com
+        git config --global user.name pedroz
+        sha=$(git rev-parse --short HEAD)
+        commit_msg="Deploy ${sha}"
+        mkdir -p /tmp/git_push
+        cp -a -r icons/* /tmp/git_push
+        cd /tmp/git_push
+        remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/icons.git"
+        git clone --depth 1 $remote_repo /tmp/dest
+        cd ${GITHUB_WORKSPACE}
+        mkdir -p temp/res/
+        cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
+        cp -rf addition/transform_config.xml ./temp
+        cd temp
+        zip -r -9 icons.zip *  >/dev/null
+        mv icons.zip icons
+        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons 
+        zstd icons -o iconsrepo.zst --rm
+        curl https://rclone.org/install.sh | sudo bash
+            mkdir -p ~/.config/rclone/
+            echo ${{ secrets.DBBASE64 }} > base64.txt
+            base64 --decode base64.txt > ~/.config/rclone/rclone.conf
+            rclone copy -P iconsrepo.zst onedrive:/icons/miui/test
+            rclone copy -P iconsrepo.tar.xz onedrive:/icons/miui/test
