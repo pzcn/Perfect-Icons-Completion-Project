@@ -32,7 +32,10 @@ jobs:
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
-        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons 
+        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
+        cd ${GITHUB_WORKSPACE}/temp/res/drawable-xxhdpi/ 
+        echo $(ls -l | grep "^-" | wc -l) > ${GITHUB_WORKSPACE}/temp/iconscount.txt
+        cd ${GITHUB_WORKSPACE}/temp/
         :> iconsrepo.ini
         echo "file_size=`ls -l ./iconsrepo.tar.xz | awk '{print $5}'`" >> ./iconsrepo.ini
         echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
@@ -40,11 +43,13 @@ jobs:
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
         curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.tar.xz?version=latest"
         curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.ini?version=latest"
+        curl -T iconscount.txt -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconscount.txt?version=latest"
         curl https://rclone.org/install.sh | sudo bash
             mkdir -p ~/.config/rclone/
             echo ${{ secrets.DBBASE64 }} > base64.txt
             base64 --decode base64.txt > ~/.config/rclone/rclone.conf
             rclone copy -P iconsrepo.tar.xz onedrive:/icons/miui
+        
     - name: Get Env
       run: |
         echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV

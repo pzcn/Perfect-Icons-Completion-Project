@@ -8,16 +8,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Update Icons
       run: |
-        sudo apt install zstd
-        git config --global user.email sdustpedro@gmail.com
-        git config --global user.name pedroz
-        sha=$(git rev-parse --short HEAD)
-        commit_msg="Deploy ${sha}"
         mkdir -p /tmp/git_push
         cp -a -r icons/* /tmp/git_push
         cd /tmp/git_push
         remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/icons.git"
         git clone --depth 1 $remote_repo /tmp/dest
+        rm -rf /tmp/git_push/.git
+        cp -r /tmp/dest/.git/ /tmp/git_push/.git/
         cd ${GITHUB_WORKSPACE}
         mkdir -p temp/res/
         cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
@@ -25,10 +22,7 @@ jobs:
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
-        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons 
-        zstd -z -15 icons -o iconsrepo.zst --rm
-        curl https://rclone.org/install.sh | sudo bash
-            mkdir -p ~/.config/rclone/
-            echo ${{ secrets.DBBASE64 }} > base64.txt
-            base64 --decode base64.txt > ~/.config/rclone/rclone.conf
-            rclone copy -P iconsrepo.zst onedrive:/icons/miui/test
+        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
+        cd ${GITHUB_WORKSPACE}/temp/res/drawable-xxhdpi/ 
+        echo $(ls -l | grep "^-" | wc -l) > ${GITHUB_WORKSPACE}/temp/iconscount.txt
+        cat ${GITHUB_WORKSPACE}/temp/iconscount.txt
