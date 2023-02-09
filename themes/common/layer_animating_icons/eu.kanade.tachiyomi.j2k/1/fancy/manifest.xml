@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="432" height="432" screenWidth="1080" resDensity="480">
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="bg" states="'state_end'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="bg" states="'state_init'" command="setTo" config="'state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="bg" states="'state_init','state_end'" command="fromTo" config="'state_config'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init" x="300*#ratio" y="-35" />
+	<FolmeState name="state_end" x="0" y="0" />
+	<FolmeConfig name="state_config" property="x,y" ease="-2,0.5,0.8" fromSpeed="0"/>
+	<!-- view -->
+	<Group>
+		<Group w="432" h="432" layered="true">
+			<Image src="mask.png" x="0" y="0" />
+			<Image src="bg.png" name="bg" x="0" y="0" xfermode="src_atop"/>
+		</Group>
+	</Group>
+	<Image src="fg.png" x="0" y="0" />
+</Icon>
