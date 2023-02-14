@@ -1,4 +1,4 @@
-name: Update MIUI Res
+name: Update Changelog
 on:
   workflow_dispatch:
     inputs:
