@@ -12,78 +12,40 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: mfinelli/setup-imagemagick@v1.1.1
-
-      - id: file_changes
-        uses: trilom/file-changes-action@v1.2.4
-        with:
-          output: ','
-
       - name: push icons repo
         run: |
-          mkdir -p /tmp/repo
-          mkdir -p /tmp/emui/update
-          mkdir /tmp/changed 
-          mod=0
           git config --global user.email sdustpedro@gmail.com
           git config --global user.name pedroz
           sha=$(git rev-parse --short HEAD)
           commit_msg="Deploy ${sha}"
-          cd /tmp/repo
-          remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui.git"
-          git clone --depth 1 $remote_repo icons
-
-          if [ ! -z "${{ steps.file_changes.outputs.files_added }}" ];then
-          list="${{ steps.file_changes.outputs.files_added }}"
-          source ${GITHUB_WORKSPACE}/.github/copy.sh
-          mod=1
-          fi
-
-          if [ ! -z "${{ steps.file_changes.outputs.files_modified }}" ];then
-          list="${{ steps.file_changes.outputs.files_modified }}"
-          source ${GITHUB_WORKSPACE}/.github/copy.sh
-          mod=1
-          fi
-
-          if [ $mod == 1 ];then
-          cd /tmp/changed/icons
-          rm -rf *.png
-          flist=$(ls)
-          for f in $flist
-          do
-            if test -d ./$f
-            then
-              cd $f
-              [ -f 0.png ] && convert 0.png -gravity center -crop 93.75%x93.75%+0+0 background.png && rm 0.png
-              [ -f 1.png ] && convert 1.png -gravity center -crop 93.75%x93.75%+0+0 foreground.png && rm 1.png
-              cd ..
-              cp -r $f /tmp/emui/update
+          mkdir -p /tmp/git_push
+          cp -a -r icons/* /tmp/git_push
+          cd /tmp/git_push
+          remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui2.git“
+          git clone --depth 1 $remote_repo /tmp/dest
+          rm -rf /tmp/git_push/.git
+          cp -r /tmp/dest/.git/ /tmp/git_push/.git/
+          for dir in *; do
+            if [ -d "$dir" ];
+             [ -f "$dir/0.png" ] && mv "$dir/0.png" "$dir/background.png"
+             [ -f "$dir/1.png" ] && mv "$dir/1.png" "$dir/foreground.png"
             fi
           done
-          cp -rf /tmp/emui/update/* /tmp/repo/icons
-          fi
-
-          cd /tmp/repo
-          if [ ! -z "${{ steps.file_changes.outputs.files_removed }}" ];then
-          list="${{ steps.file_changes.outputs.files_removed }}"
-          source ${GITHUB_WORKSPACE}/.github/rm.sh
-          fi
-          cd /tmp/repo/icons
           git add .
-          git commit -m "${commit_msg}" 
-          git push
+          git commit -m "${commit_msg}" || true
+          git push || true
           cd ..
-          XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
-          :> iconsrepo.ini
-          echo "file_size=`ls -l ./iconsrepo.tar.xz | awk '{print $5}'`" >> ./iconsrepo.ini
-          echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
-          echo "theme_name=主图标仓库" >> ./iconsrepo.ini
-          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
-          #curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.tar.xz?version=latest"
-          curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo.ini?version=latest"
+          XZ_OPT=-9 tar cJf iconsrepo2.tar.xz icons
+          :> iconsrepo2.ini
+          echo "file_size=`ls -l ./iconsrepo2.tar.xz | awk '{print $5}'`" >> ./iconsrepo2.ini
+          echo "md5=`md5sum ./iconsrepo2.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo2.ini
+          echo "theme_name=主图标仓库" >> ./iconsrepo2.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo2.ini
+          #curl -T iconsrepo2.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo2.tar.xz?version=latest"
+          curl -T iconsrepo2.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/iconsrepo2.ini?version=latest"
           curl https://rclone.org/install.sh | sudo bash
           mkdir -p ~/.config/rclone/
           echo ${{ secrets.DBBASE64 }} > base64.txt
           base64 --decode base64.txt > ~/.config/rclone/rclone.conf
-          rclone copy -P iconsrepo.tar.xz onedrive:/icons/emui
+          rclone copy -P iconsrepo2.tar.xz onedrive:/icons/emui
         shell: bash
