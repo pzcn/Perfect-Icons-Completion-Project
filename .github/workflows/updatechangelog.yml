@@ -1,0 +1,46 @@
+name: Update Changelog
+on:
+  workflow_dispatch:
+    inputs:
+      CHANGELOG:
+        description: '更新内容'
+        required: true
+        default: '更新内容'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2   
+    - name: Get Env
+      run: |
+        echo time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M') >> $GITHUB_ENV
+        echo "${{ github.event.head_commit.message }}" > 1.txt
+        echo changelog=$(awk '{printf " %s\\n \\n ", $0}' 1.txt) >> $GITHUB_ENV
+    - name: Push changelog
+      run: |
+        curl -i -X POST -H 'Content-type':'application/json' -d '{"token":"${{secrets.push_token}}","title":"完美图标更新通知","content":" **完美图标更新了** \n \n **更新时间：${{ env.time }}** \n \n **更新内容** \n \n ``` \n \n ${{ github.event.inputs.CHANGELOG }} \n \n ``` \n \n 可前往完美图标计划APP进行更新或下载。 ","topic":"MIUI","template":"markdown"}' http://www.pushplus.plus/send
+        curl -i -X POST -H 'Content-type':'application/json' -d '{"appToken":"${{secrets.push_token2}}","summary":"完美图标更新通知","content":" **完美图标更新了** \n \n **更新时间：${{ env.time }}** \n \n **更新内容** \n \n ``` \n \n ${{ github.event.inputs.CHANGELOG }} ``` \n \n 可前往完美图标计划APP进行更新或下载。 ","topicIds":[4163],"contentType":3}' http://wxpusher.zjiecode.com/api/send/message
+    - name: Update changelog
+      run: |
+        curl -skLJo old.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
+        time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M')
+        sed -i '1,7d' old.xml
+        :>new.xml
+        cat >> new.xml << \EOF
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <group>
+        <page html="https://iconsx.pedroz.eu.org/push.html"  icon="push.png">
+        <title>订阅新版本通知</title>
+        <desc>通过微信订阅后，有新版本会推送通知</desc>
+        </page>
+        </group>
+        <group>
+        <text>
+        <title>${{ env.time }}</title>
+        <desc>${{ github.event.inputs.CHANGELOG }}</desc>
+        </text>
+        </group>
+        EOF
+        :>output.xml
+        cat new.xml old.xml > output.xml
+        curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"

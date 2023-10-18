@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Flyme9 Plus {id}</title>
+    <title-cn>Flyme9 图标补全 {name}</title-cn>
+    <author>Flyme 与病共存 PedroZ</author>
+    <designer>Flyme 与病共存 PedroZ</designer>
+    <screen>FHD</screen>
+    <version>11.0.2</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <briefinfo>EMUI 完美图标补全计划 更新时间：{date}</briefinfo>
+</HwTheme>
+

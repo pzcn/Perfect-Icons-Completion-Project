@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="LU" states="'LU_state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="RU" states="'RU_state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="LD" states="'LD_state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="RD" states="'RD_state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="shine" states="'shine_state_end'" command="setTo" config="'shine_state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="LU" states="'LU_state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="RU" states="'RU_state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="LD" states="'LD_state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="RD" states="'RD_state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="shine" states="'shine_state_init'" command="setTo" config="'shine_state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="LU" states="'LU_state_init','LU_state_end'" command="fromTo" config="'state_config'" delay="100"/>
+			<FolmeCommand target="RU" states="'RU_state_init','RU_state_end'" command="fromTo" config="'state_config'" delay="100"/>
+			<FolmeCommand target="LD" states="'LD_state_init','LD_state_end'" command="fromTo" config="'state_config'" delay="100"/>
+			<FolmeCommand target="RD" states="'RD_state_init','RD_state_end'" command="fromTo" config="'state_config'" delay="100"/>
+			<FolmeCommand target="shine" states="'shine_state_init','shine_state_end'" command="fromTo" config="'shine_state_config'" delay="450"/>
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="LU_state_init" x="81-20"    y="81-20"   />
+	<FolmeState name="RU_state_init" x="137.3+20" y="81-20"   />
+	<FolmeState name="LD_state_init" x="81-20"    y="137.3+20"/>
+	<FolmeState name="RD_state_init" x="137.3+20" y="137.3+20"/>
+	<FolmeState name="LU_state_end" x="81"    y="81"   />
+	<FolmeState name="RU_state_end" x="137.3" y="81"   />
+	<FolmeState name="LD_state_end" x="81"    y="137.3"/>
+	<FolmeState name="RD_state_end" x="137.3" y="137.3"/>
+	<FolmeConfig name="state_config" property="x,y" ease="-2,0.5,0.6" fromSpeed="0"/>
+
+	<FolmeState name="shine_state_init" alpha="0"   y="89-30"/>
+	<FolmeState name="shine_state_end" alpha="255" y="89"/>
+	<FolmeConfig name="shine_state_config" property="y,alpha" ease="-2,0.8,0.6" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Image name="shine" src="shine.png" x="85" y="89" folmeMode="true"/>
+		<Image name="LU" src="LU.png" x="81" y="81" folmeMode="true"/>
+		<Image name="RU" src="RU.png" x="137.3" y="81" folmeMode="true"/>
+		<Image name="LD" src="LD.png" x="81" y="137.3" folmeMode="true"/>
+		<Image name="RD" src="RD.png" x="137.3" y="137.3" folmeMode="true"/>
+	</Group>
+</Icon>

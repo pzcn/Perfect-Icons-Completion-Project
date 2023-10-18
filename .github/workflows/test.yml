@@ -1,0 +1,28 @@
+name: Test
+on:
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update Icons
+      run: |
+        mkdir -p /tmp/git_push
+        cp -a -r icons/* /tmp/git_push
+        cd /tmp/git_push
+        remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/icons.git"
+        git clone --depth 1 $remote_repo /tmp/dest
+        rm -rf /tmp/git_push/.git
+        cp -r /tmp/dest/.git/ /tmp/git_push/.git/
+        cd ${GITHUB_WORKSPACE}
+        mkdir -p temp/res/
+        cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
+        cp -rf addition/transform_config.xml ./temp
+        cd temp
+        zip -r -9 icons.zip *  >/dev/null
+        mv icons.zip icons
+        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
+        cd ${GITHUB_WORKSPACE}/temp/res/drawable-xxhdpi/ 
+        echo $(ls -l | grep "^-" | wc -l) > ${GITHUB_WORKSPACE}/temp/iconscount.txt
+        cat ${GITHUB_WORKSPACE}/temp/iconscount.txt

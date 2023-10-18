@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Icon version="1" width="420" height="420" screenWidth="1080" frameRate="0" useVariableUpdater="DateTime.Second">
+  <ExternalCommands/>
+  <VariableBinders/>
+  <Image align="center" alignV="center" pivotX="7" pivotY="67" rotation="#hour12*30+#minute/2" src="hour.png" x="210" y="210"/>
+  <Image align="center" alignV="center" pivotX="7" pivotY="105" rotation="#minute*6+#second/10" src="minute.png" x="210" y="210"/>
+  <Image align="center" alignV="center" pivotX="7" pivotY="107" rotation="#second*6" src="second.png" x="210" y="210"/>
+</Icon>

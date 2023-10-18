@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080" useVariableUpdater="DateTime.Minute">
+
+    <Var name="hour_angle_raw" expression="#hour12 * 30 + #minute/2"/>
+    <Var name="minute_angle_raw" expression="#minute * 6"/>
+    <Var name="needSet" expression="1"/>
+
+    <Var expression="#minute" threshold="1">
+        <Trigger condition="#needSet">
+            <FrameRateCommand rate="60"/>
+            <VariableCommand name="needSet" expression="0" />
+            <VariableCommand name="needSet" expression="1" delay="50"/>
+            <FrameRateCommand rate="0" delay="50"/>
+            <FolmeCommand target="h" states="'h_state_end'" command="setTo" config="'state_config'" />
+            <FolmeCommand target="m" states="'m_state_end'" command="setTo" config="'state_config'" />
+        </Trigger>
+    </Var>
+    <!-- control -->
+    <ExternalCommands>
+        <!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+        <Trigger action="init,present,back_home_cancel">
+            <FrameRateCommand rate="60"/>
+            <FrameRateCommand rate="0" delay="50"/>
+            <FolmeCommand target="h" states="'h_state_end'" command="setTo" config="'state_config'" />
+            <FolmeCommand target="m" states="'m_state_end'" command="setTo" config="'state_config'" />
+        </Trigger>
+        <!-- 退出APP返回桌面的瞬间 -->
+        <Trigger action="back_home_start">
+            <FrameRateCommand rate="60"/>
+            <VariableCommand name="needSet" expression="0" />
+
+            <FolmeCommand target="h" states="'h_state_init'" command="setTo" config="'state_config'" />
+            <FolmeCommand target="m" states="'m_state_init'" command="setTo" config="'state_config'" />
+        </Trigger>
+        <!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+            <FrameRateCommand rate="0" delay="1200"/>
+            <VariableCommand name="needSet" expression="1" delay="1200"/>
+            <FolmeCommand target="h" states="'h_state_init','h_state_end'" command="fromTo" config="'state_config'" />
+            <FolmeCommand target="m" states="'m_state_init','m_state_end'" command="fromTo" config="'state_config'" />
+        </Trigger>
+    </ExternalCommands>
+    <!-- module -->
+    <FolmeState name="h_state_init" rotation="#hour_angle_raw - 360/12"/>
+    <FolmeState name="h_state_end" rotation="#hour_angle_raw"/>
+
+    <FolmeState name="m_state_init" rotation="#minute_angle_raw - 180"/>
+    <FolmeState name="m_state_end" rotation="#minute_angle_raw"/>
+
+    <FolmeConfig name="state_config" property="rotation" ease="6,1000" fromSpeed="0"/>
+
+    <Image x="351/2" y="351/2" align="center" alignV="center" src="bg.png" />
+
+    <Rectangle name="m" pivotX="3.22" pivotY="68.11+13.03" x="351/2" y="351/2-13.03" align="center" alignV="bottom" w="6.44" h="68.11" fillColor="#A7A7A7" strokeColor="#00000000" weight="0" strokeAlign="inner" cornerRadius="3.22" folmeMode="true"/>
+
+    <Rectangle name="h" pivotX="3.22" pivotY="47.48+4" x="351/2" y="351/2-4" align="center" alignV="bottom" w="6.44" h="47.48" fillColor="#ffffff" strokeColor="#00000000" weight="0" strokeAlign="inner" cornerRadius="3.22" folmeMode="true"/>
+
+
+
+
+</Icon>

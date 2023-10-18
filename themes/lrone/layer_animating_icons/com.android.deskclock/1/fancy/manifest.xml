@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Icon version="1" width="290" height="290" screenWidth="1080" frameRate="0" useVariableUpdater="DateTime.Minute">
+  <ExternalCommands/>
+  <VariableBinders/>
+  <Image x="145" y="145" align="center" alignV="center" src="icon_bg.png" />
+  <Rectangle name="hand_hour" x="145" y="149" w="5" h="50" pivotX="2.5" pivotY="46" rotation="#hour12*30+#minute/2" align="center" alignV="bottom" cornerRadius="2.5" fillColor="#000000" />
+  <Rectangle name="hand_minute" x="145" y="151" w="3" h="58" pivotX="1.5" pivotY="52" rotation="#time_sys%3600000*0.0001" align="center" alignV="bottom" cornerRadius="1.5" fillColor="#ff0000" />
+</Icon>

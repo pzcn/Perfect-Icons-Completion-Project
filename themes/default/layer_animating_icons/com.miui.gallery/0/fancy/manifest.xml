@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="purple" states="'purple_state_end'" command="setTo" config="'purple_state_config'" />
+			<FolmeCommand target="hill_r" states="'hill_r_state_end'" command="setTo" config="'hill_r_state_config'" />
+			<FolmeCommand target="hill_l" states="'hill_l_state_end'" command="setTo" config="'hill_l_state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="purple" states="'purple_state_init'" command="setTo" config="'purple_state_config'"/>
+			<FolmeCommand target="hill_r" states="'hill_r_state_init'" command="setTo" config="'hill_r_state_config'"/>
+			<FolmeCommand target="hill_l" states="'hill_l_state_init'" command="setTo" config="'hill_l_state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="purple" states="'purple_state_init','purple_state_end'" command="fromTo" config="'purple_state_config'" />
+			<FolmeCommand target="hill_r" states="'hill_r_state_init','hill_r_state_end'" command="fromTo" config="'hill_r_state_config'" />
+			<FolmeCommand target="hill_l" states="'hill_l_state_init','hill_l_state_end'" command="fromTo" config="'hill_l_state_config'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="purple_state_init" alpha="255*0.6*#ratio" scaleX="2" scaleY="2" rotation="-90*#ratio"/>
+	<FolmeState name="purple_state_end" alpha="255" scaleX="1" scaleY="1" rotation="0"/>
+	<FolmeConfig name="purple_state_config" property="alpha,scaleX,scaleY,rotation" ease="-2,0.8,0.9" fromSpeed="0"/>
+
+	<FolmeState name="hill_r_state_init" x="55+80*#ratio" />
+	<FolmeState name="hill_r_state_end" x="55" />
+	<FolmeConfig name="hill_r_state_config" property="x" ease="-2,0.9,0.7" fromSpeed="0"/>
+
+	<FolmeState name="hill_l_state_init" x="-44+120*#ratio"/>
+	<FolmeState name="hill_l_state_end" x="-44"/>
+	<FolmeConfig name="hill_l_state_config" property="x" ease="-2,0.9,1.2" fromSpeed="0"/>
+
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+        <Image src="bg.png" x="0" y="0" />
+        <Image name="purple" src="purple.png" x="0" y="0" pivotX="126" pivotY="126" folmeMode="true"/>
+        <Image name="hill_r" src="hill_r.png" x="55"  y="123" pivotX="103" pivotY="126-123" folmeMode="true"/>
+        <Image name="hill_l" src="hill_l.png" x="-44" y="102" pivotX="130" pivotY="126-102" folmeMode="true"/>
+	</Group>
+</Icon>

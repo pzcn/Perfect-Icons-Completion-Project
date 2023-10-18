@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Misty Realm Plus {id}</title>
+    <title-cn>光之境 图标补全 {name}</title-cn>
+    <author>MAGIC UI</author>
+    <designer>Honor</designer>
+    <screen>FHD</screen>
+    <version>11.0.10</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <icon-show>false</icon-show>
+    <theme-banner-show>true</theme-banner-show>
+    <briefinfo>EMUI 完美图标补全计划 更新时间：{date}</briefinfo>
+</HwTheme>

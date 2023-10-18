@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080" useVariableUpdater="DateTime.Day">
+    <ExternalCommands>
+        <!-- 曝光时提高帧率 -->
+        <Trigger action="resume">
+            <FrameRateCommand rate="5"/>
+            <FrameRateCommand rate="0" delay="10"/>
+        </Trigger>
+        <!-- 退出APP返回桌面的瞬间 -->
+        <Trigger action="back_home_start">
+            <FrameRateCommand rate="60"/>
+        </Trigger>
+        <!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+            <FrameRateCommand rate="0" delay="1000"/>
+        </Trigger>
+    </ExternalCommands>
+    <Image x="351/2" y="351/2-108" align="center" src="num.png" srcid="#date" cornerRadius="0"/>
+</Icon>

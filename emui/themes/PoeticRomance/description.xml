@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Poetic Romance Plus {id}</title>
+    <title-cn>镜中诗 图标补全 {name}</title-cn>
+    <author>PedroZ</author>
+    <designer>PedroZ</designer
+    <screen>FHD</screen>
+    <version>12.0.0</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+    <theme-need-download>false</theme-need-download>
+    <download-id>190061002</download-id>
+    <briefinfo>EMUI 完美图标补全计划 更新时间：{date}</briefinfo>
+    <size>23699</size>
+</HwTheme>

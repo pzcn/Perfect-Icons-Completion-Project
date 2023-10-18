@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Icon frameRate="30" height="268" resDensity="480" screenWidth="1080" useVariableUpdater="DateTime.Day" version="1" width="268">
+  <ExternalCommands/>
+  <VariableBinders/>
+  <!-- IconClock	表盘时钟图标 -->
+
+  <Image align="center" alignV="center" src="icon_bg.png" x="134" y="134"/>
+  <Rectangle align="center" alignV="bottom" cornerRadius="2" fillColor="#000000" h="36" name="hand_hour" pivotX="2" pivotY="36" rotation="#hour12*30+#minute/2" w="4" x="134" y="134"/>
+  <Rectangle align="center" alignV="bottom" cornerRadius="1" fillColor="#ff0000" h="46" name="hand_minute" pivotX="1" pivotY="46" rotation="#time_sys%3600000*0.0001" w="2" x="134" y="134"/>
+</Icon>

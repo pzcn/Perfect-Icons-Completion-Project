@@ -1,0 +1,298 @@
+#!/sbin/sh
+umask 022
+TMPDIR=/dev/tmp
+FAKEMODPATH=/$TMPDIR/modpath
+PERSISTDIR=/sbin/.magisk/mirror/persist
+rm -rf $TMPDIR 2>/dev/null
+mkdir -p $TMPDIR
+LATESTARTSERVICE=true
+PROPFILE=true
+OUTFD=$2
+ZIPFILE=$3
+need_patch=false
+unzip -oj "$ZIPFILE" module.prop 'common/*' -d $TMPDIR >&2
+var_version="`getprop ro.build.version.release`"
+var_miui_version="`getprop ro.miui.ui.version.code`"
+print_modname() {
+ echo "---------------------------------------------"
+ echo "  MIUI完美图标补全计划"
+ echo "  MIUI-Adapted-Icons-Complement-Project"
+ echo ""
+ echo "  Powered by Magisk"
+ echo "---------------------------------------------"
+}
+
+on_install() {
+  if [ $var_version -lt 10 ]; then 
+    echo "- 您的 Android 版本不符合要求，即将退出安装。"
+    rm -rf $TMPDIR
+    exit 1
+  elif [ $var_miui_version -ge 10 ]; then
+  echo "- 您的设备符合安装条件，准备安装..."
+  echo ""
+  KEYSEL=$TMPDIR/key_selector
+  chmod 755 $KEYSEL
+  zip=$TMPDIR/zip
+  chmod 755 $zip
+  curl=$TMPDIR/curl
+  chmod 755 $curl
+  REPLACE="/system/media/theme/miui_mod_icons"
+  echo "- 除MIUI经典主题外,其他主题需要联网在线下载资源"
+  $KEYSEL
+  VARIANT=$?
+  echo ""
+if [ $VARIANT == 17 ]; then 
+    var_theme_name="MIUI经典主题"
+    var_theme="MIUIdefault"
+    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
+    MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择MIUI经典主题"
+elif [ $VARIANT == 18 ]; then 
+    var_theme_name="探·界主题"
+    var_theme="explore"
+    MODAUTHOR1="@潮留美海かり @PedroZ @Yife Playte @Eirperuier"
+    MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择探界主题"
+    download
+elif [ $VARIANT == 19 ]; then 
+    var_theme_name="Flyme9主题"
+    var_theme="flyme9"
+    MODAUTHOR1="@PedroZ @潮留美海かり @Yife Playte @Eirperuier"
+    MODAUTHOR2="@Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择Flyme9主题"
+    download
+elif [ $VARIANT == 20 ]; then
+    var_theme_name="LRONE"
+    var_theme="lrone"
+    MODAUTHOR1="@Conan @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR2=" @Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择LRONE主题"
+    download
+    NOTES="\n- 感谢 @Conan 提供授权，原主题请在MIUI主题商店搜索 LRONE。\n- 感谢 @Eirperuier 自动化绘制了1000+图标。"
+elif [ $VARIANT == 21 ]; then
+    var_theme_name="Luck7"
+    var_theme="luck7"
+    MODAUTHOR1="@JellyBeans @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR2="@Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择Luck7主题"
+    download
+    NOTES="\n- 感谢 @JellyBeans 提供授权，原主题请在MIUI主题商店搜索 Luck7。\n- 感谢 @Eirperuier 添加此主题。"
+elif [ $VARIANT == 22 ]; then
+    var_theme_name="完美曲线"
+    var_theme="perfectcurve"
+    MODAUTHOR1="@栗子汤圆Ria @Eirperuier @PedroZ @潮留美海かり"
+    MODAUTHOR2="@Yife Playte @Mastiff Li @世界第一小莲儿 @Shahzaib Ahmed"
+    echo "- 已选择完美曲线主题"
+    download
+    NOTES="\n- 感谢 @栗子汤圆Ria 提供授权，原主题请在MIUI主题商店搜索 完美曲线。\n- 感谢 @Eirperuier 添加此主题。"
+else
+    echo "- 出现未知错误，安装无法继续，即将退出安装..."
+    rm -rf $TMPDIR
+    exit 1
+fi    
+    echo "- 模块开发：@PedroZ"
+    echo "- 已适配图标数量：$COUNT"
+    echo "- 图标绘制：$MODAUTHOR1"
+    echo "  $MODAUTHOR2"
+    echo -e "- 模块版本：$MODVERSION $NOTES" 
+    echo ""
+    echo "- 正在安装 $var_theme_name 并补全完美图标..."
+    echo "description=使用$var_theme_name并补全完美图标 适配图标数量：$COUNT 图标绘制：$MODAUTHOR1 $MODAUTHOR2" >> $TMPDIR/module.prop
+    unzip -oj "$ZIPFILE" icons.tar.xz -d $TMPDIR >&2
+    tar -xf "$TMPDIR/icons.tar.xz" -C "$TMPDIR/" >&2
+    mv $TMPDIR/icons $TMPDIR/icons.zip
+    [ $need_patch == true ] && patch
+    addon
+    mkdir -p $FAKEMODPATH/system/media/theme/default/
+    cp -rf $TMPDIR/icons.zip $FAKEMODPATH/system/media/theme/default/icons
+    cp $TMPDIR/module.prop $FAKEMODPATH/module.prop
+  else
+    echo "- 你的系统不符合要求，即将退出安装。"
+    rm -rf $TMPDIR
+    exit 1
+  fi
+}
+
+addon(){
+  if [ -d "$NVBASE/modules_update/MIUIiconsplus_addon/icons" ];then
+    addon_path=$NVBASE/modules_update/MIUIiconsplus_addon
+    echo "- 检测到附加模块，正在导入..."
+    sed -i '/^version/d' $TMPDIR/module.prop
+    echo "version=${ver}_mod" >> $TMPDIR/module.prop
+    mkdir -p $TMPDIR/res/drawable-xxhdpi/
+    mkdir -p $TMPDIR/layer_animating_icons
+    cp -rf $addon_path/animating_icons/* $TMPDIR/layer_animating_icons/
+    cp -rf $addon_path/icons/* $TMPDIR/res/drawable-xxhdpi/
+    cd $TMPDIR
+    $zip -r icons.zip res >/dev/null
+    $zip -r icons.zip layer_animating_icons >/dev/null
+  else
+    if [ -d "$NVBASE/modules/MIUIiconsplus_addon/icons" ];then
+    addon_path=$NVBASE/modules/MIUIiconsplus_addon
+    echo "- 检测到附加模块，正在导入..."
+    sed -i '/^version/d' $TMPDIR/module.prop
+    echo "version=${ver}_mod" >> $TMPDIR/module.prop
+    mkdir -p $TMPDIR/res/drawable-xxhdpi/
+    mkdir -p $TMPDIR/layer_animating_icons
+    cp -rf $addon_path/animating_icons/* $TMPDIR/layer_animating_icons/
+    cp -rf $addon_path/icons/* $TMPDIR/res/drawable-xxhdpi/
+    cd $TMPDIR
+    $zip -r icons.zip res >/dev/null
+    $zip -r icons.zip layer_animating_icons >/dev/null
+    fi
+  fi
+}
+
+patch(){
+	cd $TMPDIR
+    tar -xf "$file" -C "$TMPDIR/" >&2
+    mkdir -p res/drawable-xxhdpi
+    mv icons/* res/drawable-xxhdpi
+    rm icons
+    $zip -d icons.zip "layer_animating_icons/*" >/dev/null
+    $zip -r icons.zip layer_animating_icons >/dev/null
+    $zip -r icons.zip res >/dev/null
+    rm -rf res
+    rm -rf layer_animating_icons
+}
+
+download() {
+  command -v $curl >/dev/null 2>&1 || { echo "× 缺少curl命令，无法进行下载。\n  请使用默认主题或尝试使用搞机助手安装。" && rm -rf $TMPDIR >/dev/null && exit 1; }
+  [ "`$curl -I -s --connect-timeout 1 www.baidu.com -w %{http_code} | tail -n1`" == "200" ] ||{  echo "× 未检测到网络，取消下载 ... "&& rm -rf $TMPDIR >/dev/null && exit 1; }
+  $curl -skLJo "$TMPDIR/$var_theme" "https://miuiicons-generic.pkg.coding.net/icons/files/${var_theme}.ini?version=latest"
+  source $TMPDIR/$var_theme
+  URL=https://miuiicons-generic.pkg.coding.net/icons/files/${var_theme}.tar.xz?version=latest
+  file=$TMPDIR/$var_theme.tar.xz
+  echo "- 准备联网下载$var_theme_name主题资源... "
+  [ $file_size ] || { echo "× 抱歉，在线资源临时维护中，请切换其他主题或稍后再试。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
+  [ "`$curl -I -m 5 $URL -w %{http_code} | tail -n1`" == "200" ] || { echo "× 资源获取失败，切换到备用链接。" && URL=$URL1 ;}
+  [ "`$curl -I -m 5 $URL -w %{http_code} | tail -n1`" == "200" ] || { echo "× 抱歉，在线资源无法下载，请切换网络或稍后再试。" && rm -rf $TMPDIR >/dev/null&& exit 1; }
+  size1=`awk "BEGIN{print $file_size/1048576}"`
+  echo "- 本次需下载 ${size1%.*} MB"
+  echo ""
+  for i in `seq 0 2`; do
+  if [[ $i == 0 ]]; then
+  {
+  echo "- 正在获取下载地址..."
+  $curl -skLJo "$file" "$URL"
+  }&
+  task1=$!
+  elif [[ $i == 1 ]]; then
+  {
+  var_wait=true
+  download=false
+  size=0
+    step=3
+    until [[ $var_wait == false ]]; do
+      [ -f $file ] && var_wait=false
+    done
+    echo "- 正在下载..."
+    until [[ $download == true ]]; do
+      var=`ls -l $file | $busybox awk '{print $5}'`
+      let "varm=var/1024/1024"
+      if [[ $varm -gt $size ]]; then
+      let "bfb=var/(file_size/100)"
+      echo "- 已下载 $varm MB -- $bfb%"
+      let "size+=step"
+      elif [[ $var == $file_size ]]; then
+      echo "- 已下载 $varm MB -- 100%" && download=true
+      fi
+      done
+      }&
+      task2=$!
+    elif [[ $i == 2 ]]; then
+      var_wait=true
+      until [[ $var_wait == false ]]; do
+      [ -f $file ] && var_wait=false
+      done
+      sleep 5
+      var1=`ls -l $file | $busybox awk '{print $5}'`
+      timeout_size1=`expr $file_size / 24`
+      timeout_size2=`expr $file_size / 12`
+      if [[ $var1 -lt $timeout_size1 ]] ; then
+      kill $task1
+      kill $task2
+      echo "× 检测到您的下载速度缓慢，预计2分钟内无法下载完毕，已停止下载。"
+      echo "× 请切换网络或者使用代理后重试。"
+      rm -rf $TMPDIR
+      exit 1
+      elif [[ $var1 -lt $timeout_size2 ]] ; then
+      echo "! 检测到您的下载速度较慢，预计2分钟内可下载完成。"
+      echo "! 请您耐心等待。"
+      fi
+      fi
+ done
+ wait $task1
+ wait $task2
+  {
+  if $download; then
+    echo "- 下载成功！"
+    echo "---------------------------------------------"
+    need_patch=true
+  else
+    echo "× 未知原因导致下载失败"
+    echo "× 请重新下载"
+    rm -rf $TMPDIR
+    exit 1
+  fi
+  }
+}
+
+require_new_magisk() {
+  echo
+  echo "- 当前模块不支持此Magisk版本"
+  echo
+  echo "- 请安装最新的 Magisk ！"
+  echo
+  exit 1
+}
+mount /data 2>/dev/null
+[ -f /data/adb/magisk/util_functions.sh ] || require_new_magisk
+. /data/adb/magisk/util_functions.sh
+[ $MAGISK_VER_CODE -gt 18100 ] || require_new_magisk
+setup_flashable
+mount_partitions
+api_level_arch_detect
+$BOOTMODE && boot_actions || recovery_actions
+$BOOTMODE && MODDIRNAME=modules_update || MODDIRNAME=modules
+MODULEROOT=$NVBASE/$MODDIRNAME
+MODID=`grep_prop id $TMPDIR/module.prop`
+MODPATH=$MODULEROOT/$MODID
+MODNAME=`grep_prop name $TMPDIR/module.prop`
+MODVERSION=`grep_prop version $TMPDIR/module.prop`
+COUNT=`grep_prop count $TMPDIR/module.prop`
+ver=`grep_prop ver $TMPDIR/module.prop`
+rm -rf $MODPATH 2>/dev/null
+mkdir -p $MODPATH
+print_modname
+on_install
+echo ""
+echo "> 注意"
+echo "> 仅在MIUI经典主题下有效"
+echo "> 安装、卸载模块或切换本模块内的主题后，建议在主题壁纸内重新应用MIUI默认主题。"
+echo ""
+echo "- Telegram 频道：@miuiicons"
+echo "- QQ讨论群：561180493"
+echo "- 欢迎加群讨论参与开发"
+cp -rf $FAKEMODPATH/. $MODPATH
+if ! grep -q '^SKIPUNZIP=1$' $MODPATH/customize.sh 2>/dev/null; then
+  set_perm_recursive $MODPATH 0 0 0755 0644
+fi
+[ -f $MODPATH/customize.sh ] && . $MODPATH/customize.sh
+for TARGET in $REPLACE; do
+  mktouch $MODPATH$TARGET/.replace
+done
+if $BOOTMODE; then
+  mktouch $NVBASE/modules/$MODID/update
+  cp -af $MODPATH/module.prop $NVBASE/modules/$MODID/module.prop
+fi
+rm -rf \
+$MODPATH/system/placeholder $MODPATH/customize.sh \
+$MODPATH/README.md $MODPATH/.git* 2>/dev/null
+cd /
+$BOOTMODE || recovery_cleanup
+rm -rf $TMPDIR
+echo ""
+echo "- 安装成功，请重启设备 (^_^) "
+echo "---------------------------------------------"
+exit 0

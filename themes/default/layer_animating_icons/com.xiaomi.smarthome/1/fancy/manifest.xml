@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="mask_down" states="'state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="mask_up" states="'state2_end'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<FolmeCommand target="mask_down" states="'state_init'" command="setTo" config="'state_config'"/>
+			<FolmeCommand target="mask_up" states="'state2_init'" command="setTo" config="'state_config'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="mask_down" states="'state_init','state_end'" command="fromTo" config="'state_config'" delay="200" />
+			<FolmeCommand target="mask_up" states="'state2_init','state2_end'" command="fromTo" config="'state_config'" delay="200" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init" rotation="-22.5" />
+	<FolmeState name="state_end"  rotation="-22.5-180" />
+	<FolmeState name="state2_init" rotation="-22.5+180" />
+	<FolmeState name="state2_end"  rotation="-22.5" />
+	<FolmeConfig name="state_config" property="rotation" ease="-2,0.9,1" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Image src="shadow.png"  x="62.6" y="62" />
+		<Group w="252" h="252" layered="true">
+			<Image src="icon.png" x="90" y="86" />
+			<Rectangle x="126" y="126" align="center" alignV="top" w="128" h="64" angle="-22.5-180" pivotX="64" pivotY="0" fillColor="#000000" xfermode="clear"/>
+			<Rectangle name="mask_down" x="126" y="126" align="center" alignV="top" w="128" h="64" angle="-22.5-180" pivotX="64" pivotY="0" fillColor="#000000" folmeMode="true" xfermode="clear" />
+		</Group>
+		<Group w="252" h="252" layered="true">
+			<Image src="icon.png" x="90" y="86" />
+			<Rectangle x="126" y="126" align="center" alignV="top" w="128" h="64" angle="-22.5" pivotX="64" pivotY="0" fillColor="#000000" xfermode="clear"/>
+			<Rectangle name="mask_up" x="126" y="126" align="center" alignV="top" w="128" h="64" angle="-22.5" pivotX="64" pivotY="0" fillColor="#000000" folmeMode="true" xfermode="clear" />
+		</Group>
+	</Group>
+</Icon>

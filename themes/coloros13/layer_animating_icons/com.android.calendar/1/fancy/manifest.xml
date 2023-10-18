@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="252" height="252" screenWidth="1080" resDensity="480" useVariableUpdater="DateTime.Day">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="week" states="'state_end'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="date" states="'state_end'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+		<FrameRateCommand rate="60"/>
+			<FolmeCommand target="week" states="'week_state_init'" command="setTo" config="'state_config'" />
+			<FolmeCommand target="date" states="'date_state_init'" command="setTo" config="'state_config'" />
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+		 <FrameRateCommand rate="0" delay="1000"/>   
+			<FolmeCommand target="week" states="'week_state_init','state_end'" command="fromTo" config="'state_config'" />
+			<FolmeCommand target="date" states="'date_state_init','state_end'" command="fromTo" config="'state_config'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="week_state_init" x="126+20*#ratio"/>
+	<FolmeState name="date_state_init" x="126+10*#ratio"/>
+	<FolmeState name="state_end" x="126"/>
+	<FolmeConfig name="state_config" property="x" ease="-2,0.8,0.9" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<!-- <Image src="week.png" srcid="#day_of_week" x="126" y="69" align="center" /> -->
+		<Image src="date.png" srcid="#date" x="126" y="126" align="center" alignV="center" />
+	</Group>
+</Icon>

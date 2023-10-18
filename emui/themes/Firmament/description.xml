@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Firmament Plus {id}</title>
+    <title-cn>苍穹 图标补全 {name}</title-cn>
+    <author>MAGIC UI PedroZ</author>
+    <designer>Honor PedroZ</designer>
+    <screen>FHD</screen>
+    <version>11.0.11</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+    <briefinfo>EMUI 完美图标补全计划 更新时间：{date}</briefinfo>
+</HwTheme>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="252" height="252" screenWidth="1080" resDensity="480">
+    <Var name="SIZE" expression="252" const="true"/>
+    <Image src="bg.png" x="#SIZE/2" y="#SIZE/2" align="center" alignV="center" />
+</Icon>

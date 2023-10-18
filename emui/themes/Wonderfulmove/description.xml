@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Wonderfulmove Blue Bv {id}</title>
+    <title-cn>蔚蓝海-图标补全 {name}</title-cn>
+    <author>酷安_铭文er</author>
+    <designer>酷安_铭文er</designer>
+    <screen>FHD</screen>
+    <version>13.0.3</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+    <briefinfo>
+该主题无一镜到底，支持深色模式；
+默认核心应用去线，去分身、支付保护中心角标。
+EMUI 完美图标补全计划 更新时间：{date}
+</briefinfo>
+</HwTheme>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080">
+    <ExternalCommands>
+        <!-- 到最后一帧 -->
+        <Trigger action="init,present,back_home_cancel">
+            <FrameRateCommand rate="60" />
+            <LottieCommand target="icon" command="goToAndStop" params="999"/>
+        </Trigger>
+        <!-- 到第一帧 -->
+        <Trigger action="back_home_start">
+            <FrameRateCommand rate="60" />
+            <LottieCommand target="icon" command="goToAndStop" params="1"/>
+        </Trigger>
+        <!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+            <FrameRateCommand rate="60" />
+            <LottieCommand target="icon" command="play" />
+        </Trigger>
+    </ExternalCommands>
+
+    <Lottie name="icon" src="com.android.fileexplorer.json" x="351/2" y="351/2" align="center" alignV="center" autoplay="false" loop="0" w="351" h="351">
+        <Triggers>
+            <Trigger action="complete">
+                <!-- 播放完成（循环播放下不会触发） -->
+                <FrameRateCommand rate="0" />
+            </Trigger>
+        </Triggers>
+    </Lottie>
+
+</Icon>

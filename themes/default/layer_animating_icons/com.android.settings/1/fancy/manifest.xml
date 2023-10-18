@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="60" width="252" height="252" screenWidth="1080" resDensity="480">
+	<Var name="SIZE" expression="252" const="true"/>
+	<!-- control -->
+	<ExternalCommands>
+		<!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
+		<Trigger action="init,present,back_home_cancel">
+			<FolmeCommand target="c0" states="'state_end0'" command="setTo" config="'state_config0'" />
+			<FolmeCommand target="c1" states="'state_end1'" command="setTo" config="'state_config1'" />
+		</Trigger>
+		<!-- 退出APP返回桌面的瞬间 -->
+		<Trigger action="back_home_start">
+			<VariableCommand name="start" expression="#time"/>
+			<FolmeCommand target="c0" states="'state_init0'" command="setTo" config="'state_config0'"/>
+			<FolmeCommand target="c1" states="'state_init1'" command="setTo" config="'state_config1'"/>
+		</Trigger>
+		<!-- 退出APP回到桌面 -->
+		<Trigger action="back_home_finish">
+			<FolmeCommand target="c0" states="'state_init0','state_end0'" command="fromTo" config="'state_config0'" />
+			<FolmeCommand target="c1" states="'state_init1','state_end1'" command="fromTo" config="'state_config1'" />
+		</Trigger>
+	</ExternalCommands>
+	<!-- module -->
+	<FolmeState name="state_init0" x="49+20*#ratio" rotation="150*ifelse(#ratio==0, -1, #ratio/abs(#ratio)) "/>
+	<FolmeState name="state_end0" x="49" rotation="0"/>
+	<FolmeConfig name="state_config0" property="x,rotation" ease="-2,0.8,1.4" fromSpeed="0"/>
+
+	<FolmeState name="state_init1" x="95+10*#ratio"/>
+	<FolmeState name="state_end1" x="95"/>
+	<FolmeConfig name="state_config1" property="x" ease="-2,0.8,0.8" fromSpeed="0"/>
+	<!-- view -->
+	<Group x="(#SIZE-252)/2-0.3" y="(#SIZE-252)/2-0.3">
+		<Image src="c1.png" x="95" y="95" name="c1" folmeMode="true" />
+		<Image src="c0.png" x="49.3" y="59" name="c0" folmeMode="true" pivotX="126-49" pivotY="126-59" />
+	</Group>
+</Icon>

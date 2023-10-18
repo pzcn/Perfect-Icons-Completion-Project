@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080" useVariableUpdater="DateTime.Minute">
+    <VariableBinders>
+        <ContentProviderBinder name="weather_provider" uri="content://weather/actualWeatherData/1" columns="city_name,weather_type,temperature,city_id,aqilevel,publish_time" countName="hasweather">
+            <Variable name="weather_location" type="string" column="city_name"/>
+            <Variable name="weather_id" type="int" column="weather_type"/>
+            <Variable name="weather_temperature1" type="int" column="temperature"/>
+            <Variable name="weather_temperature_str" type="string" column="temperature"/>
+            <Variable name="temperature_unit" type="int" column="temperature_unit"/>
+            <Variable name="city_id" type="string" column="city_id"/>
+            <Variable name="aqi" type="int" column="aqilevel"/>
+            <Variable name="weather_publish_time1" type="int" column="publish_time"/>
+        </ContentProviderBinder>
+        <ContentProviderBinder name="weather_provider2" uri="content://weather/weather" columns="city_name,weather_type,temperature,city_id,aqilevel,publish_time" countName="hasweather">
+            <Variable name="weather_location2" type="string" column="city_name"/>
+            <Variable name="weather_id2" type="int" column="weather_type"/>
+            <Variable name="weather_temperature2" type="int" column="temperature"/>
+            <Variable name="weather_temperature_str2" type="string" column="temperature"/>
+            <Variable name="temperature_unit2" type="int" column="temperature_unit"/>
+            <Variable name="city_id2" type="string" column="city_id"/>
+            <Variable name="aqi2" type="int" column="aqilevel"/>
+            <Variable name="weather_publish_time2" type="int" column="publish_time"/>
+        </ContentProviderBinder>
+    </VariableBinders>
+    <Var name="weather_temperature" expression="ifelse(#weather_publish_time1,#weather_temperature1,#weather_temperature2)" />
+    <Var name="weather_publish_time" expression="max(#weather_publish_time1,#weather_publish_time2)" />
+    <!-- view -->
+    <Group visibility="#weather_publish_time!=0">
+        <ImageChars x="351/2-84" y="351/2-102" src="num.png" string="#weather_temperature+'°'"/>
+    </Group>
+</Icon>

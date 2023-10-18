@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Icon frameRate="1" height="268" resDensity="480" screenWidth="1080" version="1" width="268">
+  <ExternalCommands/>
+  <VariableBinders>
+    <ContentProviderBinder columns="temperature" countName="hasweather" dependency="selected_city" name="weather" uri="content://weather/actualWeatherData/1">
+      <Variable column="temperature" name="weather_temperature" type="number"/>
+    </ContentProviderBinder>
+  </VariableBinders>
+  <!-- IconWeather	数字天气 -->
+
+  <Image align="center" alignV="center" src="icon_bg.png" x="134" y="134"/>
+  <Text align="center" alignV="center" color="#ffffff" size="44" textExp="#weather_temperature+&apos;°&apos;" x="118" y="102"/>
+</Icon>

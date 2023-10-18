@@ -1,0 +1,35 @@
+name: Update Emui Theme
+on:
+  workflow_dispatch:
+    inputs:
+      THEME_NAME:
+        description: 'THEME ID'
+        required: true
+        default: 'Aquamarine'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Update themes
+        run: |
+          cd emui/themes
+          t=${{ github.event.inputs.THEME_NAME }}
+          source $t/config.ini
+          rm -rf source $t/config.ini
+          tar cJf $t.tar.xz $t/*
+          :> icons.ini
+          echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
+          echo "theme_name=$name" >> ./$t.ini
+          echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
+          echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
+          curl -T $t.ini -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.ini?version=latest"
+          curl -T $t.tar.xz -u ${{secrets.coding_password}} "https://emuiicons-generic.pkg.coding.net/files/zip/$t.tar.xz?version=latest"
+            curl https://rclone.org/install.sh | sudo bash
+            mkdir -p ~/.config/rclone/
+            echo ${{ secrets.DBBASE64 }} > base64.txt
+            base64 --decode base64.txt > ~/.config/rclone/rclone.conf
+            rclone copy -P $t.tar.xz onedrive:/icons/emui
