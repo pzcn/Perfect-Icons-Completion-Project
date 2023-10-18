@@ -26,7 +26,7 @@ jobs:
           rm -rf /tmp/git_push/.git
           cp -r /tmp/dest/.git/ /tmp/git_push/.git/
           for dir in *; do
-            if [ -d "$dir" ];
+            if [ -d "$dir" ]; then
              [ -f "$dir/0.png" ] && mv "$dir/0.png" "$dir/background.png"
              [ -f "$dir/1.png" ] && mv "$dir/1.png" "$dir/foreground.png"
             fi
