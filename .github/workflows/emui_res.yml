@@ -18,13 +18,13 @@ jobs:
           git config --global user.name pedroz
           sha=$(git rev-parse --short HEAD)
           commit_msg="Deploy ${sha}"
-          mkdir -p /tmp/git_push
-          cp -a -r icons/* /tmp/git_push
-          cd /tmp/git_push
+          mkdir -p /tmp/icons
+          cp -a -r icons/* /tmp/icons
+          cd /tmp/icons
           remote_repo="https://${{ secrets.GIT_USERS }}:${{ secrets.GIT_TOKEN }}@e.coding.net/miuiicons/icons/emui2.git"
           git clone --depth 1 $remote_repo /tmp/dest
-          rm -rf /tmp/git_push/.git
-          cp -r /tmp/dest/.git/ /tmp/git_push/.git/
+          rm -rf /tmp/icons/.git
+          cp -r /tmp/dest/.git/ /tmp/icons/.git/
           for dir in *; do
             if [ -d "$dir" ]; then
              [ -f "$dir/0.png" ] && mv "$dir/0.png" "$dir/background.png"
