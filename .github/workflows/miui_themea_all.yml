@@ -16,6 +16,7 @@ jobs:
         cd themes
         for t in *
         do
+        if [ "$t" != "common" ] ; then
         if [ "$t" != "lrone" ] && [ "$t" != "luck7" ]; then
         cp -rf common/* $t
         fi
@@ -30,4 +31,5 @@ jobs:
         curl -T $t.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/$t.ini?version=latest"
         rclone sync -P $t.tar.xz onedrive:/icons/hyper
         cd ..
+        fi
         done
