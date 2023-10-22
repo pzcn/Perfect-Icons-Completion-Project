@@ -14,7 +14,7 @@ jobs:
         base64 --decode base64.txt > ~/.config/rclone/rclone.conf
         rm -rf base64.txt
         cd themes
-        for t in ./
+        for t in *
         do
         if [ "$t" != "lrone" ] && [ "$t" != "luck7" ]; then
         cp -rf common/* $t
