@@ -17,12 +17,12 @@
 	</ExternalCommands>
 	<!-- module -->
 	<Var name="lr" expression="ifelse(#ratio}0,1,-1)" />
-	<FolmeState name="state_init" rotation="-10-#lr*30" x="156+#lr*13"/>
-	<FolmeState name="state_end" rotation="0" x="156"/>
+	<FolmeState name="state_init" rotation="-10-#lr*30" x="153+#lr*13"/>
+	<FolmeState name="state_end" rotation="0" x="153"/>
 	<FolmeConfig name="state_config" property="rotation,x" ease="-2,0.4,1" fromSpeed="0"/>
 	<!-- view -->
 	<Group>
 		<Image src="icon.png"/>
-		<Image src="wj.png" name="wj" x="156" y="200" folmeMode="true" pivotX="12" pivotY="0"/>
+		<Image src="wj.png" name="wj" x="153" y="200" folmeMode="true" pivotX="12" pivotY="0"/>
 	</Group>
 </Icon>

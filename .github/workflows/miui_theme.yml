@@ -18,16 +18,16 @@ jobs:
         cp -rf common/* ${{ github.event.inputs.THEME_NAME }}
         fi
         cd ${{ github.event.inputs.THEME_NAME }}
-        XZ_OPT=-9 tar cJf ${{ github.event.inputs.THEME_NAME }}.tar.xz *
+        XZ_OPT=-9 tar cJf ${{ github.event.inputs.THEME_NAME }}2.tar.xz *
         :> ${{ github.event.inputs.THEME_NAME }}.ini
-        echo "file_size=`ls -l ./${{ github.event.inputs.THEME_NAME }}.tar.xz | awk '{print $5}'`" >> ./${{ github.event.inputs.THEME_NAME }}.ini
-        echo "md5=`md5sum ./${{ github.event.inputs.THEME_NAME }}.tar.xz|cut -d ' ' -f1`" >> ./${{ github.event.inputs.THEME_NAME }}.ini
+        echo "file_size=`ls -l ./${{ github.event.inputs.THEME_NAME }}2.tar.xz | awk '{print $5}'`" >> ./${{ github.event.inputs.THEME_NAME }}.ini
+        echo "md5=`md5sum ./${{ github.event.inputs.THEME_NAME }}2.tar.xz|cut -d ' ' -f1`" >> ./${{ github.event.inputs.THEME_NAME }}.ini
         echo "theme_name=${{ github.event.inputs.THEME_NAME }}" >> ./${{ github.event.inputs.THEME_NAME }}.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./${{ github.event.inputs.THEME_NAME }}.ini
-        curl -T ${{ github.event.inputs.THEME_NAME }}.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/${{ github.event.inputs.THEME_NAME }}.tar.xz?version=latest"
-        curl -T ${{ github.event.inputs.THEME_NAME }}.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/${{ github.event.inputs.THEME_NAME }}.ini?version=latest"
+        curl -T ${{ github.event.inputs.THEME_NAME }}2.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/${{ github.event.inputs.THEME_NAME }}2.tar.xz?version=latest"
+        curl -T ${{ github.event.inputs.THEME_NAME }}.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/${{ github.event.inputs.THEME_NAME }}2.ini?version=latest"
         curl https://rclone.org/install.sh | sudo bash
         mkdir -p ~/.config/rclone/
         echo ${{ secrets.DBBASE64 }} > base64.txt
         base64 --decode base64.txt > ~/.config/rclone/rclone.conf
-        rclone sync -P ${{ github.event.inputs.THEME_NAME }}.tar.xz onedrive:/icons/miui
+        rclone sync -P ${{ github.event.inputs.THEME_NAME }}2.tar.xz onedrive:/icons/miui
