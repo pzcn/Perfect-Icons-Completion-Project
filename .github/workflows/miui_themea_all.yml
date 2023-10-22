@@ -20,14 +20,14 @@ jobs:
         cp -rf common/* $t
         fi
         cd $t
-        XZ_OPT=-9 tar cJf $t2.tar.xz *
+        XZ_OPT=-9 tar cJf $t.tar.xz *
         :> $t.ini
-        echo "file_size=`ls -l ./$t2.tar.xz | awk '{print $5}'`" >> ./$t.ini
-        echo "md5=`md5sum ./$t2.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
+        echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
+        echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
         echo "theme_name=$t" >> ./$t.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
-        curl -T $t2.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/$t2.tar.xz?version=latest"
-        curl -T $t.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/$t2.ini?version=latest"
-        rclone sync -P $t2.tar.xz onedrive:/icons/miui
+        curl -T $t.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/$t.tar.xz?version=latest"
+        curl -T $t.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/$t.ini?version=latest"
+        rclone sync -P $t.tar.xz onedrive:/icons/hyper
         cd ..
         done
