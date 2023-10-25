@@ -1,6 +1,6 @@
 # 完美图标补全计划
 
-基于官方图标去除牛皮癣，制作成分层图标。目前支持使用 Magisk 模块和 mtz 主题包的形式，补全/修复 MIUI12 中未适配以及适配不佳的图标。生成hwt主题包，供EMUI/鸿蒙OS使用。
+目前国内 APP 喜欢在图标上添加营销内容，使得图标过于杂乱。所以诞生了完美图标补全计划，基于官方图标样式去除图标牛皮癣，使用高清图标制作成分层图标。
 
 [![Subscribe](https://img.shields.io/badge/Telegram-Subscribe-blue.svg?logo=telegram)](https://t.me/miuiicons)
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev) 
@@ -10,40 +10,15 @@
 
 ### 项目介绍
 
-自 MIUI 12 起，系统启动器新增了完美图标特性。其依赖于 MIUI 系统内置的部分图标以及图标自身的 Adapted Icon 特性。除可以实现分层效果外，还可以去除部分图标的牛皮癣。但这需要 APP 本身按照标准适配 Adapted Icon 或者 MIUI 系统对相应图标进行单独绘制来实现。为了让更多 APP 获得这个特性，诞生了本项目。
+自 MIUI 12 起，系统启动器新增了完美图标特性。其依赖于 MIUI 系统内置的部分图标以及图标自身的 Adapted Icon 特性。除可以实现分层效果外，还可以去除部分图标的牛皮癣。但这需要 APP 本身按照标准适配 Adapted Icon 或者 MIUI 系统对相应图标进行单独绘制来实现。为了让更多 APP 获得这个特性，诞生了本项目。同时，华为的主题图标和MIUI采用了相同的结构，这为项目支持华为提供了可能。
 
-在 MIUI 12 早期版本中，MIUI 绘制的第三方桌面图标有着较高的优先级。但是某次更新后，若 APP 自身拥有 Adapted Icon，则会优先调用。这就造成了部分图标显示效果不佳，包括但不限于支付宝、淘宝等，表现为包含牛皮癣（双十一、购物节等）、不按照标准适配（整张图片只有一层、底层为纯色等）。
+完美图标补全计划由于包含众多主题和配置项，开发了[『完美图标计划』](https://www.coolapk.com/apk/dev.miuiicons.pedroz)作为图标下载器，目前已在酷安上架。本仓库作用为提交及储存图标文件。
 
->  图标数量：![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Icon%20count&query=%24.count&url=https%3A%2F%2Fmiui.netlify.app%2Fcount.json)
+### 支持系统
 
->  适配版本：Android 10 及以上的 MIUI 12
+小米：MIUI12-MIUI14（安卓10以上）、HyperOS
 
->  目前已包含：MIUI默认主题、探·界主题、Flyme9主题、LRONE主题，Luck7主题、完美曲线主题、EMUI主题、鸿蒙主题、ColorOS12主题，未来可能会添加更多其他主题
-
-----
-
-### 使用方法
-
-#### 1. Magisk 模块（推荐）
-
-> 需使用 [安装器](https://www.coolapk.com/apk/dev.miuiicons.pedroz) ，支持自主选择主题包，联网下载最新资源后通过 `Magisk 模块`方式安装。还包含`检测更新`、`更新日志`、`图标预览`、`自定义图标`、`导出 Mtz 主题包`等功能
-
-#### 2. Mtz 主题包（不推荐）
-
->  需使用 [安装器](https://www.coolapk.com/apk/dev.miuiicons.pedroz) 导出主题包，同其他 Mtz 主题一样，MIUI 国内版需要`设计师账号`或`主题破解`才可以正常使用。Mtz 使用相关问题请自行解决
->  *注意：使用 Mtz 主题包方式部分机型和 MIUI 版本可能出现手势问题，参考下方`常见问题`*
-
-----
-
-### 其他特性
-
-##### 自定义图标
-
-> 优先使用自己绘制的图标，[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
-
-##### 图标存档
-
-> 提供部分图标的其他样式，有需要的话解压后通过`自定义图标`使用，[详细说明](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E5%9B%BE%E6%A0%87%E5%AD%98%E6%A1%A3) 
+华为：EMUI11、HarmonyOS
 
 ----
 
@@ -54,20 +29,9 @@
 
 ----
 
-### 常见问题
+### 更多介绍
 
-1. Q：mtz主题包出现了返回手势结束时直角变圆角现象，如何解决？
-
->   A：似乎是MIUI系统版本问题，目前发现的两种解决方法：①使用稳定版桌面，卸载内测桌面（部分机型依然无效）②不使用mtz，换用magisk模块
-
-2. Q：为什么xxx这个图标和原图标不太一样？
-
->  A：一部分图标去除了活动 Banner，另外图标则是手动修改的。为了保证良好的显示效果进行了重新绘制，我们无法保证与原图标完全一致
-
-
-3. Q：能把xx图标换成xx样式吗？
-
->  A：参考适配指南自行绘制，使用 [自定义图标](https://github.com/pzcn/MIUI-Adapted-Icons-Complement-Project/wiki/%E9%99%84%E5%8A%A0%E6%A8%A1%E5%9D%97)
+[见此](https://www.yuque.com/pedeoz/icons)
 
 ----
 
@@ -79,15 +43,15 @@
 
 对以下三种情况进行适配：
 
-> 1. MIUI 没有对其适配且 APP 自身没有 Adapted Icon 的（即静态图标的效果）
+> 1. APP 自身没有 Adapted Icon 的（即静态图标的效果）
 
-> 2. MIUI 适配后不完美的，整个图标都是前景的图标（移动图标即可看出）,或如`百度地图`前后景不分的图标
+> 2. APP 适配后不完美的，整个图标都是前景的图标（移动图标即可看出）,或如`百度地图`前后景不分的图标
 
-> 3. MIUI 适配后仍有牛皮癣的，比如`联通手机营业厅`包含有5G牛皮癣
+> 3. APP 适配后仍有牛皮癣的，比如`联通手机营业厅`包含有5G牛皮癣
 
 #### 申请适配
 
-暂不接受适配申请
+任何渠道都可以提出申请，不过适配随缘
 
 #### 适配指南、提交适配
 

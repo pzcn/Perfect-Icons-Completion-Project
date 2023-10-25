@@ -28,26 +28,24 @@ jobs:
         cd ${GITHUB_WORKSPACE}
         mkdir -p temp/res/
         cp -rf /tmp/git_push ./temp/res/drawable-xxhdpi/
-        cp -rf addition/transform_config.xml ./temp
-        cp -rf addition/transform_config2.xml ./temp
         cd temp
         zip -r -9 icons.zip *  >/dev/null
         mv icons.zip icons
-        XZ_OPT=-9 tar cJf iconsrepo2.tar.xz icons
+        XZ_OPT=-9 tar cJf iconsrepo.tar.xz icons
         cd ${GITHUB_WORKSPACE}/temp/res/drawable-xxhdpi/ 
         echo $(ls -l | grep "^d" | wc -l) > ${GITHUB_WORKSPACE}/temp/iconscount.txt
         cd ${GITHUB_WORKSPACE}/temp/
-        :> iconsrepo2.ini
-        echo "file_size=`ls -l ./iconsrepo2.tar.xz | awk '{print $5}'`" >> ./iconsrepo2.ini
-        echo "md5=`md5sum ./iconsrepo2.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo2.ini
+        :> iconsrepo.ini
+        echo "file_size=`ls -l ./iconsrepo.tar.xz | awk '{print $5}'`" >> ./iconsrepo.ini
+        echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
         echo "theme_name=主图标仓库" >> ./iconsrepo.ini
-        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo2.ini
-        #curl -T iconsrepo2.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo.tar.xz?version=latest"
-        curl -T iconsrepo2.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconsrepo2.ini?version=latest"
-        curl -T iconscount.txt -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/iconscount.txt?version=latest"
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
+        #curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/iconsrepo.tar.xz?version=latest"
+        curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/iconsrepo.ini?version=latest"
+        curl -T iconscount.txt -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/iconscount.txt?version=latest"
         curl https://rclone.org/install.sh | sudo bash
             mkdir -p ~/.config/rclone/
             echo ${{ secrets.DBBASE64 }} > base64.txt
             base64 --decode base64.txt > ~/.config/rclone/rclone.conf
-            rclone copy -P iconsrepo2.tar.xz onedrive:/icons/miui
+            rclone copy -P iconsrepo.tar.xz onedrive:/icons/hyper
         

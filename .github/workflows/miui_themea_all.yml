@@ -1,0 +1,35 @@
+name: Update ALL MIUI Theme
+on:
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update theme
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ~/.config/rclone/
+        echo ${{ secrets.DBBASE64 }} > base64.txt
+        base64 --decode base64.txt > ~/.config/rclone/rclone.conf
+        rm -rf base64.txt
+        cd themes
+        for t in *
+        do
+        if [ "$t" != "common" ] ; then
+        if [ "$t" != "lrone" ] && [ "$t" != "luck7" ]; then
+        cp -rf common/* $t
+        fi
+        cd $t
+        XZ_OPT=-9 tar cJf $t.tar.xz *
+        :> $t.ini
+        echo "file_size=`ls -l ./$t.tar.xz | awk '{print $5}'`" >> ./$t.ini
+        echo "md5=`md5sum ./$t.tar.xz|cut -d ' ' -f1`" >> ./$t.ini
+        echo "theme_name=$t" >> ./$t.ini
+        echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./$t.ini
+        curl -T $t.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/$t.tar.xz?version=latest"
+        curl -T $t.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/$t.ini?version=latest"
+        rclone sync -P $t.tar.xz onedrive:/icons/hyper
+        cd ..
+        fi
+        done

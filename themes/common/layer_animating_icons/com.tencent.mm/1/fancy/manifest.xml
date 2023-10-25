@@ -22,19 +22,19 @@
 		</Trigger>
 	</ExternalCommands>
 	<!-- module -->
-	<FolmeState name="state_init1" x="47" y="100" />
-	<FolmeState name="state_end1" x="87" y="100" />
-	<FolmeState name="state_init2" x="186" y="141" />
-	<FolmeState name="state_end2" x="146" y="141" />
-	<FolmeState name="state_init3" x="182" y="138" />
-	<FolmeState name="state_end3" x="142" y="138" />
+	<FolmeState name="state_init1" x="41" y="95" />
+	<FolmeState name="state_end1" x="81" y="95" />
+	<FolmeState name="state_init2" x="184" y="139" />
+	<FolmeState name="state_end2" x="144" y="139" />
+	<FolmeState name="state_init3" x="180" y="136" />
+	<FolmeState name="state_end3" x="140" y="136" />
 	<FolmeConfig name="state_config" property="x,y" ease="-2,0.6,0.75" fromSpeed="0" />
 	<!-- view -->
 	<Group>
 		<Group w="324" h="324" layered="true">
-			<Image name="1" src="1.png" x="87" y="100" folmeMode="true" />
-			<Image name="3" src="3.png" x="142" y="138" folmeMode="true" xfermode="dst_out" />
+			<Image name="1" src="1.png" x="81" y="95" folmeMode="true" />
+			<Image name="3" src="3.png" x="140" y="136" folmeMode="true" xfermode="dst_out" />
 		</Group>
-		<Image name="2" src="2.png" x="146" y="141" folmeMode="true" />
+		<Image name="2" src="2.png" x="144" y="139" folmeMode="true" />
 	</Group>
 </Icon>

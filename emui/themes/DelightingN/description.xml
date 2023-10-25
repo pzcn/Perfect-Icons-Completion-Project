@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HwTheme>
+    <title>Delighting N</title>
+    <title-cn>高光舞动-基础版</title-cn>
+    <author>酷安_铭文</author>
+    <designer>酷安_铭文</designer>
+    <screen>FHD</screen>
+    <version>14.0.1</version>
+    <font>Default</font>
+    <font-cn>默认</font-cn>
+    <theme-banner-show>true</theme-banner-show>
+    <briefinfo>鸿蒙4.0默认图标，无第三方图标版。
+
+该主题默认核心应用去线，去分身、支付保护中心角标。
+</HwTheme>
