@@ -75,4 +75,4 @@ jobs:
         EOF
         :>output.xml
         cat new.xml old.xml > output.xml
-        curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest"
+        curl -T output.xml -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/files/changelog2.xml?version=latest"
