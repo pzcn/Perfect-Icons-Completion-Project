@@ -61,7 +61,6 @@ jobs:
       run: |
         curl -skLJo old.xml https://miuiicons-generic.pkg.coding.net/icons/files/changelog.xml?version=latest
         time=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d %H:%M')
-        sed -i '1,7d' old.xml
         :>new.xml
         cat >> new.xml << \EOF
         <group>
