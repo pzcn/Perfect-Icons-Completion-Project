@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <HwTheme>
-    <title>Delighting N</title>
-    <title-cn>高光舞动</title-cn>
-    <author>酷安_铭文</author>
-    <designer>酷安_铭文</designer>
+    <title>Wonderland N</title>
+    <title-cn>诗野千里</title-cn>
+    <author>Mw</author>
+    <designer>Mw</designer>
     <screen>FHD</screen>
-    <version>14.0.1</version>
+    <version>14.0.9</version>
     <font>Default</font>
     <font-cn>默认</font-cn>
     <theme-banner-show>true</theme-banner-show>
-    <briefinfo>鸿蒙4.0默认图标。
+    <briefinfo>华为Mate60系列主题。
 该主题默认核心应用去线，去分身、支付保护角标。
 </HwTheme>
