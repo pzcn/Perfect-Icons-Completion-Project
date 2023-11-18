@@ -4,6 +4,14 @@
     <Var name="hour_angle_raw" expression="#hour12 * 30 + #minute/2"/>
     <Var name="minute_angle_raw" expression="#minute * 6"/>
     <Var name="needSet" expression="1"/>
+    <!-- module -->
+    <FolmeState name="h_state_init" rotation="#hour_angle_raw - 360/12"/>
+    <FolmeState name="h_state_end" rotation="#hour_angle_raw"/>
+
+    <FolmeState name="m_state_init" rotation="#minute_angle_raw - 180"/>
+    <FolmeState name="m_state_end" rotation="#minute_angle_raw"/>
+
+    <FolmeConfig name="state_config" property="rotation" ease="6,1000" fromSpeed="0"/>
 
     <Var expression="#minute" threshold="1">
         <Trigger condition="#needSet">
@@ -18,11 +26,14 @@
     <!-- control -->
     <ExternalCommands>
         <!-- 首次使用主题、解锁、返回桌面连续按home键切屏时，将动画播放到最后一帧 -->
-        <Trigger action="init,present,back_home_cancel">
-            <FrameRateCommand rate="60"/>
-            <FrameRateCommand rate="0" delay="50"/>
-            <FolmeCommand target="h" states="'h_state_end'" command="setTo" config="'state_config'" />
-            <FolmeCommand target="m" states="'m_state_end'" command="setTo" config="'state_config'" />
+        <Trigger action="init,present,back_home_cancel,resume">
+            <FrameRateCommand rate="5"/>
+            <!-- 2023/10/31：需要加上延迟，否则FolmeCommand执行时states未获取正确的值会导致指针位置错误（先调整日期，再调整时间必现 -->
+            <MultiCommand delay="50">
+                <FolmeCommand target="h" states="'h_state_end'" command="setTo" config="'state_config'" />
+                <FolmeCommand target="m" states="'m_state_end'" command="setTo" config="'state_config'" />
+                <FrameRateCommand rate="0" delay="50"/>
+            </MultiCommand>
         </Trigger>
         <!-- 退出APP返回桌面的瞬间 -->
         <Trigger action="back_home_start">
@@ -40,14 +51,7 @@
             <FolmeCommand target="m" states="'m_state_init','m_state_end'" command="fromTo" config="'state_config'" />
         </Trigger>
     </ExternalCommands>
-    <!-- module -->
-    <FolmeState name="h_state_init" rotation="#hour_angle_raw - 360/12"/>
-    <FolmeState name="h_state_end" rotation="#hour_angle_raw"/>
 
-    <FolmeState name="m_state_init" rotation="#minute_angle_raw - 180"/>
-    <FolmeState name="m_state_end" rotation="#minute_angle_raw"/>
-
-    <FolmeConfig name="state_config" property="rotation" ease="6,1000" fromSpeed="0"/>
 
     <Image x="351/2" y="351/2" align="center" alignV="center" src="bg.png" />
 
