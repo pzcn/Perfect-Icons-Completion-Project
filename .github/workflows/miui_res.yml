@@ -40,6 +40,7 @@ jobs:
         echo "md5=`md5sum ./iconsrepo.tar.xz|cut -d ' ' -f1`" >> ./iconsrepo.ini
         echo "theme_name=主图标仓库" >> ./iconsrepo.ini
         echo "theme_version=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> ./iconsrepo.ini
+        echo "git_SHA=$(git rev-parse --short HEAD)" >> ./iconsrepo.ini
         #curl -T iconsrepo.tar.xz -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/iconsrepo.tar.xz?version=latest"
         curl -T iconsrepo.ini -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/iconsrepo.ini?version=latest"
         curl -T iconscount.txt -u ${{secrets.coding_password}} "https://miuiicons-generic.pkg.coding.net/icons/hyper/iconscount.txt?version=latest"
