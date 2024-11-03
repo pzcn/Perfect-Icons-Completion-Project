@@ -2,13 +2,14 @@
 <Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080" useVariableUpdater="DateTime.Day">
     <ExternalCommands>
         <!-- 曝光时提高帧率 -->
+        <!-- 使用resume是因为在设置中更改时间后返回桌面，图标数据会不更新 -->
         <Trigger action="resume">
             <FrameRateCommand rate="5"/>
             <FrameRateCommand rate="0" delay="10"/>
         </Trigger>
         <!-- 退出APP返回桌面的瞬间 -->
         <Trigger action="back_home_start">
-            <FrameRateCommand rate="60"/>
+            <FrameRateCommand rate="120"/>
         </Trigger>
         <!-- 退出APP回到桌面 -->
         <Trigger action="back_home_finish">

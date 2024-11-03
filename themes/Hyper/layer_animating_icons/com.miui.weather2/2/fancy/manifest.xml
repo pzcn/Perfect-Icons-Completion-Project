@@ -24,6 +24,12 @@
     </VariableBinders>
     <Var name="weather_temperature" expression="ifelse(#weather_publish_time1,#weather_temperature1,#weather_temperature2)" />
     <Var name="weather_publish_time" expression="max(#weather_publish_time1,#weather_publish_time2)" />
+    <ExternalCommands>
+        <Trigger action="init,resume">
+            <BinderCommand name="weather_provider" command="refresh" />
+            <BinderCommand name="weather_provider2" command="refresh" />
+        </Trigger>
+    </ExternalCommands>
     <!-- view -->
     <Group visibility="#weather_publish_time!=0">
         <ImageChars x="351/2-84" y="351/2-102" src="num.png" string="#weather_temperature+'°'"/>
