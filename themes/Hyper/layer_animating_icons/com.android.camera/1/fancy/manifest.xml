@@ -4,12 +4,12 @@
         <!-- 到最后一帧 -->
         <Trigger action="init,present,back_home_cancel">
             <FrameRateCommand rate="60" />
-            <LottieCommand target="icon" command="goToAndStop" params="999"/>
+            <LottieCommand target="icon" command="goToAndStop" params="999" />
         </Trigger>
         <!-- 到第一帧 -->
         <Trigger action="back_home_start">
             <FrameRateCommand rate="60" />
-            <LottieCommand target="icon" command="goToAndStop" params="1"/>
+            <LottieCommand target="icon" command="goToAndStop" params="1" />
         </Trigger>
         <!-- 退出APP回到桌面 -->
         <Trigger action="back_home_finish">
@@ -26,5 +26,4 @@
             </Trigger>
         </Triggers>
     </Lottie>
-
 </Icon>
