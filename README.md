@@ -6,6 +6,11 @@
 [![Chat](https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram)](https://t.me/miui_icons_dev) 
 [![Stars](https://img.shields.io/github/stars/pzcn/MIUI-Adapted-Icons-Complement-Project)](https://github.com/MIUI-Adapted-Icons-Complement-Projectreleases/)
 
+
+
+[CDN acceleration and security protection for this project are sponsored by Tencent EdgeOne.](https://edgeone.ai/?from=github)
+
+
 ----
 
 ### 项目介绍
