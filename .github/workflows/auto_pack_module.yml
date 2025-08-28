@@ -1,0 +1,229 @@
+name: Auto Pack Module
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'icons/**'
+      - 'themes/**'
+      - 'addition/module/**'
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Create a release'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  pack-module:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup environment
+      run: |
+        echo "BUILD_TIME=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> $GITHUB_ENV
+        echo "BUILD_DATE=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> $GITHUB_ENV
+        echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        
+    - name: Pack icons and modules
+      run: |
+        # 复制默认主题到 addition
+        cp -rf ./themes/default ./addition
+        
+        # 打包图标
+        echo "打包图标..."
+        mkdir -p ./addition/default/res/drawable-xxhdpi/
+        cp -rf icons/* ./addition/default/res/drawable-xxhdpi/
+        cd ./addition/default/
+        zip -r -9 icons.zip * >/dev/null
+        cd ../..
+        
+        # 打包 Magisk 模块
+        echo "打包 Magisk 模块..."
+        cp -rf ./addition/default/icons.zip ./addition/module/icons
+        cd ./addition/module
+        
+        # 更新 module.prop
+        sed -i "s/versionCode=.*/versionCode=${{ env.BUILD_TIME }}/" module.prop
+        echo "version=v${{ env.BUILD_DATE }}-${{ env.GIT_SHA }}" >> module.prop
+        echo "description=MIUI 完美图标补全模块 - 自动构建于 ${{ env.BUILD_DATE }}" >> module.prop
+        
+        # 压缩图标
+        XZ_OPT=-9 tar cJf icons.tar.xz icons
+        rm -rf icons
+        
+        # 创建模块 zip
+        zip -r -9 MIUI_Icons_Module.zip * >/dev/null
+        mv MIUI_Icons_Module.zip ../../
+        cd ../..
+        
+        # 打包默认 MTZ 主题
+        echo "打包默认 MTZ 主题..."
+        cp -rf ./addition/default/icons.zip ./addition/mtz/default/icons
+        cd ./addition/mtz/default
+        zip -r -9 Default.mtz * >/dev/null
+        mv Default.mtz ../../../
+        cd ../../../
+        
+        # 打包图标插件
+        echo "打包图标插件..."
+        cd ./addition/Icons_Addon
+        zip -r -9 Icons_Addon.zip * >/dev/null
+        mv Icons_Addon.zip ../../
+        cd ../..
+        
+        # 打包归档图标
+        echo "打包归档图标..."
+        cd ./addition/Icons_Archiving
+        zip -r -9 Icons_Archiving.zip * >/dev/null
+        mv Icons_Archiving.zip ../../
+        cd ../..
+        
+        # 打包 Explore 主题
+        echo "打包 Explore 主题..."
+        if [ -d "themes/explore" ]; then
+          mkdir -p mtztemp/explore/res/drawable-xxhdpi/
+          cp -rf icons/* mtztemp/explore/res/drawable-xxhdpi/
+          if [ -d "themes/explore/icons" ]; then
+            cp -rf themes/explore/icons/* mtztemp/explore/res/drawable-xxhdpi/
+          fi
+          if [ -d "themes/explore/layer_animating_icons" ]; then
+            cp -rf themes/explore/layer_animating_icons mtztemp/explore/
+          fi
+          if [ -f "themes/explore/transform_config.xml" ]; then
+            cp -rf themes/explore/transform_config.xml mtztemp/explore/
+          fi
+          cd mtztemp/explore/
+          zip -r -9 icons.zip * >/dev/null
+          cd ../..
+          
+          cp -rf ./mtztemp/explore/icons.zip ./addition/mtz/explore/icons
+          cd addition/mtz/explore
+          zip -r -9 Explore.mtz * >/dev/null
+          mv Explore.mtz ../../../
+          cd ../../../
+        fi
+        
+        # 打包 Flyme9 主题
+        echo "打包 Flyme9 主题..."
+        if [ -d "themes/flyme9" ]; then
+          mkdir -p mtztemp/flyme9/res/drawable-xxhdpi/
+          cp -rf icons/* mtztemp/flyme9/res/drawable-xxhdpi/
+          if [ -d "themes/flyme9/icons" ]; then
+            cp -rf themes/flyme9/icons/* mtztemp/flyme9/res/drawable-xxhdpi/
+          fi
+          if [ -d "themes/flyme9/layer_animating_icons" ]; then
+            cp -rf themes/flyme9/layer_animating_icons mtztemp/flyme9/
+          fi
+          if [ -f "themes/flyme9/transform_config.xml" ]; then
+            cp -rf themes/flyme9/transform_config.xml mtztemp/flyme9/
+          fi
+          cd mtztemp/flyme9/
+          zip -r -9 icons.zip * >/dev/null
+          cd ../..
+          
+          cp -rf ./mtztemp/flyme9/icons.zip ./addition/mtz/flyme9/icons
+          cd addition/mtz/flyme9
+          zip -r -9 Flyme9.mtz * >/dev/null
+          mv Flyme9.mtz ../../../
+          cd ../../../
+        fi
+        
+        # 统计图标数量
+        echo "统计图标数量..."
+        ICON_COUNT=$(ls -1 icons/ | wc -l)
+        echo "ICON_COUNT=$ICON_COUNT" >> $GITHUB_ENV
+        
+        # 创建构建信息文件
+        echo "创建构建信息..."
+        cat > build_info.txt << EOF
+        构建时间: ${{ env.BUILD_DATE }}
+        Git SHA: ${{ env.GIT_SHA }}
+        图标数量: $ICON_COUNT
+        提交信息: ${{ github.event.head_commit.message }}
+        提交者: ${{ github.event.head_commit.author.name }}
+        EOF
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: MIUI-Icons-Package-${{ env.BUILD_TIME }}
+        path: |
+          MIUI_Icons_Module.zip
+          Default.mtz
+          Icons_Addon.zip
+          Icons_Archiving.zip
+          Explore.mtz
+          Flyme9.mtz
+          build_info.txt
+        retention-days: 30
+        
+    - name: Create Release
+      if: github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ env.BUILD_DATE }}-${{ env.GIT_SHA }}
+        name: MIUI Icons Release ${{ env.BUILD_DATE }}
+        body: |
+          ## 🎉 MIUI 完美图标自动构建
+          
+          **构建时间**: ${{ env.BUILD_DATE }}
+          
+          **Git SHA**: ${{ env.GIT_SHA }}
+          
+          **图标数量**: ${{ env.ICON_COUNT }}
+          
+          ### 📝 更新内容
+          
+          ${{ github.event.head_commit.message }}
+          
+          By ${{ github.event.head_commit.author.name }}
+          
+          ### 📦 包含文件
+          
+          - `MIUI_Icons_Module.zip` - Magisk/KernelSU 模块
+          - `Default.mtz` - 默认主题包
+          - `Icons_Addon.zip` - 图标插件
+          - `Icons_Archiving.zip` - 归档图标
+          - `Explore.mtz` - Explore 主题包（如果存在）
+          - `Flyme9.mtz` - Flyme9 主题包（如果存在）
+          
+          ### 📱 安装方法
+          
+          **Magisk/KernelSU 模块**：
+          1. 下载 `MIUI_Icons_Module.zip`
+          2. 在 Magisk/KernelSU 中安装模块
+          3. 重启设备
+          
+          **主题包**：
+          1. 下载对应的 `.mtz` 文件
+          2. 在 MIUI 主题商店中导入
+          3. 应用主题
+        files: |
+          MIUI_Icons_Module.zip
+          Default.mtz
+          Icons_Addon.zip
+          Icons_Archiving.zip
+          Explore.mtz
+          Flyme9.mtz
+          build_info.txt
+        draft: false
+        prerelease: false
+        
+    - name: Clean up
+      run: |
+        rm -rf mtztemp/
+        rm -rf addition/default/
+        rm -f MIUI_Icons_Module.zip
+        rm -f *.mtz
+        rm -f Icons_*.zip
+        rm -f build_info.txt
