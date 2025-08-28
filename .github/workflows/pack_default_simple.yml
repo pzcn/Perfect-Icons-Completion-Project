@@ -1,0 +1,71 @@
+name: Pack Default Theme (Simple)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'icons/**'
+      - 'themes/default/**'
+  workflow_dispatch:
+
+jobs:
+  pack-default:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup environment
+      run: |
+        echo "BUILD_TIME=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> $GITHUB_ENV
+        echo "BUILD_DATE=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> $GITHUB_ENV
+        
+    - name: Install optimization tools
+      run: |
+        # 安装 oxipng - 现代高效的 PNG 优化器
+        wget -q https://github.com/shssoichiro/oxipng/releases/download/v9.0.0/oxipng-9.0.0-x86_64-unknown-linux-musl.tar.gz
+        tar -xzf oxipng-9.0.0-x86_64-unknown-linux-musl.tar.gz
+        sudo mv oxipng /usr/local/bin/
+        rm oxipng-9.0.0-x86_64-unknown-linux-musl.tar.gz
+        
+    - name: Optimize and pack
+      run: |
+        # 复制文件结构
+        cp -rf ./themes/default ./addition
+        mkdir -p ./addition/default/res/drawable-xxhdpi/
+        cp -rf icons/* ./addition/default/res/drawable-xxhdpi/
+        
+        # 优化 PNG 文件
+        echo "优化 PNG 文件..."
+        cd ./addition/default/res/drawable-xxhdpi/
+        
+        # 统计原始大小
+        ORIGINAL_SIZE=$(du -sb . | cut -f1)
+        echo "原始大小: $(($ORIGINAL_SIZE / 1024)) KB"
+        
+        # 使用 oxipng 优化所有 PNG（使用多线程）
+        find . -name "*.png" -print0 | xargs -0 -P$(nproc) -I {} \
+          oxipng -q -o 3 --strip safe "{}"
+        
+        # 统计优化后大小
+        OPTIMIZED_SIZE=$(du -sb . | cut -f1)
+        SAVED=$((($ORIGINAL_SIZE - $OPTIMIZED_SIZE) * 100 / $ORIGINAL_SIZE))
+        echo "优化后大小: $(($OPTIMIZED_SIZE / 1024)) KB (节省 $SAVED%)"
+        
+        # 打包
+        cd ../..
+        zip -r -9 default_theme.zip * >/dev/null
+        mv default_theme.zip ../../
+        
+        cd ../..
+        echo "打包完成: default_theme.zip"
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: default-theme-${{ env.BUILD_TIME }}
+        path: default_theme.zip
+        retention-days: 30
