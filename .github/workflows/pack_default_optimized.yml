@@ -1,0 +1,228 @@
+name: Pack Default Theme with PNG Optimization
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'icons/**'
+      - 'themes/default/**'
+  workflow_dispatch:
+    inputs:
+      compression_level:
+        description: 'PNG compression level (1-9, higher = better compression)'
+        required: false
+        default: '7'
+        type: choice
+        options:
+          - '5'
+          - '6'
+          - '7'
+          - '8'
+          - '9'
+
+jobs:
+  pack-default-theme:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup environment
+      run: |
+        echo "BUILD_TIME=$(TZ=':Asia/Shanghai' date '+%Y%m%d%H%M')" >> $GITHUB_ENV
+        echo "BUILD_DATE=$(TZ=':Asia/Shanghai' date '+%Y.%m.%d')" >> $GITHUB_ENV
+        echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        
+    - name: Install PNG optimization tools
+      run: |
+        # 安装优化工具
+        sudo apt-get update
+        sudo apt-get install -y optipng pngquant oxipng
+        
+        # 安装 pngcrush
+        sudo apt-get install -y pngcrush
+        
+    - name: Optimize PNG files
+      run: |
+        echo "开始优化 PNG 文件..."
+        
+        # 创建临时目录存放优化后的图标
+        mkdir -p temp_icons
+        cp -rf icons/* temp_icons/
+        
+        # 获取压缩级别
+        COMPRESSION_LEVEL="${{ github.event.inputs.compression_level || '7' }}"
+        
+        # 统计原始大小
+        ORIGINAL_SIZE=$(du -sb icons | cut -f1)
+        ORIGINAL_COUNT=$(find icons -name "*.png" | wc -l)
+        
+        echo "原始图标数量: $ORIGINAL_COUNT"
+        echo "原始总大小: $(($ORIGINAL_SIZE / 1024)) KB"
+        
+        # 使用多种工具优化 PNG
+        cd temp_icons
+        
+        # 1. 使用 pngquant 进行有损压缩（保持高质量）
+        echo "使用 pngquant 优化..."
+        find . -name "*.png" -print0 | xargs -0 -P$(nproc) -I {} sh -c '
+          pngquant --quality=85-100 --speed 1 --force --ext .png "{}" 2>/dev/null || true
+        '
+        
+        # 2. 使用 optipng 进行无损压缩
+        echo "使用 optipng 优化..."
+        find . -name "*.png" -print0 | xargs -0 -P$(nproc) -I {} \
+          optipng -quiet -o${COMPRESSION_LEVEL} -preserve "{}"
+        
+        # 3. 使用 oxipng 进一步优化（更现代的工具）
+        echo "使用 oxipng 优化..."
+        find . -name "*.png" -print0 | xargs -0 -P$(nproc) -I {} \
+          oxipng -q -o ${COMPRESSION_LEVEL} --strip safe "{}"
+        
+        # 统计优化后的大小
+        OPTIMIZED_SIZE=$(du -sb . | cut -f1)
+        SAVED_SIZE=$((ORIGINAL_SIZE - OPTIMIZED_SIZE))
+        SAVED_PERCENT=$((SAVED_SIZE * 100 / ORIGINAL_SIZE))
+        
+        echo "优化后总大小: $(($OPTIMIZED_SIZE / 1024)) KB"
+        echo "节省空间: $(($SAVED_SIZE / 1024)) KB ($SAVED_PERCENT%)"
+        
+        # 保存优化统计信息
+        cd ..
+        cat > optimization_report.txt << EOF
+        PNG 优化报告
+        ============
+        构建时间: ${{ env.BUILD_DATE }}
+        压缩级别: ${COMPRESSION_LEVEL}
+        
+        图标数量: $ORIGINAL_COUNT
+        原始大小: $(($ORIGINAL_SIZE / 1024)) KB
+        优化后大小: $(($OPTIMIZED_SIZE / 1024)) KB
+        节省空间: $(($SAVED_SIZE / 1024)) KB
+        压缩率: $SAVED_PERCENT%
+        
+        使用的优化工具:
+        - pngquant (有损压缩，质量 85-100)
+        - optipng (无损压缩)
+        - oxipng (现代优化器)
+        EOF
+        
+        # 将统计信息添加到环境变量
+        echo "ORIGINAL_SIZE=$(($ORIGINAL_SIZE / 1024))" >> $GITHUB_ENV
+        echo "OPTIMIZED_SIZE=$(($OPTIMIZED_SIZE / 1024))" >> $GITHUB_ENV
+        echo "SAVED_SIZE=$(($SAVED_SIZE / 1024))" >> $GITHUB_ENV
+        echo "SAVED_PERCENT=$SAVED_PERCENT" >> $GITHUB_ENV
+        echo "ICON_COUNT=$ORIGINAL_COUNT" >> $GITHUB_ENV
+        
+    - name: Pack default theme
+      run: |
+        echo "打包默认主题..."
+        
+        # 复制默认主题文件
+        cp -rf ./themes/default ./addition
+        
+        # 创建图标目录并复制优化后的图标
+        mkdir -p ./addition/default/res/drawable-xxhdpi/
+        cp -rf temp_icons/* ./addition/default/res/drawable-xxhdpi/
+        
+        # 打包
+        cd ./addition/default/
+        zip -r -9 default_theme.zip * >/dev/null
+        
+        # 移动到根目录
+        mv default_theme.zip ../../
+        cd ../..
+        
+        # 获取打包后的文件大小
+        PACKAGE_SIZE=$(ls -lh default_theme.zip | awk '{print $5}')
+        echo "PACKAGE_SIZE=$PACKAGE_SIZE" >> $GITHUB_ENV
+        
+    - name: Generate build info
+      run: |
+        cat > build_info.txt << EOF
+        默认主题构建信息
+        ================
+        构建时间: ${{ env.BUILD_DATE }}
+        Git SHA: ${{ env.GIT_SHA }}
+        
+        图标统计
+        --------
+        图标数量: ${{ env.ICON_COUNT }}
+        原始大小: ${{ env.ORIGINAL_SIZE }} KB
+        优化后大小: ${{ env.OPTIMIZED_SIZE }} KB
+        节省空间: ${{ env.SAVED_SIZE }} KB (${{ env.SAVED_PERCENT }}%)
+        
+        最终包大小: ${{ env.PACKAGE_SIZE }}
+        
+        提交信息: ${{ github.event.head_commit.message }}
+        提交者: ${{ github.event.head_commit.author.name }}
+        EOF
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Default-Theme-Optimized-${{ env.BUILD_TIME }}
+        path: |
+          default_theme.zip
+          build_info.txt
+          optimization_report.txt
+        retention-days: 30
+        
+    - name: Create Release
+      if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]')
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: default-v${{ env.BUILD_DATE }}-${{ env.GIT_SHA }}
+        name: Default Theme ${{ env.BUILD_DATE }} (Optimized)
+        body: |
+          ## 🎉 默认主题发布（优化版）
+          
+          **构建时间**: ${{ env.BUILD_DATE }}
+          
+          **Git SHA**: `${{ env.GIT_SHA }}`
+          
+          ### 📊 优化统计
+          
+          - **图标数量**: ${{ env.ICON_COUNT }}
+          - **原始大小**: ${{ env.ORIGINAL_SIZE }} KB
+          - **优化后大小**: ${{ env.OPTIMIZED_SIZE }} KB
+          - **节省空间**: ${{ env.SAVED_SIZE }} KB (${{ env.SAVED_PERCENT }}%)
+          - **最终包大小**: ${{ env.PACKAGE_SIZE }}
+          
+          ### 📝 更新内容
+          
+          ${{ github.event.head_commit.message }}
+          
+          By @${{ github.event.head_commit.author.name }}
+          
+          ### 📦 下载文件
+          
+          - `default_theme.zip` - 优化后的默认主题包
+          - `build_info.txt` - 构建信息
+          - `optimization_report.txt` - PNG 优化报告
+          
+          ### 🚀 优化说明
+          
+          本次构建使用了多种 PNG 优化工具：
+          - **pngquant**: 高质量有损压缩（85-100 质量）
+          - **optipng**: 无损压缩优化
+          - **oxipng**: 现代化 PNG 优化器
+          
+          所有图标均经过优化处理，在保持视觉质量的同时显著减小文件大小。
+        files: |
+          default_theme.zip
+          build_info.txt
+          optimization_report.txt
+        draft: false
+        prerelease: false
+        
+    - name: Clean up
+      run: |
+        rm -rf temp_icons/
+        rm -rf addition/default/
+        rm -f default_theme.zip
+        rm -f build_info.txt
+        rm -f optimization_report.txt
