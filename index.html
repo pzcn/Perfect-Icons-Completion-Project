@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完美图标打包工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 背景装饰 -->
+        <div class="background-decoration">
+            <div class="gradient-sphere sphere-1"></div>
+            <div class="gradient-sphere sphere-2"></div>
+            <div class="gradient-sphere sphere-3"></div>
+        </div>
+
+        <!-- 主卡片 -->
+        <div class="main-card">
+            <header class="card-header">
+                <h1 class="title">完美图标打包工具</h1>
+                <p class="subtitle">在线生成 Magisk 模块，告别繁琐操作</p>
+            </header>
+
+            <div class="card-content">
+                <!-- 主题选择区域 -->
+                <div class="selection-section">
+                    <label class="select-label">选择主题</label>
+                    <div class="custom-select">
+                        <select id="themeSelect" class="theme-select">
+                            <option value="">请选择一个主题...</option>
+                            <option value="default">默认主题</option>
+                            <option value="luck7">Luck7</option>
+                            <option value="lrone">LRONE</option>
+                            <option value="perfectcurve">完美曲线</option>
+                            <option value="explore">探索</option>
+                            <option value="flyme9">Flyme 9</option>
+                            <option value="ios">iOS 风格</option>
+                        </select>
+                        <div class="select-arrow">
+                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 下载按钮 -->
+                <button id="downloadBtn" class="download-button" disabled>
+                    <span class="button-text">生成 Magisk 模块</span>
+                    <svg class="button-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 2V14M10 14L6 10M10 14L14 10M3 17H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <!-- 进度条区域 -->
+                <div id="progressSection" class="progress-section" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span id="progressLabel" class="progress-label">准备下载...</span>
+                            <span id="progressPercent" class="progress-percent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <div id="progressDetails" class="progress-details">
+                            <span id="currentStep">初始化...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 完成状态 -->
+                <div id="completeSection" class="complete-section" style="display: none;">
+                    <div class="success-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                            <circle cx="30" cy="30" r="28" stroke="currentColor" stroke-width="3"/>
+                            <path d="M18 30L26 38L42 22" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="success-title">打包完成！</h3>
+                    <p class="success-message">您的 Magisk 模块已准备就绪</p>
+                    <button id="resetBtn" class="reset-button">重新开始</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 功能说明 -->
+        <div class="info-card">
+            <h3 class="info-title">使用说明</h3>
+            <ul class="info-list">
+                <li>选择您喜欢的主题风格</li>
+                <li>点击生成按钮开始打包</li>
+                <li>等待下载和打包完成</li>
+                <li>获得可直接刷入的 Magisk 模块</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
