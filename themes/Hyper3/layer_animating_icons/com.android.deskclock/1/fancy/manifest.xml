@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080" useVariableUpdater="DateTime.Minute">
+    <ExternalCommands>
+        <!-- 使用resume是因为在设置中更改时间后返回桌面，图标数据会不更新 -->
+        <Trigger action="resume">
+            <FrameRateCommand rate="5" />
+            <FrameRateCommand rate="0" delay="10" />
+        </Trigger>
+    </ExternalCommands>
+    <Image x="351/2" y="351/2" src="bg.png" align="center" alignV="center" />
+    <Rectangle name="m" x="351/2" y="351/2+4" align="center" alignV="bottom" pivotX="4" pivotY="93" w="8" h="97" fillColor="#bfbfbf" cornerRadius="4" rotation="#minute * 6" />
+    <Rectangle name="h" x="351/2" y="351/2+4" align="center" alignV="bottom" pivotX="4" pivotY="68" w="8" h="72" fillColor="#ffffff" cornerRadius="4" rotation="#hour12 * 30 + #minute/2" />
+    <Circle x="351/2" y="351/2" r="8" fillColor="#28292C" strokeColor="#ffffff" weight="5" strokeAlign="inner" />
+</Icon>
