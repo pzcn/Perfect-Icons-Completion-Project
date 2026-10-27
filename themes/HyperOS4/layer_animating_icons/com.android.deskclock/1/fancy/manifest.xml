@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" width="351" height="351" frameRate="0" useVariableUpdater="DateTime.Minute" screenWidth="1080">
+    <ExternalCommands>
+        <!-- 显示秒针 -->
+        <Trigger action="open_second">
+            <FolmeCommand target="s" command="to" states="'show_second'" config="'config'" />
+            <VariableCommand name="second_visible" type="number" expression="1" />
+        </Trigger>
+
+        <!-- 隐藏秒针 -->
+        <Trigger action="close_second">
+            <FolmeCommand target="s" command="to" states="'hide_second'" config="'config'" />
+            <VariableCommand name="second_visible" type="number" expression="0" />
+        </Trigger>
+
+        <!-- 显示秒针不带动画 -->
+        <Trigger action="open_second_instant">
+            <FunctionCommand target="fra" />
+            <FolmeCommand target="s" command="setTo" states="'show_second'" />
+            <ExternCommand command="__datatimeVarUpdate" strPara="'DateTime.Second'" />
+        </Trigger>
+
+        <!-- 隐藏秒针不带动画 -->
+        <Trigger action="close_second_instant">
+            <FunctionCommand target="fra" />
+            <FolmeCommand target="s" command="setTo" states="'hide_second'" />
+            <ExternCommand command="__datatimeVarUpdate" strPara="'DateTime.Minute'" />
+        </Trigger>
+    </ExternalCommands>
+
+    <!-- 秒针显示隐藏状态切换 -->
+    <FolmeState name="show_second" alpha="255" />
+    <FolmeState name="hide_second" alpha="0" />
+    <!-- 秒针动画和回调 -->
+    <FolmeConfig name="config" property="'alpha'" ease="6, 300" fromSpeed="0" onBegin="'start'" onComplete="'end'" />
+
+    <!-- 开始时提高帧率做动画 -->
+    <Function name="start">
+        <FrameRateCommand rate="90" />
+    </Function>
+
+    <!-- 结束降低帧率,并切换到对应刷新状态 -->
+    <Function name="end">
+        <IfCommand ifCondition="#second_visible == 1">
+            <!-- 切换到按秒刷新 -->
+            <Consequent>
+                <ExternCommand command="__datatimeVarUpdate" strPara="'DateTime.Second'" />
+            </Consequent>
+            <!-- 切换到按分钟刷新 -->
+            <Consequent>
+                <ExternCommand command="__datatimeVarUpdate" strPara="'DateTime.Minute'" />
+            </Consequent>
+        </IfCommand>
+
+        <FrameRateCommand rate="0" />
+    </Function>
+
+    <Function name="fra">
+        <FrameRateCommand rate="30" />
+        <FrameRateCommand rate="0" delay="100" />
+    </Function>
+
+
+    <Image x="351 / 2" y="351 / 2" align="center" alignV="center" src="bg.png" />
+    <Image name="m" x="351 / 2" y="351 / 2" align="center" alignV="center" pivotX="17 / 2" pivotY="197 / 2" rotation="#minute * 6" src="m.png" />
+    <Image name="h" x="351 / 2" y="351 / 2" align="center" alignV="center" pivotX="17 / 2" pivotY="197 / 2" rotation="#hour12 * 30 + #minute / 2" src="h.png" />
+    <Image name="s" x="351 / 2" y="351 / 2" align="center" alignV="center" pivotX="17 / 2" pivotY="197 / 2" rotation="#second * 6" src="s.png" alpha="0" />
+</Icon>

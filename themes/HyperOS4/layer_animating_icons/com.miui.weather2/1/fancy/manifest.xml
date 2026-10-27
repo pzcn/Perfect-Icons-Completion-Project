@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" width="351" height="351" frameRate="0" useVariableUpdater="DateTime.Minute" screenWidth="1080">
+
+    <VariableBinders>
+        <ContentProviderBinder name="weather_provider" uri="content://weather/actualWeatherData/4" columns="temperature" countName="hasweather">
+            <Variable name="temperature" type="int" column="temperature" />
+            <Trigger>
+                <!-- 记录更新时间 -->
+                <VariableCommand name="success_time" type="number" expression="#time_sys" />
+            </Trigger>
+        </ContentProviderBinder>
+    </VariableBinders>
+
+    <ExternalCommands>
+        <Trigger action="init,resume">
+            <!-- 防止短时间内频繁更新接口 -->
+            <VariableCommand name="update_weather_time" type="number" expression="#time_sys" />
+            <!-- 上次更新数据后十分钟内不再更新数据，影响天气功耗做的修改。 -->
+            <MultiCommand condition="(#time_sys - #success_time) } 600000">
+                <BinderCommand name="weather_provider" command="refresh" delay="550" delayCondition="(#time_sys - #update_weather_time) } 500" />
+            </MultiCommand>
+        </Trigger>
+    </ExternalCommands>
+
+    <Image x="351 / 2" y="351 / 2" align="center" alignV="center" src="bg.png" />
+    <Group visibility="#hasweather">
+        <ImageChars x="351 / 2 - 84" y="351 / 2 - 102" src="num.png" string="#temperature + '°'" />
+    </Group>
+
+</Icon>
