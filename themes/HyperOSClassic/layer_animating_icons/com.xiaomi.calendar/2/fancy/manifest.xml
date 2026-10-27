@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080" useVariableUpdater="DateTime.Day">
+    <ExternalCommands>
+        <!-- 曝光时提高帧率 -->
+        <Trigger action="resume">
+            <FrameRateCommand rate="5"/>
+            <FrameRateCommand rate="0" delay="10"/>
+        </Trigger>
+        <!-- 退出APP返回桌面的瞬间 -->
+        <Trigger action="back_home_start">
+            <FrameRateCommand rate="60"/>
+        </Trigger>
+        <!-- 退出APP回到桌面 -->
+        <Trigger action="back_home_finish">
+            <FrameRateCommand rate="0" delay="1000"/>
+        </Trigger>
+    </ExternalCommands>
+    <Text name="weekSize" pivotX="#weekSize.text_width/2" pivotY="#weekSize.text_height/2" scale="min(1,190/#weekSize.text_width)" x="351/2" y="351/2+31" align="center" size="43.83" fontFamily="mipro-demibold" color="#000000" textExp="strToUpperCase(ifelse(strContains(formatDate('EEEE',#time_sys),'星期'),formatDate('EEEE',#time_sys),formatDate('E',#time_sys)))" alpha="255*0.75"/>
+</Icon>

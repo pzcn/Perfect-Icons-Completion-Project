@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080">
+    <FolmeState name="gear_init" rotation="-120" />
+    <FolmeState name="gear_end" rotation="0" />
+    <FolmeConfig name="gear_config" property="rotation" ease="6, 660" onBegin="'anim_start'" onComplete="'anim_end'" />
+
+    <Function name="anim_start">
+        <FrameRateCommand rate="60" />
+    </Function>
+    <Function name="anim_end">
+        <FrameRateCommand rate="0" />
+    </Function>
+
+    <ExternalCommands>
+        <Trigger action="init,present,back_home_cancel">
+            <FrameRateCommand rate="5" />
+            <FolmeCommand target="gear" states="'gear_end'" command="setTo" />
+            <FrameRateCommand rate="0" delay="50" />
+        </Trigger>
+        <Trigger action="back_home_start">
+            <FrameRateCommand rate="60" />
+            <FolmeCommand target="gear" states="'gear_init'" command="setTo" />
+        </Trigger>
+        <Trigger action="back_home_finish">
+            <FrameRateCommand rate="60" />
+            <MultiCommand delay="100">
+                <FolmeCommand target="gear" states="'gear_init', 'gear_end'" command="fromTo" config="'gear_config'" />
+            </MultiCommand>
+        </Trigger>
+    </ExternalCommands>
+
+    <Image name="gear" src="quietImage.png" x="0" y="0" w="351" h="351" centerX="351 / 2" centerY="351 / 2" folmeMode="true" />
+</Icon>

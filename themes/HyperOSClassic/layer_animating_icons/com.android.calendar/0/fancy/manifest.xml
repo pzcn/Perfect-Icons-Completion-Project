@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icon version="1" frameRate="0" width="351" height="351" screenWidth="1080">
+    <Image x="351/2" y="351/2" align="center" alignV="center" src="quietImage.png" />
+</Icon>
